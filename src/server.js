@@ -1,0 +1,17 @@
+const express = require('express');
+const path = require('path');
+
+const PORT = process.env.PORT || 3000;
+const APP_SUCCESS_START_MESSAGE = `Server is running on port ${PORT}`;
+
+const app = express();
+
+app.use(
+  express.static(path.join(__dirname, '..', 'dist'), {
+    extensions: ['html'],
+  })
+);
+
+app.listen(PORT, () => {
+  console.log(APP_SUCCESS_START_MESSAGE);
+});
