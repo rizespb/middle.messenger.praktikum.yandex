@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm ci && npm run build && ts-node ./src/server.ts",
+    "start": "npm ci && npm run build && node ./src/server.ts",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint --ext .js,.ts ./src"
@@ -34,7 +34,6 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^4.0.0",
     "sass": "1.70.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vite": "5.0.12"
   }
