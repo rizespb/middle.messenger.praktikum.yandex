@@ -1,0 +1,1 @@
+export { buttonTmpl } from './button';

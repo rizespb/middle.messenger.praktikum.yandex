@@ -1,0 +1,1 @@
+export { greetingPageTmpl } from './greetingPage';
