@@ -1,4 +1,4 @@
-import { signUpPageTmpl, logInPageTmpl } from '@/pages';
+import { logInPageTmpl } from '@/pages';
 import { compile } from '@/utils';
 
 // Handlebars.registerPartial('button', button);
