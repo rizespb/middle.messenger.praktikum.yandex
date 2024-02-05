@@ -1,3 +1,3 @@
-import './button.scss';
+import classes from './button.module.scss';
 
-export const buttonTmpl = `<button class="button">Click me</button>`;
+export const buttonTmpl = `<button class=${classes.button}>Click me</button>`;

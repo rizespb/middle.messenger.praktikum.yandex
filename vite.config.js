@@ -9,6 +9,12 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
   },
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+      generateScopedName: '[name]__[local]__[hash:base64:8]',
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

@@ -1,5 +1,5 @@
-import { greetingPageTmpl } from '@/pages';
-import { compile } from './compile';
+import { signUpPageTmpl, logInPageTmpl } from '@/pages';
+import { compile } from '@/utils';
 
 // Handlebars.registerPartial('button', button);
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     throw new Error('root not found');
   }
 
-  const greeting = compile(greetingPageTmpl, {
+  const greeting = compile(logInPageTmpl, {
     userName: 'John Doe',
   });
 

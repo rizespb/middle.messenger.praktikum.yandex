@@ -1,1 +1,2 @@
-export { greetingPageTmpl } from './greetingPage';
+export { signUpPageTmpl } from './signUpPage';
+export { logInPageTmpl } from './logInPage';
