@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express');
 const path = require('path');
 
@@ -13,5 +14,6 @@ app.use(
 );
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(APP_SUCCESS_START_MESSAGE);
 });

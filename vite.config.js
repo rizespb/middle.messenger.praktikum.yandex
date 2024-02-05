@@ -1,5 +1,6 @@
-import { resolve, join } from 'path';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
+
 const srcPath = resolve(__dirname, 'src');
 
 export default defineConfig({
@@ -7,5 +8,10 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
   },
 });
