@@ -1,4 +1,4 @@
 export const TEXTS = {
   compliment: 'You are awesome',
-  description: 'This is Authorization Page',
+  description: 'This is LogIn Page',
 };

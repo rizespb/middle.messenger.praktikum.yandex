@@ -1,0 +1,20 @@
+.navigation {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  gap: 30px;
+
+
+  background-color: #eaeceb;
+  border-radius: 12px;
+}
+
+.navigationItem {
+  cursor: pointer;
+
+  @include listItemUnstyled();
+}

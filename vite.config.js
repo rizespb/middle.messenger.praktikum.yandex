@@ -14,6 +14,11 @@ export default defineConfig({
       localsConvention: 'camelCase',
       generateScopedName: '[name]__[local]__[hash:base64:8]',
     },
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "./src/shared/styles/mixins/unstyled.scss";',
+      },
+    },
   },
   resolve: {
     alias: {

@@ -1,5 +1,5 @@
-import { compile } from '@/utils';
-import { buttonTmpl } from '@/components';
+import { compile } from '@/shared/utils';
+import { buttonTmpl } from '@/shared/ui';
 import { TEXTS } from './logInPage.constants';
 import classes from './logInPage.module.scss';
 
