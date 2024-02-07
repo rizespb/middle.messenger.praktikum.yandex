@@ -16,7 +16,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "./src/shared/styles/mixins/unstyled.scss";',
+        additionalData: '@import "./src/app/styles/index.scss";',
       },
     },
   },

@@ -1,6 +1,12 @@
-import classes from './signUpPage.module.scss';
+import Handlebars from 'handlebars';
+import { signUpFormTmpl } from '@/widgets/signUpForm';
+import { centerContentLayoutTmpl } from '@/layouts/centerContentLayout';
 
-export const signUpPageTmpl = `<h1 class=${classes.header}>Hello, {{userName}}!</h1>
+Handlebars.registerPartial('centerContentLayoutTmpl', centerContentLayoutTmpl);
+Handlebars.registerPartial('signUpFormTmpl', signUpFormTmpl);
 
-<h2>This is SignUp Page</h2>
+export const signUpPageTmpl = `
+{{#> centerContentLayoutTmpl }}
+	{{> signUpFormTmpl}}
+{{/centerContentLayoutTmpl}}
 `;

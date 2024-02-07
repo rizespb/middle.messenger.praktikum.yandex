@@ -4,4 +4,4 @@ export {
   pagesMap,
   navigationTmpl,
   setNavigationClickEventListener,
-} from './ui';
+} from './navigation';

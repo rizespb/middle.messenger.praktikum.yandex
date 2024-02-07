@@ -1,0 +1,1 @@
+export { loginFormTmpl } from './ui';

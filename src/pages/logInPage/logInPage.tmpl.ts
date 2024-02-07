@@ -1,14 +1,12 @@
-import { compile } from '@/shared/utils';
-import { buttonTmpl } from '@/shared/ui';
-import { TEXTS } from './logInPage.constants';
-import classes from './logInPage.module.scss';
+import Handlebars from 'handlebars';
+import { loginFormTmpl } from '@/widgets/logInForm';
+import { centerContentLayoutTmpl } from '@/layouts/centerContentLayout';
 
-const button = compile(buttonTmpl);
+Handlebars.registerPartial('centerContentLayoutTmpl', centerContentLayoutTmpl);
+Handlebars.registerPartial('loginFormTmpl', loginFormTmpl);
 
-export const logInPageTmpl = `<h1 class=${classes.header}>Hello, {{userName}}!</h1>
-<h2>${TEXTS.compliment}</h2>
-
-<h3>${TEXTS.description}</h3>
-
-${button}
+export const logInPageTmpl = `
+{{#> centerContentLayoutTmpl }}
+	{{> loginFormTmpl}}
+{{/centerContentLayoutTmpl}}
 `;

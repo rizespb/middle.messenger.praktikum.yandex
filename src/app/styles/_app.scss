@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+@import './variables';
+
+#app {
+	font-family: $font-primary;
+	font-size: $font-size-primary;
+	font-weight: $font-weight-primary;
+	color: $font-primary-color;
+}

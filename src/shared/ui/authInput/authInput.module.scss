@@ -1,0 +1,32 @@
+.container{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	color: $font-secondary-color;
+	font-size: 9px;
+}
+
+.input {
+	height: 30px;
+	border: none;
+	border-bottom: 1px solid $input-border-color;
+	outline: none;
+
+	color: $font-primary-color;
+	font-size: 13px;
+
+	&::placeholder{
+		color: $font-secondary-color;
+	}
+}
+
+.error {
+	position: absolute;
+	top: calc(100% + 8px);
+
+	color: $input-error-color;
+	font-size: 8px;
+}
