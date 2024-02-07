@@ -1,1 +1,1 @@
-export { logInPageTmpl } from './logInPage.tmpl';
+export { logInPageTmpl } from './ui';
