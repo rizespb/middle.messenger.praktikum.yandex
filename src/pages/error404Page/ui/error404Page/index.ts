@@ -1,1 +1,1 @@
-export { error404PageTmpl } from './error404Page.tmpl';
+export { error404Page } from './error404Page';

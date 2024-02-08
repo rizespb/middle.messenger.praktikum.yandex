@@ -1,1 +1,1 @@
-export { error404PageTmpl } from './ui';
+export { error404Page } from './ui';

@@ -1,1 +1,3 @@
-export { authInputTmpl } from './authInput.tmpl';
+export { authInput } from './authInput';
+
+export { type IAuthInputProps } from './authInput.interfaces';

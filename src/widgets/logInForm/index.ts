@@ -1,1 +1,1 @@
-export { loginFormTmpl } from './ui';
+export { loginForm } from './ui';

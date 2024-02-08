@@ -3,4 +3,4 @@ export const TEXTS = {
 };
 
 // @TODO добавить ссылку на страницу чатов
-export const CHATS_LINK_URL = '/';
+export const CHATS_PAGE_URL = '/';

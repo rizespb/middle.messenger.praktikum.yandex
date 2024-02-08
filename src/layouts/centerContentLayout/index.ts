@@ -1,1 +1,1 @@
-export { centerContentLayoutTmpl } from './ui';
+export { centerContentLayout } from './ui';

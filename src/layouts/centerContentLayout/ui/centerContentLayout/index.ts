@@ -1,1 +1,1 @@
-export { centerContentLayoutTmpl } from './centerContentLayout.tmpl';
+export { centerContentLayout } from './centerContentLayout';

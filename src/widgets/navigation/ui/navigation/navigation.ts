@@ -1,6 +1,20 @@
+import { compile } from '@/shared/utils';
 import { EPages } from '@/shared/constants';
+import { PAGE_CODE_ATTR_TITLE, pagesMap } from './navigation.constants';
+import classes from './navigation.module.scss';
+import tmpl from './navigation.hbs?raw';
 
-export const setNavigationClickEventListener = (onNavItemClick: (pageCode: EPages) => void) => {
+// Временная реализация навигации
+export const navigation = (): THtml =>
+  compile(tmpl)({
+    classes,
+    pagesMap,
+    dataAttrTitle: PAGE_CODE_ATTR_TITLE,
+  });
+
+export const setNavigationClickEventListener = (
+  onNavItemClick: (pageCode: EPages) => void
+): void => {
   const navigationNode = document.querySelector('nav');
 
   navigationNode.addEventListener('click', (event): void => {
@@ -10,7 +24,7 @@ export const setNavigationClickEventListener = (onNavItemClick: (pageCode: EPage
       return;
     }
 
-    const pageCode = target.getAttribute('data-page-code');
+    const pageCode = target.getAttribute(PAGE_CODE_ATTR_TITLE);
 
     const isValidPageCode = (code: string): code is EPages =>
       Object.values(EPages).includes(code as EPages);

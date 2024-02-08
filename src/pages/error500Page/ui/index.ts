@@ -1,1 +1,1 @@
-export { error500PageTmpl } from './error500Page';
+export { error500Page } from './error500Page';

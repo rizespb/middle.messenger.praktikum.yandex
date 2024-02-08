@@ -1,1 +1,1 @@
-export { signUpFormTmpl } from './signUpForm.tmpl';
+export { signUpForm } from './signUpForm';

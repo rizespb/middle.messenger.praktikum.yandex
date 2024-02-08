@@ -1,22 +1,22 @@
 import { EPages } from '@/shared/constants';
-import { logInPageTmpl } from '@/pages/logInPage';
-import { signUpPageTmpl } from '@/pages/signUpPage';
-import { error404PageTmpl } from '@/pages/error404Page';
-import { error500PageTmpl } from '@/pages/error500Page';
+import { logInPage } from '@/pages/logInPage';
+import { signUpPage } from '@/pages/signUpPage';
+import { error404Page } from '@/pages/error404Page';
+import { error500Page } from '@/pages/error500Page';
 
-export const getPage = (pageCode: EPages): string => {
+export const getPage = (pageCode: EPages): (() => THtml) => {
   switch (pageCode) {
     case EPages.SignUpPage:
-      return signUpPageTmpl;
+      return signUpPage;
 
     case EPages.Error404:
-      return error404PageTmpl;
+      return error404Page;
 
     case EPages.Error500:
-      return error500PageTmpl;
+      return error500Page;
 
     case EPages.LogInPage:
     default:
-      return logInPageTmpl;
+      return logInPage;
   }
 };

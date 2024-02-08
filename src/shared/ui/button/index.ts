@@ -1,1 +1,2 @@
-export { buttonTmpl } from './button.tmpl';
+export { button } from './button';
+export { type IButtonProps } from './button.interfaces';

@@ -1,1 +1,1 @@
-export { signUpPageTmpl } from './ui';
+export { signUpPage } from './ui';

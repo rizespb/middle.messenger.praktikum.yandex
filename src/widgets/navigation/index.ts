@@ -1,7 +1,1 @@
-export {
-  NAV_ITEM_ID_PREFIX,
-  PAGE_CODE_ATTR,
-  pagesMap,
-  navigationTmpl,
-  setNavigationClickEventListener,
-} from './ui';
+export { navigation, setNavigationClickEventListener } from './ui';

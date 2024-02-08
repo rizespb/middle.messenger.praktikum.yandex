@@ -1,1 +1,0 @@
-export { errorPageLayoutTmpl } from './ui';

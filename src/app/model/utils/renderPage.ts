@@ -1,27 +1,23 @@
-import { navigationTmpl, pagesMap, setNavigationClickEventListener } from '@/widgets/navigation';
+import { navigation, setNavigationClickEventListener } from '@/widgets/navigation';
 import { EPages } from '@/shared/constants';
-import { compile } from '@/shared/utils';
 import { getPage } from './getPage';
 import { currentPage, setPage } from './setPage';
+import { APP_CONTAINER_ID } from '../contstants';
 
-export const renderPage = () => {
-  const page = getPage(currentPage);
-
-  const root = document.getElementById('app');
+export const renderPage = (): void => {
+  const root = document.getElementById(APP_CONTAINER_ID);
 
   if (!root) {
     throw new Error('root not found');
   }
 
-  const pageStr = compile(page, {
-    userName: 'John Doe',
-  });
+  const page = getPage(currentPage);
 
-  const navigationStr = compile(navigationTmpl, {
-    pagesMap,
-  });
+  const pageHtml = page();
 
-  const result = pageStr + navigationStr;
+  const navigationHtml = navigation();
+
+  const result = pageHtml + navigationHtml;
 
   root.innerHTML = result;
 
