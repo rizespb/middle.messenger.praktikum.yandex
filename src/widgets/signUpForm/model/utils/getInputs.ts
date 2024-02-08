@@ -2,7 +2,7 @@ import { authInput } from '@/shared/ui';
 import { INPUTS } from '../constants';
 
 export const getInputs = (): THtml[] => {
-  const { email, login, firtsName, lastName, phoneNumber, password, passwordRepeat } = INPUTS;
+  const { email, login, firtsName, secondName, phoneNumber, password, passwordRepeat } = INPUTS;
 
   const emailInput = authInput({
     placeholder: email.title,
@@ -23,10 +23,10 @@ export const getInputs = (): THtml[] => {
     name: firtsName.name,
   });
 
-  const lastNameInput = authInput({
-    placeholder: lastName.title,
-    label: lastName.title,
-    name: lastName.name,
+  const secondNameInput = authInput({
+    placeholder: secondName.title,
+    label: secondName.title,
+    name: secondName.name,
   });
 
   const phoneNumberInput = authInput({
@@ -53,7 +53,7 @@ export const getInputs = (): THtml[] => {
     emailInput,
     loginInput,
     firtsNameInput,
-    lastNameInput,
+    secondNameInput,
     phoneNumberInput,
     passwordInput,
     passwordRepeatInput,

@@ -8,15 +8,15 @@ export const INPUTS = {
     title: 'Логин',
   },
   firtsName: {
-    name: 'firtsName',
+    name: 'first_name',
     title: 'Имя',
   },
-  lastName: {
-    name: 'lastName',
+  secondName: {
+    name: 'second_name',
     title: 'Фамилия',
   },
   phoneNumber: {
-    name: 'phoneNumber',
+    name: 'phone',
     title: 'Телефон',
   },
   password: {

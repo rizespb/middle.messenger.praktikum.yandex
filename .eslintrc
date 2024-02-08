@@ -8,7 +8,7 @@
   "plugins": ["import", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
-    "airbnb",
+    "airbnb-base",
     "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
