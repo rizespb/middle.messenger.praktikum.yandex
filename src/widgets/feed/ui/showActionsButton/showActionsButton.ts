@@ -1,12 +1,14 @@
 import { classNames, compile } from '@/shared/utils';
-import { icon } from '@/shared/ui';
+import { icon, modalWindow } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
+import { manageUserlistForm } from '@/widgets/manageUserlistForm';
 import classes from './showActionsButton.module.scss';
 import tmpl from './showActionsButton.hbs?raw';
 import { TEXTS } from './showActionsButton.constants';
 
 export const showActionsButton = (): THtml => {
   const isPopupOpened = true;
+  const isModalVisible = true;
 
   const showMoreIcon = icon({
     icon: EIcons.ShowMore,
@@ -32,6 +34,11 @@ export const showActionsButton = (): THtml => {
     containerClass: classes.plusIconContainer,
   });
 
+  const modal = modalWindow({
+    content: manageUserlistForm({ buttonTitle: 'Удалить' }),
+    title: 'Удалить пользователя',
+  });
+
   return compile(tmpl)({
     addUser: {
       text: TEXTS.addUser,
@@ -45,5 +52,6 @@ export const showActionsButton = (): THtml => {
     showMoreIcon,
     isPopupOpened,
     classes,
+    modalWindow: isModalVisible ? modal : undefined,
   });
 };

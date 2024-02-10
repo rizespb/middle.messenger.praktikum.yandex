@@ -7,20 +7,12 @@ import tmpl from './feed.hbs?raw';
 import { showActionsButton } from '../showActionsButton';
 
 export const feed = (): THtml => {
-  const isModalVisible = true;
-
   const headingImage = avatar({ size: 'small' });
-
-  const modal = modalWindow({
-    content: manageUserlistForm({ buttonTitle: 'удалить' }),
-    title: 'Удалить пользователя',
-  });
 
   return compile(tmpl)({
     classes,
     headingImage,
     showActionsButton: showActionsButton(),
     title: 'СупердискотЭка',
-    modalWindow: isModalVisible ? modal : undefined,
   });
 };
