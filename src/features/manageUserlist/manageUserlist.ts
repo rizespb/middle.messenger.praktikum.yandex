@@ -2,11 +2,12 @@ import { classNames, compile } from '@/shared/utils';
 import { icon, modalWindow } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import { manageUserlistForm } from '@/widgets/manageUserlistForm';
-import classes from './showActionsButton.module.scss';
-import tmpl from './showActionsButton.hbs?raw';
-import { TEXTS } from './showActionsButton.constants';
+import { popup } from '@/shared/ui/popup';
+import { TEXTS } from './manageUserlist.constants';
+import tmpl from './manageUserlist.hbs?raw';
+import classes from './manageUserlist.module.scss';
 
-export const showActionsButton = (): THtml => {
+export const manageUserlist = (): THtml => {
   const isPopupOpened = false;
   const isModalVisible = false;
 
@@ -39,6 +40,22 @@ export const showActionsButton = (): THtml => {
     title: 'Удалить пользователя',
   });
 
+  const actions = [
+    {
+      text: TEXTS.addUser,
+      icon: addUserIcon,
+    },
+    {
+      text: TEXTS.deleteUser,
+      icon: deleteUserIcon,
+    },
+  ];
+
+  const popupStr = popup({
+    actions,
+    direction: 'bottomRight',
+  });
+
   return compile(tmpl)({
     addUser: {
       text: TEXTS.addUser,
@@ -50,7 +67,7 @@ export const showActionsButton = (): THtml => {
     },
     deleteUserText: TEXTS.deleteUser,
     showMoreIcon,
-    isPopupOpened,
+    popup: isPopupOpened ? popupStr : undefined,
     classes,
     modalWindow: isModalVisible ? modal : undefined,
   });

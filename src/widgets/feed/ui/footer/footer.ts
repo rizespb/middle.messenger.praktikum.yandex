@@ -1,20 +1,17 @@
 import { compile } from '@/shared/utils';
-import { icon } from '@/shared/ui';
-import { EIcons } from '@/shared/types';
+import { addAttachment } from '@/features/addAttachment';
+import { messageInput } from '@/features/messageInput';
 import tmpl from './footer.hbs?raw';
 import classes from './footer.module.scss';
 
 export const footer = (): THtml => {
-  const addFileButton = icon({ icon: EIcons.ClipIcon, iconClass: classes.icon });
+  const addAttachmentStr = addAttachment();
 
-  const messageInput = 'messageInput';
-
-  const sendButton = icon({ icon: EIcons.ArrowIcon, iconClass: classes.icon });
+  const messageInputStr = messageInput();
 
   return compile(tmpl)({
-    addFileButton,
-    messageInput,
-    sendButton,
+    addAttachment: addAttachmentStr,
+    messageInput: messageInputStr,
     classes,
   });
 };

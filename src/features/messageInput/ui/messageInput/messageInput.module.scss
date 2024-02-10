@@ -1,0 +1,33 @@
+.form {
+	gap: 10px;
+	width: 100%;
+
+	@include centerContent();
+}
+
+.input {
+	flex-grow: 1;
+	padding: 10px 20px;
+
+	border: none;
+	outline: none;
+	border-radius: 30px;
+	background-color: $secondary-color;
+	
+	&:focus {
+		outline: 1px solid $primary-color;
+	}
+}
+
+.button {
+	display: block;
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+.icon {
+	display: block;
+	color: $primary-color;
+	cursor: pointer;
+}

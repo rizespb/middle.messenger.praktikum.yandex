@@ -1,3 +1,7 @@
+.container {
+	position: relative;
+}
+
 .showMoreIconContainer {
 	width: 25px;
 	height: 25px;
@@ -18,31 +22,6 @@
 	}
 }
 
-.popup {
-	position: absolute;
-	right: 0px;
-	top: calc(100% + 10px);
-	
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	padding: 15px;
-
-	border-radius: 12px;
-	box-shadow: $shadow;
-}
-
-
-
-.action {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-
-	cursor: pointer;
-
-	@include opacity();
-}
 
 .plusIconContainer {
 	width: 22px;
