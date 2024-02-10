@@ -17,6 +17,10 @@ export const pagesMap: IPageMapItem[] = [
     title: '404',
   },
   {
+    code: EPages.СhatsPage,
+    title: 'Chats',
+  },
+  {
     code: EPages.Error500,
     title: '500',
   },

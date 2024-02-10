@@ -3,6 +3,7 @@ import { logInPage } from '@/pages/logInPage';
 import { signUpPage } from '@/pages/signUpPage';
 import { error404Page } from '@/pages/error404Page';
 import { error500Page } from '@/pages/error500Page';
+import { chatsPage } from '@/pages/chatsPage';
 
 export const getPage = (pageCode: EPages): (() => THtml) => {
   switch (pageCode) {
@@ -14,6 +15,9 @@ export const getPage = (pageCode: EPages): (() => THtml) => {
 
     case EPages.Error500:
       return error500Page;
+
+    case EPages.СhatsPage:
+      return chatsPage;
 
     case EPages.LogInPage:
     default:

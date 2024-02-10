@@ -5,25 +5,25 @@
 }
 
 .label {
-	color: $font-secondary-color;
+	color: $text-secondary-color;
 	font-size: 9px;
 }
 
 .input {
 	height: 25px;
 	border: none;
-	border-bottom: 1px solid $input-border-color;
+	border-bottom: 1px solid $secondary-color;
 	outline: none;
 
-	color: $font-primary-color;
+	color: $text-primary-color;
 	font-size: 13px;
 
 	&:focus{
-		border-bottom: 1px solid $input-focus-border-color;
+		border-bottom: 1px solid $primary-color;
 	}
 
 	&::placeholder{
-		color: $font-secondary-color;
+		color: $text-secondary-color;
 	}
 }
 
@@ -31,6 +31,6 @@
 	position: absolute;
 	top: calc(100% + 3px);
 
-	color: $input-error-color;
+	color: $error-text-color;
 	font-size: 8px;
 }

@@ -1,0 +1,41 @@
+$left-bg-color: #FBFBFB;
+
+.container {
+	display: grid;
+	grid-template-columns: 310px 1fr;
+}
+
+.left{
+	height: 100vh;
+	padding: 0 10px;
+	background-color: $left-bg-color;
+
+	overflow-y: scroll;
+
+	@include scroll();
+}
+
+.leftHeading {
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px 0 14px;
+	background-color: $left-bg-color;
+	z-index: 2;
+
+	@include dividerAfter();
+}
+
+.link,
+.link:active,
+.link:visited {
+	padding: 10px 0;
+	color: $text-secondary-color;
+	text-align: right;
+
+	&:hover {
+		opacity: .7;
+	}
+}
