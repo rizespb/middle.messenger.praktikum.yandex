@@ -35,7 +35,5 @@ $left-bg-color: #FBFBFB;
 	color: $text-secondary-color;
 	text-align: right;
 
-	&:hover {
-		opacity: .7;
-	}
+	@include opacity();
 }

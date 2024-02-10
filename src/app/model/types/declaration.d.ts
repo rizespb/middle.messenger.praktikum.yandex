@@ -3,6 +3,8 @@ declare module '*.scss' {
   export default content;
 }
 
+declare module '*.svg';
+
 declare module '*.hbs?raw';
 
 declare type THtml = string;

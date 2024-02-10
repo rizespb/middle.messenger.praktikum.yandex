@@ -6,12 +6,8 @@
 	font-size: 13px;
 
 	cursor: pointer;
-	transition: opacity .3s;
 
-	&:hover,
-	&:active {
-		opacity: 0.7;
-	}
+	@include opacity();
 }
 
 .buttonPrimary {

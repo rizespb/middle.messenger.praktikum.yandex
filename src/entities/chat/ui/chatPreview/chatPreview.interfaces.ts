@@ -3,6 +3,6 @@ export interface IChatPreviewProps {
   lastMessage: string;
   time: string;
   newMessagesCount?: string;
-  imageSrc?: string;
-  imageAlt?: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
 }

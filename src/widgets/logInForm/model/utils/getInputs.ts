@@ -1,17 +1,17 @@
-import { authInput } from '@/shared/ui';
+import { baseInput } from '@/shared/ui';
 import { INPUTS } from '../constants';
 
 export const getInputs = (): THtml[] => {
   const { login, password } = INPUTS;
 
-  const loginInput = authInput({
+  const loginInput = baseInput({
     placeholder: login.title,
     label: login.title,
     name: login.name,
     error: 'Some error',
   });
 
-  const passwordInput = authInput({
+  const passwordInput = baseInput({
     placeholder: password.title,
     label: password.title,
     name: password.name,

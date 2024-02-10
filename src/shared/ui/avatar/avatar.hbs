@@ -1,0 +1,11 @@
+{{#if avatarSrc}}
+	<img src={{avatarSrc}}
+
+		{{#if avatarAlt}}
+			alt={{avatarAlt}} 
+		{{/if}} 
+
+		class="{{className}}" />
+{{else}}
+		<div class="{{className}}" ></div>	
+{{/if}}

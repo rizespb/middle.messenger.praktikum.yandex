@@ -8,8 +8,8 @@ export const chatPreviewsMock: IChatPreviewProps[] = [
     lastMessage: 'Изображение',
     time: '10:49',
     newMessagesCount: '3',
-    imageSrc: 'https://images.unsplash.com/photo-1706554597282-3cc8f3dfeca3',
-    imageAlt: 'Dog',
+    avatarSrc: 'https://images.unsplash.com/photo-1706554597282-3cc8f3dfeca3',
+    avatarAlt: 'Dog',
   },
   {
     title:

@@ -1,48 +1,48 @@
-import { authInput } from '@/shared/ui';
+import { baseInput } from '@/shared/ui';
 import { INPUTS } from '../constants';
 
 export const getInputs = (): THtml[] => {
   const { email, login, firtsName, secondName, phoneNumber, password, passwordRepeat } = INPUTS;
 
-  const emailInput = authInput({
+  const emailInput = baseInput({
     placeholder: email.title,
     label: email.title,
     name: email.name,
   });
 
-  const loginInput = authInput({
+  const loginInput = baseInput({
     placeholder: login.title,
     label: login.title,
     name: login.name,
     error: 'Some error',
   });
 
-  const firtsNameInput = authInput({
+  const firtsNameInput = baseInput({
     placeholder: firtsName.title,
     label: firtsName.title,
     name: firtsName.name,
   });
 
-  const secondNameInput = authInput({
+  const secondNameInput = baseInput({
     placeholder: secondName.title,
     label: secondName.title,
     name: secondName.name,
   });
 
-  const phoneNumberInput = authInput({
+  const phoneNumberInput = baseInput({
     placeholder: phoneNumber.title,
     label: phoneNumber.title,
     name: phoneNumber.name,
   });
 
-  const passwordInput = authInput({
+  const passwordInput = baseInput({
     placeholder: password.title,
     label: password.title,
     name: password.name,
     type: 'password',
   });
 
-  const passwordRepeatInput = authInput({
+  const passwordRepeatInput = baseInput({
     placeholder: passwordRepeat.title,
     label: passwordRepeat.title,
     name: passwordRepeat.name,

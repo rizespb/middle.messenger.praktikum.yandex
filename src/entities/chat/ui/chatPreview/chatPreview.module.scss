@@ -13,14 +13,6 @@
 	}
 }
 
-.image {
-	flex-shrink: 0;
-	width: 47px;
-	height: 47px;
-	border-radius: 50%;
-	background-color: $image-bg-color;
-}
-
 .textContent{
 	flex-grow: 1;
 }
@@ -52,9 +44,6 @@
 }
 
 .counter {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-shrink: 0;
 	margin-top: 5px;
 	width: 20px;
@@ -64,5 +53,7 @@
 	border-radius: 50%;
 
 	font-size: 11px;
-	color: $text-accent-color;
+	color: $text-white-color;
+
+	@include centerContent();
 }
