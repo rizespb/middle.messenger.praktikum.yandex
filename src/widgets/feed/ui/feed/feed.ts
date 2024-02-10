@@ -1,18 +1,14 @@
 import { compile } from '@/shared/utils';
-import { avatar, modalWindow } from '@/shared/ui';
+import { header } from '../header';
 
-import { manageUserlistForm } from '@/widgets/manageUserlistForm';
-import classes from './feed.module.scss';
 import tmpl from './feed.hbs?raw';
-import { showActionsButton } from '../showActionsButton';
+import classes from './feed.module.scss';
 
 export const feed = (): THtml => {
-  const headingImage = avatar({ size: 'small' });
+  const headerStr = header({ title: 'СуперДискотЭка' });
 
   return compile(tmpl)({
     classes,
-    headingImage,
-    showActionsButton: showActionsButton(),
-    title: 'СупердискотЭка',
+    header: headerStr,
   });
 };

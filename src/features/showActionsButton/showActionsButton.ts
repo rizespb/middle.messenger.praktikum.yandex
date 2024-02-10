@@ -7,8 +7,8 @@ import tmpl from './showActionsButton.hbs?raw';
 import { TEXTS } from './showActionsButton.constants';
 
 export const showActionsButton = (): THtml => {
-  const isPopupOpened = true;
-  const isModalVisible = true;
+  const isPopupOpened = false;
+  const isModalVisible = false;
 
   const showMoreIcon = icon({
     icon: EIcons.ShowMore,
