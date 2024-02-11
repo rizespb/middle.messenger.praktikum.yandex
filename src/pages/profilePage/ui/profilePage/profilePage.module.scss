@@ -1,0 +1,26 @@
+.profilePageLayout {
+	display: flex;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+
+	width: 100%;
+	min-height: 100vh;
+	padding: 60px 30px;
+}
+
+.goBackContainer{
+	padding: 18px;
+	background-color: $secondary-color;
+
+	@include centerContent();
+}
+
+.icon {
+	color: $primary-color;
+	transform: rotate(180deg);
+
+	cursor: pointer;
+}

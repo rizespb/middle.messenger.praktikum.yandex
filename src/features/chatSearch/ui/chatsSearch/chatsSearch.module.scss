@@ -1,0 +1,29 @@
+.container{
+	position: relative;
+}
+
+.label{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: $text-secondary-color;
+}
+
+.input:not(:placeholder-shown) + .label,
+.input:focus + .label {
+	display: none;
+}
+
+
+.input{
+	width: 100%;
+	height: 32px;
+
+	background-color: $secondary-color;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	text-align: center;
+}
+

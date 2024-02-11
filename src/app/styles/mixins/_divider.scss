@@ -1,0 +1,13 @@
+@mixin dividerAfter($offset: 0) {
+	&::after {
+		content: "";
+
+		position: absolute;
+		left: $offset;
+		right: $offset;
+		bottom: 0;
+		display: block;
+		height: 1px;
+		background-color: $tertiary-color;
+	}
+}

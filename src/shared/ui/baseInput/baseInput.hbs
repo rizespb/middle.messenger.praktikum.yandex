@@ -1,0 +1,18 @@
+<div class="{{classes.container}}" >
+	{{#if label}}
+		<label class="{{classes.label}}" for="{{name}}" >
+			{{{label}}}
+		</label>
+	{{/if}}
+
+	<input class="{{classes.input}}" placeholder="{{placeholder}}" name="{{name}}" id="{{name}}" 
+		{{#if type}}
+			type="{{type}}"
+		{{/if}} />
+
+	{{#if error}}
+		<span class={{classes.error}} >
+			{{{error}}}
+		</span>
+	{{/if}}
+</div>
