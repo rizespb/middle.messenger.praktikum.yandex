@@ -14,13 +14,13 @@
 .goBackContainer{
 	padding: 18px;
 	background-color: $secondary-color;
+	cursor: pointer;
 
 	@include centerContent();
+	@include opacity();
 }
 
 .icon {
 	color: $primary-color;
 	transform: rotate(180deg);
-
-	cursor: pointer;
 }
