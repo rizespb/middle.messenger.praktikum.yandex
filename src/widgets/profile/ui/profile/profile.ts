@@ -1,6 +1,7 @@
 import { compile } from '@/shared/utils';
 import { interactiveInput } from '@/shared/ui/interactiveInput';
 import { button } from '@/shared/ui';
+import { updatePhoto } from '@/features/updatePhoto';
 import { PROFILE_DATA_INPUTS, CHANGE_PASSWORD_INPUTS } from '../../model';
 import { TEXTS } from './profile.constants';
 import tmpl from './profile.hbs?raw';
@@ -10,8 +11,9 @@ import { userAvatar } from '../userAvatar';
 
 export const profile = (): THtml => {
   // @TODO временные флаги
-  const isEditMode = true;
+  const isEditMode = false;
   const isChangePasswordMode = false;
+  const isUpdateFormVisible = false;
 
   const avatar = userAvatar({});
 
@@ -38,6 +40,8 @@ export const profile = (): THtml => {
 
   const actionsStr = actions();
 
+  const updatePhotoStr = updatePhoto();
+
   return compile(tmpl)({
     classes,
     isEditMode,
@@ -46,5 +50,6 @@ export const profile = (): THtml => {
     actions: actionsStr,
     userAvatar: avatar,
     firstName: 'Иван',
+    updatePhoto: isUpdateFormVisible ? updatePhotoStr : undefined,
   });
 };
