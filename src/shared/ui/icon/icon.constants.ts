@@ -7,6 +7,7 @@ import {
   fileIconTmpl,
   mediaIconTmpl,
   locationIconTmpl,
+  checkMarkIconTmpl,
 } from './templates';
 
 export const iconsMap: Record<EIcons, string> = {
@@ -17,4 +18,5 @@ export const iconsMap: Record<EIcons, string> = {
   [EIcons.FileIcon]: fileIconTmpl,
   [EIcons.MediaIcon]: mediaIconTmpl,
   [EIcons.LocationIcon]: locationIconTmpl,
+  [EIcons.CheckMarkIcon]: checkMarkIconTmpl,
 };

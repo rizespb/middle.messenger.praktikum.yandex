@@ -6,4 +6,5 @@ export enum EIcons {
   FileIcon = 'fileIcon',
   LocationIcon = 'locationIcon',
   MediaIcon = 'mediaIcon',
+  CheckMarkIcon = 'checkMarkIcon',
 }

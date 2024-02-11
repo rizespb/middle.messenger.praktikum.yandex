@@ -1,0 +1,14 @@
+$offset: 20px;
+
+.chat {
+	position: relative;
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 30px;
+	padding: 30px $offset;
+	overflow-y: scroll;
+
+	@include dividerAfter($offset);
+
+	@include scroll();
+}

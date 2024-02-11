@@ -1,0 +1,46 @@
+.textMessage {
+	max-width: 400px;
+	min-width: 100px;
+	padding: 11px;
+	border-radius: 12px;
+
+
+	&__outcomig {
+		background-color: $incoming-message-bg;
+	}
+
+	&__incoming {
+		background-color: $outcoming-message-bg;
+	}
+
+	&__alignLeft {
+		align-self: flex-start;
+	}
+	&__alignRight {
+		align-self: flex-end;
+	}
+}
+
+.text {
+	font-size: 12px;
+	line-height: 15px;
+}
+
+.details {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	gap: 3px;
+
+	color: $text-secondary-color;
+	font-size: 9px;
+	line-height: 9px;
+	
+	&__withStatus {
+		color: $text-accent-color;
+	}
+}
+
+.icon {
+	color: $primary-color;
+}

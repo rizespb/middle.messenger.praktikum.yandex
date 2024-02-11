@@ -1,10 +1,5 @@
 .feed {
-	padding: 0 20px;
-}
-
-.messages {
-	position: relative;
-	padding: 30px 0;
-
-	@include dividerAfter();
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }

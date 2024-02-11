@@ -5,3 +5,4 @@ export { default as clipIconTmpl } from './clipIcon.hbs?raw';
 export { default as fileIconTmpl } from './fileIcon.hbs?raw';
 export { default as locationIconTmpl } from './locationIcon.hbs?raw';
 export { default as mediaIconTmpl } from './mediaIcon.hbs?raw';
+export { default as checkMarkIconTmpl } from './checkMarkIcon.hbs?raw';
