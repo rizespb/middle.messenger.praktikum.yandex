@@ -1,5 +1,7 @@
 $left-bg-color: #FBFBFB;
 
+$offset: 10px;
+
 .container {
 	display: grid;
 	grid-template-columns: 310px 1fr;
@@ -9,7 +11,7 @@ $left-bg-color: #FBFBFB;
 	display: flex;
     flex-direction: column;
 	height: 100vh;
-	padding: 0 10px;
+
 	background-color: $left-bg-color;
 }
 
@@ -19,11 +21,11 @@ $left-bg-color: #FBFBFB;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	padding: 10px 0 14px;
+	padding: 10px $offset 14px;
 	background-color: $left-bg-color;
 	z-index: 2;
 
-	@include dividerAfter();
+	@include dividerAfter($offset);
 }
 
 .link,
