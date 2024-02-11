@@ -15,9 +15,10 @@ export const renderPage = (): void => {
 
   const pageHtml = page();
 
-  const navigationHtml = navigation();
+  // const navigationHtml = navigation();
+  const navigationHtml = '';
 
-  const result = pageHtml + navigationHtml;
+  const result = `${pageHtml}${navigationHtml}`;
 
   root.innerHTML = result;
 

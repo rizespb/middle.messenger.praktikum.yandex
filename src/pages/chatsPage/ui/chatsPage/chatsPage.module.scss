@@ -6,13 +6,11 @@ $left-bg-color: #FBFBFB;
 }
 
 .left{
+	display: flex;
+    flex-direction: column;
 	height: 100vh;
 	padding: 0 10px;
 	background-color: $left-bg-color;
-
-	overflow-y: scroll;
-
-	@include scroll();
 }
 
 .leftHeading {
