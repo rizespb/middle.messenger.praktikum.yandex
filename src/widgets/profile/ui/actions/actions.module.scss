@@ -1,0 +1,15 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.button {
+	position: relative;
+	padding-left: 0;
+	text-align: left;
+
+	&:not(:last-child) {
+		@include dividerAfter();
+	}
+}

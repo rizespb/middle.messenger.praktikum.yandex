@@ -1,7 +1,7 @@
 import { compile } from '@/shared/utils';
 import { icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
-import { centerContentLayout } from '@/layouts/centerContentLayout';
+import { profile } from '@/widgets/profile';
 import tmpl from './profilePage.hbs?raw';
 import classes from './profilePage.module.scss';
 
@@ -11,7 +11,7 @@ export const profilePage = (): THtml => {
     iconClass: classes.icon,
   });
 
-  const content = centerContentLayout({ content: 'Hello' });
+  const content = profile();
 
   return compile(tmpl)({
     classes,

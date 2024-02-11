@@ -4,13 +4,13 @@ import { BUTTONS } from '../constants';
 export const getButtons = (): THtml[] => {
   const logInButton = button({
     title: BUTTONS.logInButton,
-    isPrimary: true,
+    kind: 'primary',
     type: 'button',
   });
 
   const creatAccountButton = button({
     title: BUTTONS.creatAccountButton,
-    isPrimary: false,
+    kind: 'secondary',
     type: 'button',
   });
 

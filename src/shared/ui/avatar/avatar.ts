@@ -5,12 +5,16 @@ import classes from './avatar.module.scss';
 import { sizesMap } from './avatar.constants';
 
 export const avatar = (props: IAvatarProps): THtml => {
-  const { size, avatarAlt, avatarSrc } = props;
+  const { size, avatarAlt, avatarSrc, className } = props;
 
-  const className = classNames([classes.image, sizesMap[size]]);
+  const avatarClassName = classNames({
+    [classes.image]: true,
+    [sizesMap[size]]: true,
+    [className]: Boolean(className),
+  });
 
   return compile(tmpl)({
-    className,
+    className: avatarClassName,
     avatarAlt,
     avatarSrc,
   });

@@ -1,5 +1,6 @@
 export interface IButtonProps {
   title: string;
   type: 'button' | 'submit';
-  isPrimary: boolean;
+  kind: 'primary' | 'secondary' | 'tertiary';
+  className?: string;
 }

@@ -24,4 +24,8 @@ export const pagesMap: IPageMapItem[] = [
     code: EPages.Error500,
     title: '500',
   },
+  {
+    code: EPages.ProfilePage,
+    title: 'Profile',
+  },
 ];

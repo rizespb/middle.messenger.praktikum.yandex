@@ -1,0 +1,37 @@
+.container {
+	position: relative;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.hoverBlock {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	padding: 30px;
+
+	background-color: $overlay-bg-color;
+	cursor: pointer;
+
+	opacity: 0;
+	transition: opacity .3s;
+
+	@include centerContent();
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.hoverText {
+	text-align: center;
+	color: $text-white-color;
+}
+
+.userAvatar {
+	display: block;
+	border-radius: 0;
+}

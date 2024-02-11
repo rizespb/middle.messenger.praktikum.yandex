@@ -17,7 +17,7 @@ export const manageUserlistForm = (props: IManageUserlistFormProps): THtml => {
   const buttonStr = button({
     title: buttonTitle,
     type: 'submit',
-    isPrimary: true,
+    kind: 'primary',
   });
 
   return compile(tmpl)({

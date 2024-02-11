@@ -8,14 +8,20 @@
 	cursor: pointer;
 
 	@include opacity();
+
+	&__primary {
+		color: $button-primary-text-color;
+		background-color: $button-primary-bg-color;
+	}
+	
+	&__secondary {
+		color: $button-secondary-text-color;
+		background-color: transparent;
+	}
+
+	&__tertiary {
+		color: $button-tertiary-text-color;
+		background-color: transparent;
+	}
 }
 
-.buttonPrimary {
-	color: $button-primary-text-color;
-	background-color: $button-primary-bg-color;
-}
-
-.buttonSecondary {
-	color: $button-secondary-text-color;
-	background-color: transparent;
-}
