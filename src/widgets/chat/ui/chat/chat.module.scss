@@ -9,6 +9,5 @@ $offset: 20px;
 	overflow-y: scroll;
 
 	@include dividerAfter($offset);
-
-	@include scroll();
+	@include scroll;
 }

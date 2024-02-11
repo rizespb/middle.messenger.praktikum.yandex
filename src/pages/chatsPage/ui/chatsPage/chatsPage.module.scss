@@ -1,5 +1,4 @@
 $left-bg-color: #FBFBFB;
-
 $offset: 10px;
 
 .container {
@@ -11,7 +10,6 @@ $offset: 10px;
 	display: flex;
     flex-direction: column;
 	height: 100vh;
-
 	background-color: $left-bg-color;
 }
 
@@ -35,5 +33,5 @@ $offset: 10px;
 	color: $text-secondary-color;
 	text-align: right;
 
-	@include opacity();
+	@include opacity;
 }

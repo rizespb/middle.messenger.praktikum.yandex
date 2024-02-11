@@ -36,3 +36,4 @@
 <!-- @TODO заполнить раздел -->
 
 ## Ссылки на страницы
+Сайт со всеми страницами доступен по адресу [https://messanger-praktikum.netlify.app](https://messanger-praktikum.netlify.app/)

@@ -17,11 +17,9 @@
 .label {
 	align-self: center;
 	max-width: 133px;
-
 	text-align: center;
 	color: $text-accent-color;
 	text-decoration: underline;
-
 	cursor: pointer;
 }
 
@@ -29,7 +27,6 @@
 	position: absolute;
 	top: calc(100% + 5px);
 	width: 100%;
-
 	text-align: center;
 	color: $error-text-color;
 }

@@ -1,23 +1,29 @@
+// BASE
 $primary-color: #3369F3;
 $secondary-color: #EFEFEF;
 $tertiary-color: #EAEAEA;
-$whte-color: #FFFFFF;
+$whte-color: #FFF;
 
-$text-primary-color:  #1E1E1E;
-$text-secondary-color:  #999999;
-$text-white-color:  #FFFFFF;
-$text-accent-color:  #3369F3;
-$error-text-color:  #FF2F2F;
-$link-text-color:  #3369F3;
+// TEXT
+$text-primary-color: #1E1E1E;
+$text-secondary-color: #999;
+$text-white-color: #FFF;
+$text-accent-color: #3369F3;
+$error-text-color: #FF2F2F;
 
-$button-primary-bg-color:  #3369F3;
-$button-primary-text-color:  #FFFFFF;
-$button-secondary-text-color:  #3369F3;
-$button-tertiary-text-color:  #FF2F2F;
+// LINKS
+$link-text-color: #3369F3;
 
+// BUTTONS
+$button-primary-bg-color: #3369F3;
+$button-primary-text-color: #FFF;
+$button-secondary-text-color: #3369F3;
+$button-tertiary-text-color: #FF2F2F;
+
+// IMAGES
 $image-bg-color: #EFEFEF;
 
+// OTHERS
 $outcoming-message-bg: #F8F8F8;
 $incoming-message-bg: #E4EDFD;
-
-$overlay-bg-color: rgba(0, 0, 0, .5);
+$overlay-bg-color: rgb(0 0 0 / 50%);

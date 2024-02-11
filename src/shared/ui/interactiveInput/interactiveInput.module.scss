@@ -2,10 +2,10 @@
 	position: relative;
 	gap: 10px;
 
-	@include centerContent();
+	@include centerContent;
 
 	&:not(:last-child) {
-		@include dividerAfter();
+		@include dividerAfter;
 	}
 }
 
@@ -16,7 +16,6 @@
 .input {
 	flex-grow: 1;
 	height: 33px;
-	
 	background: none;
 	border: none;
 	outline: none;

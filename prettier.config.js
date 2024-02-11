@@ -7,6 +7,7 @@ module.exports = {
   printWidth: 100,
   parser: 'typescript',
   semi: true,
+  endOfLine: 'auto',
   overrides: [
     {
       files: ['*.js', '*.cjs', '*.mjs', '.html'],
