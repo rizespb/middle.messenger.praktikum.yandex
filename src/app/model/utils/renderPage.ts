@@ -15,8 +15,7 @@ export const renderPage = (): void => {
 
   const pageHtml = page();
 
-  // const navigationHtml = navigation();
-  const navigationHtml = '';
+  const navigationHtml = navigation();
 
   const result = `${pageHtml}${navigationHtml}`;
 

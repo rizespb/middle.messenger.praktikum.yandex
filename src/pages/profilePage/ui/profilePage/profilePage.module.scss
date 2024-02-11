@@ -1,0 +1,18 @@
+.profilePageLayout {
+	display: flex;
+
+}
+
+.goBackContainer{
+	padding: 18px;
+	background-color: $secondary-color;
+
+	@include centerContent();
+}
+
+.icon {
+	color: $primary-color;
+	transform: rotate(180deg);
+
+	cursor: pointer;
+}
