@@ -1,7 +1,6 @@
 @mixin dividerAfter($offset: 0) {
 	&::after {
 		content: "";
-
 		position: absolute;
 		left: $offset;
 		right: $offset;

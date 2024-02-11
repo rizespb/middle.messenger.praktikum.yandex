@@ -2,13 +2,12 @@
 	gap: 10px;
 	width: 100%;
 
-	@include centerContent();
+	@include centerContent;
 }
 
 .input {
 	flex-grow: 1;
 	padding: 10px 20px;
-
 	border: none;
 	outline: none;
 	border-radius: 30px;

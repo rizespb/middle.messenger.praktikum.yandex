@@ -14,7 +14,6 @@
 	border: none;
 	border-bottom: 1px solid $secondary-color;
 	outline: none;
-
 	color: $text-primary-color;
 	font-size: 13px;
 
@@ -30,7 +29,6 @@
 .error {
 	position: absolute;
 	top: calc(100% + 3px);
-
 	color: $error-text-color;
 	font-size: 8px;
 }

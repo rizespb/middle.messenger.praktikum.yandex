@@ -1,13 +1,11 @@
 .button {
 	padding: 12px;
-
 	border: none;
 	border-radius: 8px;
 	font-size: 13px;
-
 	cursor: pointer;
 
-	@include opacity();
+	@include opacity;
 
 	&__primary {
 		color: $button-primary-text-color;
@@ -24,4 +22,3 @@
 		background-color: transparent;
 	}
 }
-

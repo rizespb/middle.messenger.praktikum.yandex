@@ -16,6 +16,7 @@
 	&__alignLeft {
 		align-self: flex-start;
 	}
+
 	&__alignRight {
 		align-self: flex-end;
 	}
@@ -31,7 +32,6 @@
 	justify-content: end;
 	align-items: center;
 	gap: 3px;
-
 	color: $text-secondary-color;
 	font-size: 9px;
 	line-height: 9px;

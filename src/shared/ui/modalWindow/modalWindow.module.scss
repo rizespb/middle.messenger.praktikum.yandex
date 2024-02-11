@@ -1,23 +1,16 @@
 .overlay {
 	position: fixed;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-
+	inset:0;
 	padding: 30px;
-
 	background-color: $overlay-bg-color;
-
 	z-index: 100;
 
-	@include centerContent();
+	@include centerContent;
 }
 
 .content {
 	padding: 40px 30px;
 	min-width: 340px;
-
 	border-radius: 12px;
 	background-color: $whte-color;
 }
