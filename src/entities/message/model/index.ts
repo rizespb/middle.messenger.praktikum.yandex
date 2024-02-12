@@ -6,4 +6,4 @@ export {
   type IMessagesGroup,
   type IRenderMessageProps,
 } from './types';
-export { getMessagesStr } from './utils';
+export { getMessagesStr, getFileNameFromUrl } from './utils';

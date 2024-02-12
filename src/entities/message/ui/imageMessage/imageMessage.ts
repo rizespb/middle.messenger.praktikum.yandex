@@ -3,7 +3,12 @@ import { icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import tmpl from './imageMessage.hbs?raw';
 import classes from './imageMessage.module.scss';
-import { EMessageDirection, EMessageStatus, IRenderMessageProps } from '../../model';
+import {
+  EMessageDirection,
+  EMessageStatus,
+  IRenderMessageProps,
+  getFileNameFromUrl,
+} from '../../model';
 
 export const imageMessage = (props: IRenderMessageProps): THtml => {
   const { direction, content, time, status } = props;
@@ -22,10 +27,13 @@ export const imageMessage = (props: IRenderMessageProps): THtml => {
     iconClass: classes.icon,
   });
 
+  const imageAlt = getFileNameFromUrl(content) || '';
+
   return compile(tmpl)({
     classes,
     containerClassName,
     imageSrc: content,
+    imageAlt,
     time,
     statusIcon: isStatusVisible ? statusIcon : undefined,
   });
