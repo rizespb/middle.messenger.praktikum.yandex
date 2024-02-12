@@ -1,0 +1,16 @@
+$offset: 20px;
+
+.header {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px $offset;
+
+	@include dividerAfter($offset);
+}
+
+.title {
+ 	flex-grow: 1;
+	font-weight: 600;
+}

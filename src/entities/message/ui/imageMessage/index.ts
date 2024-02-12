@@ -1,0 +1,1 @@
+export { imageMessage } from './imageMessage';

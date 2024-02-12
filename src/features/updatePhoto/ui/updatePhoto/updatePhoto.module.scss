@@ -1,0 +1,32 @@
+.form {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 45px;
+}
+
+.input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+
+.label {
+	align-self: center;
+	max-width: 133px;
+	text-align: center;
+	color: $text-accent-color;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.error {
+	position: absolute;
+	top: calc(100% + 5px);
+	width: 100%;
+	text-align: center;
+	color: $error-text-color;
+}

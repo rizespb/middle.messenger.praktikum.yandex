@@ -1,0 +1,1 @@
+export { updatePhoto } from './ui';

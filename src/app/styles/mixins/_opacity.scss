@@ -1,0 +1,8 @@
+@mixin opacity($value: .7, $duration: .2s) {
+	transition: opacity $duration;
+
+	&:hover,
+	&:active {
+		opacity: $value;
+	}
+}

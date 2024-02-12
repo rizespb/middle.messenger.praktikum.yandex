@@ -1,0 +1,6 @@
+.chatList {
+	padding: 0 10px;
+	overflow-y: scroll;
+
+	@include scroll;
+}

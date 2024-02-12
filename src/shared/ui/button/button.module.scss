@@ -1,0 +1,24 @@
+.button {
+	padding: 12px;
+	border: none;
+	border-radius: 8px;
+	font-size: 13px;
+	cursor: pointer;
+
+	@include opacity;
+
+	&__primary {
+		color: $button-primary-text-color;
+		background-color: $button-primary-bg-color;
+	}
+	
+	&__secondary {
+		color: $button-secondary-text-color;
+		background-color: transparent;
+	}
+
+	&__tertiary {
+		color: $button-tertiary-text-color;
+		background-color: transparent;
+	}
+}

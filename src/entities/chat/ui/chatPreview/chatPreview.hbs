@@ -1,0 +1,29 @@
+<article class={{classes.preview}}>
+	{{{image}}}
+
+	<div class={{classes.textContent}}>
+		<div class={{classes.row}}>
+			<p class={{classes.title}}>
+				{{{title}}}
+			</p>
+
+			<time class={{classes.time}}>
+				{{{time}}}
+			</time>
+		</div>
+
+		<div class={{classes.row}}>
+		<p class={{classes.lastMessage}}>
+			{{{lastMessage}}}
+		</p>
+
+		{{#if newMessagesCount}}
+			<span class={{classes.counter}}>
+				{{{newMessagesCount}}}
+			</span>
+		{{/if}}
+		</div>
+
+
+	</div>
+</article>

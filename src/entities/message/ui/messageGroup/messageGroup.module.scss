@@ -1,0 +1,11 @@
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.date {
+	margin-bottom: 10px;
+	text-align: center;
+	color: $text-secondary-color;
+}

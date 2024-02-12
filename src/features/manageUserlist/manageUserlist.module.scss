@@ -1,0 +1,38 @@
+.container {
+	position: relative;
+}
+
+.showMoreIconContainer {
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	border-radius: 50%;
+	
+	&__active {
+		background-color: $secondary-color;
+	}
+}
+
+.showMoreIcon {
+	color: $text-primary-color;
+
+	&__active {
+		color: $text-accent-color;
+	}
+}
+
+
+.plusIconContainer {
+	width: 22px;
+	height: 22px;
+	border: 2px solid $primary-color;
+	border-radius: 50%;
+}
+
+.plusIcon {
+	color: $primary-color;
+
+	&__rotated {
+		transform: rotate(45deg);
+	}
+}

@@ -1,0 +1,19 @@
+<section class={{classes.container}} >
+	<h3 class={{classes.header}} >
+		{{title}}
+	</h3>
+
+	<form class={{classes.form}} >
+		<div class={{classes.inputs}} >
+			{{#each inputs}}
+    			{{{this}}}
+			{{/each}}
+		</div>
+
+		<div class={{classes.buttons}} >
+			{{#each buttons}}
+    			{{{this}}}
+			{{/each}}
+		</div>
+	</form>
+</section>

@@ -1,0 +1,1 @@
+export { chatsSearch } from './ui';
