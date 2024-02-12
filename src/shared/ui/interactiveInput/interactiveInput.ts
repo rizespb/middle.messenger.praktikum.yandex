@@ -3,11 +3,8 @@ import tmpl from './interactiveInput.hbs?raw';
 import classes from './interactiveInput.module.scss';
 import { IInteractiveInputProps } from './interactiveInput.interfaces';
 
-export const interactiveInput = (props: IInteractiveInputProps): THtml => {
-  console.log(props);
-
-  return compile(tmpl)({
+export const interactiveInput = (props: IInteractiveInputProps): THtml =>
+  compile(tmpl)({
     ...props,
     classes,
   });
-};

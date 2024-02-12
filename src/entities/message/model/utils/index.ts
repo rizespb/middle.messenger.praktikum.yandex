@@ -1,1 +1,2 @@
-export { getMessagesStr } from './getMessagesStr/getMessagesStr';
+export { getMessagesStr } from './getMessagesStr';
+export { getFileNameFromUrl } from './getFileNameFromUrl';
