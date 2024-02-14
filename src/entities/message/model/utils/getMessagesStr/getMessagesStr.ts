@@ -6,10 +6,10 @@ export const getMessagesStr = (
   textMessage: TRenderMessage,
   imageMessage: TRenderMessage
 ): THtml[] =>
-  messages.reduce((acc, item) => {
+  messages.reduce<THtml[]>((acc, item) => {
     const { type } = item;
 
-    let message: THtml;
+    let message: THtml | null = null;
 
     switch (type) {
       case EMessageType.Text:
@@ -24,7 +24,7 @@ export const getMessagesStr = (
         break;
     }
 
-    if (message !== undefined) {
+    if (message !== null) {
       acc.push(message);
     }
 

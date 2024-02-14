@@ -29,3 +29,7 @@ export const pagesMap: IPageMapItem[] = [
     title: 'Profile',
   },
 ];
+
+export const TEXTS = {
+  navigationNotFound: 'Navigation node was not not found',
+};

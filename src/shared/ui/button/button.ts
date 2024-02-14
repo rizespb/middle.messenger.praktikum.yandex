@@ -4,7 +4,7 @@ import classes from './button.module.scss';
 import { IButtonProps } from './button.interfaces';
 
 export const button = (props: IButtonProps): THtml => {
-  const { className, kind } = props;
+  const { className = '', kind } = props;
 
   const buttonClasses = classNames({
     [classes.button]: true,
