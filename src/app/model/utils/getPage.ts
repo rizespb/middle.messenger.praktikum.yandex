@@ -5,6 +5,7 @@ import { error404Page } from '@/pages/error404Page';
 import { error500Page } from '@/pages/error500Page';
 import { chatsPage } from '@/pages/chatsPage';
 import { profilePage } from '@/pages/profilePage';
+import { sandboxPage } from '@/pages/sandboxPage';
 
 export const getPage = (pageCode: EPages): (() => THtml) => {
   switch (pageCode) {
@@ -22,6 +23,9 @@ export const getPage = (pageCode: EPages): (() => THtml) => {
 
     case EPages.ProfilePage:
       return profilePage;
+
+    case EPages.SandboxPage:
+      return sandboxPage;
 
     case EPages.LogInPage:
     default:
