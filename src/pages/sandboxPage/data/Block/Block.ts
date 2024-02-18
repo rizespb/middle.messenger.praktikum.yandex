@@ -1,8 +1,10 @@
+import Handlebars from 'handlebars';
 import { EventBus } from '../eventBus/eventBus';
-import { EBlockEvents, TBlockEventBus, IMeta } from './Block.interfaces';
+import { EBlockEvents, TBlockEventBus } from './Block.interfaces';
 
-export class Block<T extends Record<PropertyKey, unknown>> {
-  private _meta: IMeta<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Block<T extends Record<PropertyKey, any>> {
+  private tagName: string;
 
   private eventBus: () => TBlockEventBus;
 
@@ -12,11 +14,9 @@ export class Block<T extends Record<PropertyKey, unknown>> {
 
   constructor(props: T = {} as T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
-    this._meta = {
-      tagName,
-      props,
-    };
+    this.tagName = tagName;
 
+    // Оборачиваем объект в прокси, чтобы при установке новых пропсов методом setProps эммитить событие component-did-update
     this.props = this._makePropsProxy(props);
 
     this.eventBus = (): TBlockEventBus => eventBus;
@@ -28,13 +28,12 @@ export class Block<T extends Record<PropertyKey, unknown>> {
   _registerEvents(eventBus: TBlockEventBus): void {
     eventBus.on(EBlockEvents.INIT, this.init.bind(this));
     eventBus.on(EBlockEvents.MOUNT, this._componentDidMount.bind(this));
+    eventBus.on(EBlockEvents.UPDATE, this._componentDidUpdate.bind(this));
     eventBus.on(EBlockEvents.RENDER, this._render.bind(this));
   }
 
   _createResources(): void {
-    const { tagName } = this._meta;
-
-    this._element = this._createDocumentElement(tagName);
+    this._element = this._createDocumentElement(this.tagName);
   }
 
   init(): void {
@@ -51,11 +50,14 @@ export class Block<T extends Record<PropertyKey, unknown>> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidMount(props: T): void {}
 
-  public dispatchComponentDidMoun(): void {
-    this.eventBus().emit(EBlockEvents.MOUNT, this._meta.props);
+  // Эммитим событие маунта для вызова componentDidMount
+  public dispatchComponentDidMount(): void {
+    this.eventBus().emit(EBlockEvents.MOUNT, this.props);
   }
 
   _componentDidUpdate(oldProps: T, newProps: T): void {
+    // Если пользовательский componentDidUpdate вернет false, значит компонент перерисовывать не надо
+    // componentDidUpdate можно не переопределять, по умолчанию возвращает true - перерисовка на каждое изменение пропсов
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (response) {
@@ -70,9 +72,11 @@ export class Block<T extends Record<PropertyKey, unknown>> {
   }
 
   setProps = (nextProps: T): void => {
-    if (nextProps) {
-      Object.assign(this.props, nextProps);
+    if (!nextProps) {
+      return;
     }
+
+    Object.assign(this.props, nextProps);
   };
 
   get element(): HTMLElement | null {
@@ -93,8 +97,8 @@ export class Block<T extends Record<PropertyKey, unknown>> {
     this._element.innerHTML = block;
   }
 
-  // Может переопределять пользователь, необязательно трогать
-  render(): string {
+  // Переопределяется пользователем. Необходимо вернуть разметку
+  render(): THtml {
     return '';
   }
 
@@ -117,7 +121,7 @@ export class Block<T extends Record<PropertyKey, unknown>> {
         target[prop] = value;
 
         if (prevProps[prop] !== target[prop]) {
-          this.eventBus().emit(EBlockEvents.MOUNT, prevProps, target);
+          this.eventBus().emit(EBlockEvents.UPDATE, prevProps, target);
         }
 
         return true;
@@ -148,5 +152,9 @@ export class Block<T extends Record<PropertyKey, unknown>> {
     if (content) {
       content.style.display = 'none';
     }
+  }
+
+  protected compile(template: string, classes?: Record<string, string>): THtml {
+    return Handlebars.compile(template)({ ...this.props, classes });
   }
 }

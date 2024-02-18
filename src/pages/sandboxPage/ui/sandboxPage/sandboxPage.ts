@@ -1,7 +1,7 @@
 import { compile } from '@/shared/utils';
 import tmpl from './sandboxPage.hbs?raw';
 import { RENDER_BUTTON_ID, SANDBOX_ID } from './sandboxPage.constants';
-import { Block } from '../../model/Block';
+import { ButtonBlock } from '../../data/ButtonBlock';
 
 export const sandboxPage = (): THtml =>
   compile(tmpl)({
@@ -18,14 +18,17 @@ setTimeout(() => {
       throw new Error('No sandbox was found');
     }
 
-    const block = new Block({
-      a: 'A',
+    const button = new ButtonBlock({
+      text: 'Click me test button',
     });
 
-    block.setProps({
-      a: 'B',
-    });
+    // Через секунду контент изменится сам, достаточно обновить пропсы
+    setTimeout(() => {
+      button.setProps({
+        text: 'Changed text',
+      });
+    }, 1000);
 
-    console.log(block);
+    sandbox.appendChild(button.getContent()!);
   });
 }, 0);
