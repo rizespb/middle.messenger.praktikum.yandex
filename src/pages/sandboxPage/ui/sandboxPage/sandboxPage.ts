@@ -20,14 +20,19 @@ setTimeout(() => {
 
     const button = new ButtonBlock({
       text: 'Click me test button',
+      events: {
+        click: (): void => {
+          console.log('button clicked');
+        },
+      },
     });
 
     // Через секунду контент изменится сам, достаточно обновить пропсы
-    setTimeout(() => {
-      button.setProps({
-        text: 'Changed text',
-      });
-    }, 1000);
+    // setTimeout(() => {
+    //   button.setProps({
+    //     text: 'Changed text',
+    //   });
+    // }, 1000);
 
     sandbox.appendChild(button.getContent()!);
   });

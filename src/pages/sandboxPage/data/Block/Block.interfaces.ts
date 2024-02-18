@@ -8,3 +8,11 @@ export enum EBlockEvents {
 }
 
 export type TBlockEventBus = EventBus<EBlockEvents>;
+
+type TEvents = {
+  [key in keyof GlobalEventHandlersEventMap]?: (event: GlobalEventHandlersEventMap[key]) => void;
+};
+
+export interface IPropsWithEvents {
+  events?: TEvents;
+}

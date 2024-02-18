@@ -8,9 +8,11 @@ export class Block<T extends Record<PropertyKey, any>> {
 
   private eventBus: () => TBlockEventBus;
 
-  _element: null | HTMLElement = null;
+  private _element: null | HTMLElement = null;
 
   protected props: T;
+
+  private renderCount = 0;
 
   constructor(props: T = {} as T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
@@ -88,13 +90,16 @@ export class Block<T extends Record<PropertyKey, any>> {
       return;
     }
 
+    if (this.renderCount !== 0) {
+      this._removeEvents();
+    }
+
     const block = this.render();
-    // Этот небезопасный метод для упрощения логики
-    // Используйте шаблонизатор из npm или напишите свой безопасный
-    // Нужно не в строку компилировать (или делать это правильно),
-    // либо сразу в DOM-элементы возвращать из compile DOM-ноду
 
     this._element.innerHTML = block;
+
+    this._addEvents();
+    this.renderCount += 1;
   }
 
   // Переопределяется пользователем. Необходимо вернуть разметку
@@ -156,5 +161,23 @@ export class Block<T extends Record<PropertyKey, any>> {
 
   protected compile(template: string, classes?: Record<string, string>): THtml {
     return Handlebars.compile(template)({ ...this.props, classes });
+  }
+
+  _addEvents(): void {
+    const { events = {} } = this.props;
+    console.log('From _addEvents');
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents(): void {
+    const { events = {} } = this.props;
+    console.log('From _removeEvents');
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
+    });
   }
 }
