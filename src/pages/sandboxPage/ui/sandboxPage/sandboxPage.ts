@@ -1,4 +1,5 @@
 import { compile } from '@/shared/utils';
+import { TestBlock } from '../../data/TestBlock/TestBlock';
 import tmpl from './sandboxPage.hbs?raw';
 import { RENDER_BUTTON_ID, SANDBOX_ID } from './sandboxPage.constants';
 import { ButtonBlock } from '../../data/ButtonBlock';
@@ -18,22 +19,31 @@ setTimeout(() => {
       throw new Error('No sandbox was found');
     }
 
-    const button = new ButtonBlock({
-      text: 'Click me test button',
-      events: {
-        click: (): void => {
-          console.log('button clicked');
-        },
-      },
-    });
+    // const button = new ButtonBlock({
+    //   text: 'Click me test button',
+    //   events: {
+    //     click: (): void => {
+    //       console.log('button clicked');
+    //     },
+    //   },
+    // });
 
-    // Через секунду контент изменится сам, достаточно обновить пропсы
+    // // Через секунду контент изменится сам, достаточно обновить пропсы
     // setTimeout(() => {
+    //   console.log('From setTimeout', button.getContent());
+
     //   button.setProps({
     //     text: 'Changed text',
     //   });
+
+    //   console.log(button.renderCount);
     // }, 1000);
 
-    sandbox.appendChild(button.getContent()!);
+    const testBlock = new TestBlock({
+      text: 'John Doe',
+      button: new ButtonBlock({ text: 'Change name' }),
+    });
+
+    sandbox.appendChild(testBlock.getContent()!);
   });
 }, 0);

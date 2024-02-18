@@ -1,25 +1,42 @@
 import Handlebars from 'handlebars';
+import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '../eventBus/eventBus';
-import { EBlockEvents, TBlockEventBus } from './Block.interfaces';
+import {
+  EBlockEvents,
+  IBaseProps,
+  IChildren,
+  TBlockEventBus,
+  TPropsWithOutChildren,
+} from './Block.interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Block<T extends Record<PropertyKey, any>> {
+export class Block<T extends IBaseProps = IBaseProps> {
   private tagName: string;
 
   private eventBus: () => TBlockEventBus;
 
   private _element: null | HTMLElement = null;
 
-  protected props: T;
+  protected props: TPropsWithOutChildren<T>;
 
-  private renderCount = 0;
+  public renderCount = 0;
 
-  constructor(props: T = {} as T, tagName = 'div') {
+  public id: TUuid;
+
+  // eslint-disable-next-line no-use-before-define
+  protected children: IChildren<Block>;
+
+  constructor(propsAndChildren: T = {} as T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
 
+    this.id = makeUUID();
+
+    const { props, children } = this._getChildren(propsAndChildren);
+
     // Оборачиваем объект в прокси, чтобы при установке новых пропсов методом setProps эммитить событие component-did-update
-    this.props = this._makePropsProxy(props);
+    this.props = this._makePropsProxy({ ...props });
+
+    this.children = children;
 
     this.eventBus = (): TBlockEventBus => eventBus;
 
@@ -38,26 +55,34 @@ export class Block<T extends Record<PropertyKey, any>> {
     this._element = this._createDocumentElement(this.tagName);
   }
 
+  get element(): HTMLElement | null {
+    return this._element;
+  }
+
+  getContent(): HTMLElement | null {
+    return this.element;
+  }
+
   init(): void {
     this._createResources();
 
     this.eventBus().emit(EBlockEvents.RENDER);
   }
 
-  _componentDidMount(props: T): void {
+  private _componentDidMount(props: T): void {
     this.componentDidMount(props);
-  }
 
-  // Может переопределять пользователь, необязательно трогать
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidMount(props: T): void {}
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
+  }
 
   // Эммитим событие маунта для вызова componentDidMount
   public dispatchComponentDidMount(): void {
     this.eventBus().emit(EBlockEvents.MOUNT, this.props);
   }
 
-  _componentDidUpdate(oldProps: T, newProps: T): void {
+  private _componentDidUpdate(oldProps: T, newProps: T): void {
     // Если пользовательский componentDidUpdate вернет false, значит компонент перерисовывать не надо
     // componentDidUpdate можно не переопределять, по умолчанию возвращает true - перерисовка на каждое изменение пропсов
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -69,8 +94,34 @@ export class Block<T extends Record<PropertyKey, any>> {
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidMount(props: T): void {}
+
+  // Может переопределять пользователь, необязательно трогать
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(oldProps: T, newProps: T): boolean {
     return true;
+  }
+
+  // Отделяем пропсы от children
+  private _getChildren(propsAndChildren: T): {
+    children: IChildren<Block>;
+    props: TPropsWithOutChildren<T>;
+  } {
+    const children: IChildren<Block> = {};
+    const props = {} as TPropsWithOutChildren<T>;
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key as keyof TPropsWithOutChildren<T>] = value;
+      }
+    });
+
+    return { children, props } as {
+      children: IChildren<Block>;
+      props: TPropsWithOutChildren<T>;
+    };
   }
 
   setProps = (nextProps: T): void => {
@@ -81,51 +132,54 @@ export class Block<T extends Record<PropertyKey, any>> {
     Object.assign(this.props, nextProps);
   };
 
-  get element(): HTMLElement | null {
-    return this._element;
-  }
+  private _render(): void {
+    const block = this.render();
 
-  _render(): void {
-    if (!this._element) {
+    const innerElement = block.firstElementChild;
+
+    if (!this._element || !innerElement) {
       return;
     }
 
-    if (this.renderCount !== 0) {
-      this._removeEvents();
-    }
+    this._removeEvents();
 
-    const block = this.render();
+    // Заменяем прежний элемент в DOM
+    this._element.replaceWith(innerElement);
 
-    this._element.innerHTML = block;
+    // Меняем ссылку в экземпляре с элемента-контейнера на наш элемент из шаблона
+    this._element = innerElement as HTMLElement;
 
     this._addEvents();
     this.renderCount += 1;
   }
 
   // Переопределяется пользователем. Необходимо вернуть разметку
-  render(): THtml {
-    return '';
+  render(): DocumentFragment {
+    return new DocumentFragment();
   }
 
-  getContent(): HTMLElement | null {
-    return this.element;
-  }
-
-  private _makePropsProxy(props: T): T {
+  private _makePropsProxy(props: TPropsWithOutChildren<T>): TPropsWithOutChildren<T> {
     return new Proxy(props, {
-      get: <K extends keyof T>(target: T, prop: K): T[K] => {
-        const value = target[prop];
+      get: <K extends keyof TPropsWithOutChildren<T>>(
+        target: T,
+        prop: string
+      ): TPropsWithOutChildren<T>[K] => {
+        const value = target[prop as K];
 
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set: <K extends keyof T>(target: T, prop: K, value: T[K]): boolean => {
+      set: <K extends keyof TPropsWithOutChildren<T>>(
+        target: T,
+        prop: string,
+        value: T[K]
+      ): boolean => {
         const prevProps = { ...target };
 
         // eslint-disable-next-line no-param-reassign
-        target[prop] = value;
+        target[prop as K] = value;
 
-        if (prevProps[prop] !== target[prop]) {
+        if (prevProps[prop as K] !== target[prop as K]) {
           this.eventBus().emit(EBlockEvents.UPDATE, prevProps, target);
         }
 
@@ -138,12 +192,42 @@ export class Block<T extends Record<PropertyKey, any>> {
     });
   }
 
-  _createDocumentElement(tagName: string): HTMLElement {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private _createDocumentElement(tagName: string): HTMLElement {
+    // // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+    // const element = document.createElement(tagName);
+
+    // element.setAttribute('data-id', this.id);
+
     return document.createElement(tagName);
   }
 
-  show(): void {
+  protected compile(template: string, classes?: Record<string, string>): DocumentFragment {
+    // Объект, в котором будут собраны пропсы и загулшки для чилдренов
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const propsAndStubs = { ...this.props } as any;
+
+    // Добавляем заглушки вместо чилдренов
+    Object.entries(this.children).forEach(([key, child]) => {
+      propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
+    });
+
+    // Создаем элемент <template>, который не отображается в реальном DOM
+    const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+
+    // Помещаем во фрагмент наш элемент
+    fragment.innerHTML = Handlebars.compile(template)({ ...propsAndStubs, classes });
+
+    // Заменяем все заглушки
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+
+      stub?.replaceWith(child.getContent()!);
+    });
+
+    return fragment.content;
+  }
+
+  public show(): void {
     const content = this.getContent();
 
     if (content) {
@@ -151,7 +235,7 @@ export class Block<T extends Record<PropertyKey, any>> {
     }
   }
 
-  hide(): void {
+  public hide(): void {
     const content = this.getContent();
 
     if (content) {
@@ -159,25 +243,23 @@ export class Block<T extends Record<PropertyKey, any>> {
     }
   }
 
-  protected compile(template: string, classes?: Record<string, string>): THtml {
-    return Handlebars.compile(template)({ ...this.props, classes });
-  }
-
-  _addEvents(): void {
+  private _addEvents(): void {
     const { events = {} } = this.props;
-    console.log('From _addEvents');
 
-    Object.keys(events).forEach((eventName) => {
-      this._element?.addEventListener(eventName, events[eventName]);
+    (Object.keys(events) as Array<keyof GlobalEventHandlersEventMap>).forEach((eventName) => {
+      this._element?.addEventListener(eventName, events[eventName]!);
     });
   }
 
-  _removeEvents(): void {
-    const { events = {} } = this.props;
-    console.log('From _removeEvents');
+  private _removeEvents(): void {
+    if (this.renderCount === 0) {
+      return;
+    }
 
-    Object.keys(events).forEach((eventName) => {
-      this._element?.removeEventListener(eventName, events[eventName]);
+    const { events = {} } = this.props;
+
+    (Object.keys(events) as Array<keyof GlobalEventHandlersEventMap>).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]!);
     });
   }
 }

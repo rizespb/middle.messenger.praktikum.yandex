@@ -1,5 +1,5 @@
-import { IPropsWithEvents } from '../Block';
+import { IBaseProps } from '../Block';
 
-export interface IButtonBlockProps extends IPropsWithEvents {
+export interface IButtonBlockProps extends IBaseProps {
   text: string;
 }

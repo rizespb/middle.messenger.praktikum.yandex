@@ -1,2 +1,2 @@
 export { Block } from './Block';
-export { type IPropsWithEvents } from './Block.interfaces';
+export { type IBaseProps } from './Block.interfaces';

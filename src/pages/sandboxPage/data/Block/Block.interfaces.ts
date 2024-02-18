@@ -9,10 +9,23 @@ export enum EBlockEvents {
 
 export type TBlockEventBus = EventBus<EBlockEvents>;
 
+export type TAnyObject<T = unknown> = {
+  [key: PropertyKey]: T;
+};
+
 type TEvents = {
   [key in keyof GlobalEventHandlersEventMap]?: (event: GlobalEventHandlersEventMap[key]) => void;
 };
 
-export interface IPropsWithEvents {
-  events?: TEvents;
+export interface IBlock {}
+
+export interface IChildren<T> {
+  // eslint-disable-next-line no-use-before-define
+  [key: PropertyKey]: T;
 }
+export interface IBaseProps {
+  events?: TEvents;
+  children?: TAnyObject;
+}
+
+export type TPropsWithOutChildren<T extends IBaseProps> = Omit<T, 'children'>;
