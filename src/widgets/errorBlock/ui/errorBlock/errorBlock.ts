@@ -1,13 +1,15 @@
-import { compile } from '@/shared/utils';
-import classes from './errorBlock.module.scss';
-import tmpl from './errorBlock.hbs?raw';
-import { CHATS_PAGE_URL, TEXTS } from './errorBlock.constants';
-import { IErrorBlockProps } from './errorBlock.interfaces';
+import { Block } from '@/shared/render';
+import classes from './ErrorBlock.module.scss';
+import tmpl from './ErrorBlock.hbs?raw';
+import { IErrorBlockProps } from './ErrorBlock.interfaces';
+import { CHATS_PAGE_URL, TEXTS } from './ErrorBlock.constants';
 
-export const errorBlock = (props: IErrorBlockProps): THtml =>
-  compile(tmpl)({
-    ...props,
-    classes,
-    linkUrl: CHATS_PAGE_URL,
-    linkTitle: TEXTS.linkTitle,
-  });
+export class ErrorBlock extends Block<IErrorBlockProps> {
+  render(): DocumentFragment {
+    return this.compile(tmpl, {
+      classes,
+      linkUrl: CHATS_PAGE_URL,
+      linkTitle: TEXTS.linkTitle,
+    });
+  }
+}

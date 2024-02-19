@@ -1,1 +1,1 @@
-export { errorBlock } from './ui';
+export { ErrorBlock } from './ui';

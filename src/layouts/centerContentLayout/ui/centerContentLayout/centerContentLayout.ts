@@ -1,7 +1,10 @@
-import { compile } from '@/shared/utils';
-import { ICenterContentLayoutProps } from './centerContentLayout.interfaces';
-import classes from './centerContentLayout.module.scss';
-import tmpl from './centerContentLayout.hbs?raw';
+import { Block } from '@/shared/render';
+import { ICenterContentLayoutProps } from './CenterContentLayout.interfaces';
+import classes from './CenterContentLayout.module.scss';
+import tmpl from './CenterContentLayout.hbs?raw';
 
-export const centerContentLayout = (props: ICenterContentLayoutProps): THtml =>
-  compile(tmpl)({ ...props, classes });
+export class CenterContentLayout extends Block<ICenterContentLayoutProps> {
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

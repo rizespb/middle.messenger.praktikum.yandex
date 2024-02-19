@@ -1,1 +1,1 @@
-export { navigation, setNavigationClickEventListener } from './navigation';
+export { Navigation } from './Navigation';

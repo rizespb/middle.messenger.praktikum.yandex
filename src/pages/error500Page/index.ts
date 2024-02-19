@@ -1,1 +1,1 @@
-export { error500Page } from './ui';
+export { Error500Page } from './ui';

@@ -1,34 +1,15 @@
+import { Block } from '@/shared/render';
 import { EPages } from '@/shared/constants';
-import { logInPage } from '@/pages/logInPage';
-import { signUpPage } from '@/pages/signUpPage';
-import { error404Page } from '@/pages/error404Page';
-import { error500Page } from '@/pages/error500Page';
-import { chatsPage } from '@/pages/chatsPage';
-import { profilePage } from '@/pages/profilePage';
-import { sandboxPage } from '@/pages/sandboxPage';
+import { Error500Page } from '@/pages/Error500Page';
+import { Error404Page } from '@/pages/Error400Page';
 
-export const getPage = (pageCode: EPages): (() => THtml) => {
+export const getPage = (pageCode: EPages): Block => {
   switch (pageCode) {
-    case EPages.SignUpPage:
-      return signUpPage;
-
     case EPages.Error404:
-      return error404Page;
+      return new Error404Page({});
 
     case EPages.Error500:
-      return error500Page;
-
-    case EPages.СhatsPage:
-      return chatsPage;
-
-    case EPages.ProfilePage:
-      return profilePage;
-
-    case EPages.SandboxPage:
-      return sandboxPage;
-
-    case EPages.LogInPage:
     default:
-      return logInPage;
+      return new Error500Page({});
   }
 };

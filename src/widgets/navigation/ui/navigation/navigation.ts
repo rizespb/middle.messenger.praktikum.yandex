@@ -1,27 +1,13 @@
-import { compile } from '@/shared/utils';
 import { EPages } from '@/shared/constants';
-import { PAGE_CODE_ATTR_TITLE, TEXTS, pagesMap } from './navigation.constants';
-import classes from './navigation.module.scss';
-import tmpl from './navigation.hbs?raw';
+import { Block, TEvents } from '@/shared/render';
+import { PAGE_CODE_ATTR_TITLE, pagesMap } from './Navigation.constants';
+import classes from './Navigation.module.scss';
+import tmpl from './Navigation.hbs?raw';
+import { INavigationProps } from './Navigation.interfaces';
 
 // Временная реализация навигации
-export const navigation = (): THtml =>
-  compile(tmpl)({
-    classes,
-    pagesMap,
-    dataAttrTitle: PAGE_CODE_ATTR_TITLE,
-  });
-
-export const setNavigationClickEventListener = (
-  onNavItemClick: (pageCode: EPages) => void
-): void => {
-  const navigationNode = document.querySelector('nav');
-
-  if (navigationNode === null) {
-    throw new Error(TEXTS.navigationNotFound);
-  }
-
-  navigationNode.addEventListener('click', (event): void => {
+export class Navigation extends Block<INavigationProps> {
+  handleNavItemClick(event: MouseEvent): void {
     const { target } = event;
 
     if (!(target instanceof Element)) {
@@ -37,6 +23,20 @@ export const setNavigationClickEventListener = (
       return;
     }
 
-    onNavItemClick(pageCode);
-  });
-};
+    this.props.onNavItemClick(pageCode);
+  }
+
+  protected getInternalEvents(): TEvents {
+    return {
+      click: this.handleNavItemClick.bind(this),
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, {
+      classes,
+      pagesMap,
+      dataAttrTitle: PAGE_CODE_ATTR_TITLE,
+    });
+  }
+}

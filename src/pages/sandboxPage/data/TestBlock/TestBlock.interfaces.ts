@@ -1,4 +1,4 @@
-import { IBaseProps } from '../Block';
+import { IBaseProps } from '@/shared/render';
 import { ButtonBlock } from '../ButtonBlock';
 
 export interface ITestBlockProps extends IBaseProps {

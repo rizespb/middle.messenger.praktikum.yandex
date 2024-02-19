@@ -1,1 +1,1 @@
-export { centerContentLayout } from './ui';
+export { CenterContentLayout } from './ui';

@@ -1,5 +1,5 @@
 import { EPages } from '@/shared/constants';
-import { IPageMapItem } from './navigation.interfaces';
+import { IPageMapItem } from './Navigation.interfaces';
 
 export const PAGE_CODE_ATTR_TITLE = 'data-page-code';
 
@@ -33,7 +33,3 @@ export const pagesMap: IPageMapItem[] = [
     title: 'Sandbox',
   },
 ];
-
-export const TEXTS = {
-  navigationNotFound: 'Navigation node was not not found',
-};

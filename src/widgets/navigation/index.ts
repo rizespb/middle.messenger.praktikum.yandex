@@ -1,1 +1,1 @@
-export { navigation, setNavigationClickEventListener } from './ui';
+export { Navigation } from './ui';

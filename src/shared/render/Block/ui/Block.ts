@@ -1,20 +1,24 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
-import { EventBus } from '../eventBus/eventBus';
+import { EventBus } from '@/shared/services';
 import {
   EBlockEvents,
   IBaseProps,
   IChildren,
+  TAnyObject,
   TBlockEventBus,
+  TEvents,
   TPropsWithOutChildren,
-} from './Block.interfaces';
+  addListeners,
+  removeListeners,
+} from '../model';
 
 export class Block<T extends IBaseProps = IBaseProps> {
   private tagName: string;
 
   private eventBus: () => TBlockEventBus;
 
-  private _element: null | HTMLElement = null;
+  private _element: HTMLElement;
 
   protected props: TPropsWithOutChildren<T>;
 
@@ -25,9 +29,13 @@ export class Block<T extends IBaseProps = IBaseProps> {
   // eslint-disable-next-line no-use-before-define
   protected children: IChildren<Block>;
 
-  constructor(propsAndChildren: T = {} as T, tagName = 'div') {
+  protected internalEvents: TEvents = {};
+
+  constructor(propsAndChildren: T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
+
+    this._createResources();
 
     this.id = makeUUID();
 
@@ -38,32 +46,49 @@ export class Block<T extends IBaseProps = IBaseProps> {
 
     this.children = children;
 
+    this.setInternalChildren();
+
+    this.setInternalListeners();
+
     this.eventBus = (): TBlockEventBus => eventBus;
 
     this._registerEvents(eventBus);
     eventBus.emit(EBlockEvents.INIT);
   }
 
-  _registerEvents(eventBus: TBlockEventBus): void {
+  private _registerEvents(eventBus: TBlockEventBus): void {
     eventBus.on(EBlockEvents.INIT, this.init.bind(this));
     eventBus.on(EBlockEvents.MOUNT, this._componentDidMount.bind(this));
     eventBus.on(EBlockEvents.UPDATE, this._componentDidUpdate.bind(this));
     eventBus.on(EBlockEvents.RENDER, this._render.bind(this));
   }
 
-  _createResources(): void {
+  protected _createResources(): void {
     this._element = this._createDocumentElement(this.tagName);
   }
 
-  get element(): HTMLElement | null {
+  public get element(): HTMLElement {
     return this._element;
   }
 
-  getContent(): HTMLElement | null {
+  public getContent(): HTMLElement {
     return this.element;
   }
 
-  init(): void {
+  // Создание дочерних компонентов внутри конструктора (не переданных через props)
+
+  protected setInternalChildren(): void {}
+
+  // Определение списка "внутренних" обработчиков - обработчики, которые не передаются в пропсах, а определяются внутри компонента
+  protected getInternalEvents(): TEvents {
+    return {};
+  }
+
+  private setInternalListeners(): void {
+    this.internalEvents = this.getInternalEvents();
+  }
+
+  private init(): void {
     this._createResources();
 
     this.eventBus().emit(EBlockEvents.RENDER);
@@ -94,11 +119,11 @@ export class Block<T extends IBaseProps = IBaseProps> {
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidMount(props: T): void {}
+  protected componentDidMount(_props: T): void {}
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidUpdate(oldProps: T, newProps: T): boolean {
+  protected componentDidUpdate(_oldProps: T, _newProps: T): boolean {
     return true;
   }
 
@@ -124,7 +149,7 @@ export class Block<T extends IBaseProps = IBaseProps> {
     };
   }
 
-  setProps = (nextProps: T): void => {
+  public setProps = (nextProps: T): void => {
     if (!nextProps) {
       return;
     }
@@ -154,7 +179,7 @@ export class Block<T extends IBaseProps = IBaseProps> {
   }
 
   // Переопределяется пользователем. Необходимо вернуть разметку
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     return new DocumentFragment();
   }
 
@@ -193,15 +218,12 @@ export class Block<T extends IBaseProps = IBaseProps> {
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
-    // // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-    // const element = document.createElement(tagName);
-
-    // element.setAttribute('data-id', this.id);
+    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 
     return document.createElement(tagName);
   }
 
-  protected compile(template: string, classes?: Record<string, string>): DocumentFragment {
+  protected compile(template: string, additioanlProps?: TAnyObject): DocumentFragment {
     // Объект, в котором будут собраны пропсы и загулшки для чилдренов
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const propsAndStubs = { ...this.props } as any;
@@ -215,7 +237,7 @@ export class Block<T extends IBaseProps = IBaseProps> {
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     // Помещаем во фрагмент наш элемент
-    fragment.innerHTML = Handlebars.compile(template)({ ...propsAndStubs, classes });
+    fragment.innerHTML = Handlebars.compile(template)({ ...propsAndStubs, ...additioanlProps });
 
     // Заменяем все заглушки
     Object.values(this.children).forEach((child) => {
@@ -246,9 +268,8 @@ export class Block<T extends IBaseProps = IBaseProps> {
   private _addEvents(): void {
     const { events = {} } = this.props;
 
-    (Object.keys(events) as Array<keyof GlobalEventHandlersEventMap>).forEach((eventName) => {
-      this._element?.addEventListener(eventName, events[eventName]!);
-    });
+    addListeners(this._element, events);
+    addListeners(this._element, this.internalEvents);
   }
 
   private _removeEvents(): void {
@@ -258,8 +279,7 @@ export class Block<T extends IBaseProps = IBaseProps> {
 
     const { events = {} } = this.props;
 
-    (Object.keys(events) as Array<keyof GlobalEventHandlersEventMap>).forEach((eventName) => {
-      this._element?.removeEventListener(eventName, events[eventName]!);
-    });
+    removeListeners(this._element, events);
+    removeListeners(this._element, this.internalEvents);
   }
 }

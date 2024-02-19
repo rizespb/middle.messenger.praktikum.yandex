@@ -1,1 +1,1 @@
-export { errorBlock } from './errorBlock';
+export { ErrorBlock } from './ErrorBlock';
