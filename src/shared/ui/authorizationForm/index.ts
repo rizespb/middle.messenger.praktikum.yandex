@@ -1,2 +1,2 @@
-export { type IAuthorizationFormProps } from './authorizationForm.interfaces';
-export { authorizationForm } from './authorizationForm';
+export { type IAuthorizationFormProps } from './AuthorizationForm.interfaces';
+export { AuthorizationForm } from './AuthorizationForm';

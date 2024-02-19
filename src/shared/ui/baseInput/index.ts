@@ -1,3 +1,3 @@
-export { baseInput } from './baseInput';
+export { BaseInput } from './BaseInput';
 
-export { type IBaseInputProps } from './baseInput.interfaces';
+export { type IBaseInputProps } from './BaseInput.interfaces';

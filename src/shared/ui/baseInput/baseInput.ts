@@ -1,10 +1,10 @@
-import { compile } from 'handlebars';
-import { IBaseInputProps } from './baseInput.interfaces';
-import tmpl from './baseInput.hbs?raw';
-import classes from './baseInput.module.scss';
+import { Block } from '@/shared/render';
+import { IBaseInputProps } from './BaseInput.interfaces';
+import tmpl from './BaseInput.hbs?raw';
+import classes from './BaseInput.module.scss';
 
-export const baseInput = (props: IBaseInputProps): THtml =>
-  compile(tmpl)({
-    ...props,
-    classes,
-  });
+export class BaseInput extends Block<IBaseInputProps> {
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

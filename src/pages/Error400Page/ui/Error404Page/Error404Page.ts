@@ -1,17 +1,21 @@
 import { CenterContentLayout } from '@/layouts/CenterContentLayout';
-import { Block } from '@/shared/render';
+import { Block, IChildren } from '@/shared/render';
 import { ErrorBlock } from '@/widgets/errorBlock';
 import { TEXTS } from './Error404Page.constants';
 import tmpl from './Error404Page.hbs?raw';
 
 export class Error404Page extends Block {
-  setInternalChildren(): void {
-    this.children.page = new CenterContentLayout({
-      content: new ErrorBlock({
-        title: TEXTS.title,
-        description: TEXTS.description,
-      }),
+  getInternalChildren(): IChildren<Block> {
+    const errorBlock = new ErrorBlock({
+      title: TEXTS.title,
+      description: TEXTS.description,
     });
+
+    return {
+      page: new CenterContentLayout({
+        content: errorBlock,
+      }),
+    };
   }
 
   render(): DocumentFragment {

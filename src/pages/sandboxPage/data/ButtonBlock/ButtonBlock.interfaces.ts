@@ -1,5 +1,5 @@
-import { IBaseProps } from '@/shared/render';
+import { IBlockProps } from '@/shared/render';
 
-export interface IButtonBlockProps extends IBaseProps {
+export interface IButtonBlockProps extends IBlockProps {
   text: string;
 }

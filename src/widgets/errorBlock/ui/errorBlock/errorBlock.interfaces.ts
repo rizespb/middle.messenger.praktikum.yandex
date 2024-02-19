@@ -1,6 +1,6 @@
-import { IBaseProps } from '@/shared/render';
+import { IBlockProps } from '@/shared/render';
 
-export interface IErrorBlockProps extends IBaseProps {
+export interface IErrorBlockProps extends IBlockProps {
   title: string;
   description: string;
 }

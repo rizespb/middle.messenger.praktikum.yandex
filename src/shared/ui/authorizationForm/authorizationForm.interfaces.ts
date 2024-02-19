@@ -1,5 +1,7 @@
-export interface IAuthorizationFormProps {
+import { Block, IBlockProps } from '@/shared/render';
+
+export interface IAuthorizationFormProps extends IBlockProps {
   title: string;
-  buttons: THtml[];
-  inputs: THtml[];
+  buttons: Block[];
+  inputs: Block[];
 }

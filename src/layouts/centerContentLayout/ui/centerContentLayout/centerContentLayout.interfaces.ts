@@ -1,5 +1,5 @@
-import { Block, IBaseProps } from '@/shared/render';
+import { Block, IBlockProps } from '@/shared/render';
 
-export interface ICenterContentLayoutProps extends IBaseProps {
+export interface ICenterContentLayoutProps extends IBlockProps {
   content: string | THtml | Block;
 }

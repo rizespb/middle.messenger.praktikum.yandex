@@ -1,4 +1,21 @@
-import { loginForm } from '@/widgets/logInForm';
-import { centerContentLayout } from '@/layouts/CenterContentLayout';
+import { CenterContentLayout } from '@/layouts/CenterContentLayout';
 
-export const logInPage = (): THtml => centerContentLayout({ content: loginForm() });
+import { Block, IChildren } from '@/shared/render';
+import { LogInForm } from '@/widgets/LogInForm';
+import tmpl from './LogInPage.hbs?raw';
+
+export class LogInPage extends Block {
+  getInternalChildren(): IChildren<Block> {
+    const loginForm = new LogInForm({});
+
+    return {
+      page: new CenterContentLayout({
+        content: loginForm,
+      }),
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl);
+  }
+}

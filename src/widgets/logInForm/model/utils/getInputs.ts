@@ -1,17 +1,18 @@
-import { baseInput } from '@/shared/ui';
+import { BaseInput } from '@/shared/ui';
+import { Block } from '@/shared/render';
 import { INPUTS } from '../constants';
 
-export const getInputs = (): THtml[] => {
+export const getInputs = (): Block[] => {
   const { login, password } = INPUTS;
 
-  const loginInput = baseInput({
+  const loginInput = new BaseInput({
     placeholder: login.title,
     label: login.title,
     name: login.name,
     error: 'Some error',
   });
 
-  const passwordInput = baseInput({
+  const passwordInput = new BaseInput({
     placeholder: password.title,
     label: password.title,
     name: password.name,
