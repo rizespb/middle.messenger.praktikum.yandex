@@ -1,48 +1,49 @@
-import { baseInput } from '@/shared/ui';
+import { BaseInput } from '@/shared/ui';
+import { Block } from '@/shared/render';
 import { INPUTS } from '../constants';
 
-export const getInputs = (): THtml[] => {
+export const getInputs = (): Block[] => {
   const { email, login, firtsName, secondName, phoneNumber, password, passwordRepeat } = INPUTS;
 
-  const emailInput = baseInput({
+  const emailInput = new BaseInput({
     placeholder: email.title,
     label: email.title,
     name: email.name,
   });
 
-  const loginInput = baseInput({
+  const loginInput = new BaseInput({
     placeholder: login.title,
     label: login.title,
     name: login.name,
     error: 'Some error',
   });
 
-  const firtsNameInput = baseInput({
+  const firtsNameInput = new BaseInput({
     placeholder: firtsName.title,
     label: firtsName.title,
     name: firtsName.name,
   });
 
-  const secondNameInput = baseInput({
+  const secondNameInput = new BaseInput({
     placeholder: secondName.title,
     label: secondName.title,
     name: secondName.name,
   });
 
-  const phoneNumberInput = baseInput({
+  const phoneNumberInput = new BaseInput({
     placeholder: phoneNumber.title,
     label: phoneNumber.title,
     name: phoneNumber.name,
   });
 
-  const passwordInput = baseInput({
+  const passwordInput = new BaseInput({
     placeholder: password.title,
     label: password.title,
     name: password.name,
     type: 'password',
   });
 
-  const passwordRepeatInput = baseInput({
+  const passwordRepeatInput = new BaseInput({
     placeholder: passwordRepeat.title,
     label: passwordRepeat.title,
     name: passwordRepeat.name,

@@ -1,16 +1,28 @@
-import { authorizationForm, IAuthorizationFormProps } from '@/shared/ui';
-import { TEXTS } from './signUpForm.constants';
+import { AuthorizationForm } from '@/shared/ui';
+import { Block, IChildren } from '@/shared/render';
+import { TEXTS } from './SignUpForm.constants';
+import tmpl from './SignUpForm.hbs?raw';
 
 import { getButtons, getInputs } from '../../model';
 
-const inputs = getInputs();
+export class SignUpForm extends Block {
+  getInternalChildren(): IChildren<Block> {
+    const inputs = getInputs();
 
-const buttons = getButtons();
+    const buttons = getButtons();
 
-const authorizationFormProps: IAuthorizationFormProps = {
-  buttons,
-  title: TEXTS.title,
-  inputs,
-};
+    const authorizationForm = new AuthorizationForm({
+      buttons,
+      title: TEXTS.title,
+      inputs,
+    });
 
-export const signUpForm = (): THtml => authorizationForm(authorizationFormProps);
+    return {
+      signUpForm: authorizationForm,
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl);
+  }
+}
