@@ -3,7 +3,7 @@ import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '@/shared/services';
 import {
   EBlockEvents,
-  IBaseProps,
+  IBlockProps,
   IChildren,
   TAnyObject,
   TBlockEventBus,
@@ -13,7 +13,7 @@ import {
   removeListeners,
 } from '../model';
 
-export class Block<T extends IBaseProps = IBaseProps> {
+export class Block<T extends IBlockProps = IBlockProps> {
   private tagName: string;
 
   private eventBus: () => TBlockEventBus;
@@ -75,9 +75,20 @@ export class Block<T extends IBaseProps = IBaseProps> {
     return this.element;
   }
 
-  // Создание дочерних компонентов внутри конструктора (не переданных через props)
+  // Определение списка "внутренних" дочерних компонентов - компонентов, которые не передаются в пропсах, а определяются внутри текущего компонента
+  protected getInternalChildren(): IChildren<Block> {
+    return {};
+  }
 
-  protected setInternalChildren(): void {}
+  // Создание дочерних компонентов внутри конструктора (не переданных через props)
+  private setInternalChildren(): void {
+    const internalChildren = this.getInternalChildren();
+
+    this.children = {
+      ...this.children,
+      ...internalChildren,
+    };
+  }
 
   // Определение списка "внутренних" обработчиков - обработчики, которые не передаются в пропсах, а определяются внутри компонента
   protected getInternalEvents(): TEvents {
@@ -97,8 +108,17 @@ export class Block<T extends IBaseProps = IBaseProps> {
   private _componentDidMount(props: T): void {
     this.componentDidMount(props);
 
+    // Эммитим событие MOUNT в детях
     Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
+      const isArray = Array.isArray(child);
+
+      if (isArray) {
+        child.forEach((item) => {
+          item.dispatchComponentDidMount();
+        });
+      } else {
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
@@ -136,11 +156,17 @@ export class Block<T extends IBaseProps = IBaseProps> {
     const props = {} as TPropsWithOutChildren<T>;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
+      const isBlockOrBlockArray =
+        value instanceof Block ||
+        (Array.isArray(value) && value.every((item) => item instanceof Block));
+
+      if (isBlockOrBlockArray) {
         children[key] = value;
-      } else {
-        props[key as keyof TPropsWithOutChildren<T>] = value;
+
+        return;
       }
+
+      props[key as keyof TPropsWithOutChildren<T>] = value;
     });
 
     return { children, props } as {
@@ -228,9 +254,16 @@ export class Block<T extends IBaseProps = IBaseProps> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const propsAndStubs = { ...this.props } as any;
 
+    // При вставке дочернего элемента в шаблон шаблонизатор приведет дочерний элемент к примитиву ([object Object]). Элементы в DOM и элементы в пропсах будут разными. Чтобы не потерять дочерние элементы, используем вначале заглушки
     // Добавляем заглушки вместо чилдренов
     Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
+      const isArray = Array.isArray(child);
+
+      const stub = isArray
+        ? child.map((item) => `<div data-id="${item.id}"></div>`)
+        : `<div data-id="${child.id}"></div>`;
+
+      propsAndStubs[key] = stub;
     });
 
     // Создаем элемент <template>, который не отображается в реальном DOM
@@ -239,14 +272,40 @@ export class Block<T extends IBaseProps = IBaseProps> {
     // Помещаем во фрагмент наш элемент
     fragment.innerHTML = Handlebars.compile(template)({ ...propsAndStubs, ...additioanlProps });
 
-    // Заменяем все заглушки
+    // Заменяем все заглушки children-ов на реальные эелменты
+    // Child может быть как самостоятельным элементом, так и массивом элементов
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+      const isArray = Array.isArray(child);
 
-      stub?.replaceWith(child.getContent()!);
+      if (!isArray) {
+        const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+
+        stub?.replaceWith(child.getContent());
+
+        return;
+      }
+
+      const stubs = this.getChildrenStrubs(child, fragment);
+      this.replaceStubs(stubs, child);
     });
 
     return fragment.content;
+  }
+
+  // Создаем стабы в случае, когда в ребенке пришел массив элементов
+  private getChildrenStrubs(child: Block[], fragment: HTMLTemplateElement): Element[] {
+    const stubs = child.map(
+      (item) => fragment.content.querySelector(`[data-id="${item.id}"]`) as Element
+    );
+
+    return stubs;
+  }
+
+  // Заменяем стабы на реальные эелементы, когда в ребенке пришел массив элементов
+  private replaceStubs(stubs: Element[], child: Block[]): void {
+    stubs.forEach((stub, index) => {
+      stub.replaceWith(child[index].getContent());
+    });
   }
 
   public show(): void {

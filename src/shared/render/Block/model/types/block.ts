@@ -5,11 +5,10 @@ export type TAnyObject<T = unknown> = {
 };
 
 export interface IChildren<T> {
-  [key: PropertyKey]: T;
+  [key: PropertyKey]: T | T[];
 }
-export interface IBaseProps {
+export interface IBlockProps {
   events?: TEvents;
-  children?: TAnyObject;
 }
 
-export type TPropsWithOutChildren<T extends IBaseProps> = Omit<T, 'children'>;
+export type TPropsWithOutChildren<T extends IBlockProps> = Omit<T, 'children'>;
