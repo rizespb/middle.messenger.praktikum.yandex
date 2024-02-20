@@ -1,3 +1,4 @@
+import { Block } from '@/shared/render';
 import { IRenderMessageProps } from '../../types';
 
-export type TRenderMessage = (props: IRenderMessageProps) => THtml;
+export type TMessageBlock = new (props: IRenderMessageProps) => Block<IRenderMessageProps>;

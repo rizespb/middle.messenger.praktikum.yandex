@@ -1,19 +1,23 @@
-import { compile } from '@/shared/utils';
-import tmpl from './messageGroup.hbs?raw';
-import { IMessageGroupProps } from './messageGroup.interfaces';
-import classes from './messageGroup.module.scss';
+import { Block, IChildren } from '@/shared/render';
+import tmpl from './MessageGroup.hbs?raw';
+import { IMessageGroupProps } from './MessageGroup.interfaces';
+import classes from './MessageGroup.module.scss';
 import { getMessagesStr } from '../../model';
-import { textMessage } from '../textMessage';
-import { imageMessage } from '../imageMessage';
+import { TextMessage } from '../TextMessage';
+import { ImageMessage } from '../ImageMessage';
 
-export const messageGroup = (props: IMessageGroupProps): THtml => {
-  const { date, messages } = props;
+export class MessageGroup extends Block<IMessageGroupProps> {
+  protected getInternalChildren(): IChildren<Block> {
+    const { messages } = this.props;
 
-  const messagesArray = getMessagesStr(messages, textMessage, imageMessage);
+    const messagesArray = getMessagesStr(messages, TextMessage, ImageMessage);
 
-  return compile(tmpl)({
-    classes,
-    date,
-    messages: messagesArray,
-  });
-};
+    return {
+      messages: messagesArray,
+    };
+  }
+
+  protected render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

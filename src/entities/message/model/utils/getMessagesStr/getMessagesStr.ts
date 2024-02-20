@@ -1,23 +1,24 @@
+import { Block } from '@/shared/render';
 import { EMessageType, IMessage } from '../../types';
-import { TRenderMessage } from './getMessagesStr.interfaces';
+import { TMessageBlock } from './getMessagesStr.interfaces';
 
 export const getMessagesStr = (
   messages: IMessage[],
-  textMessage: TRenderMessage,
-  imageMessage: TRenderMessage
-): THtml[] =>
-  messages.reduce<THtml[]>((acc, item) => {
+  TextMessage: TMessageBlock,
+  TmageMessage: TMessageBlock
+): Block[] =>
+  messages.reduce<Block[]>((acc, item) => {
     const { type } = item;
 
-    let message: THtml | null = null;
+    let message: Block | null = null;
 
     switch (type) {
       case EMessageType.Text:
-        message = textMessage({ ...item });
+        message = new TextMessage({ ...item });
         break;
 
       case EMessageType.Image:
-        message = imageMessage({ ...item });
+        message = new TmageMessage({ ...item });
         break;
 
       default:

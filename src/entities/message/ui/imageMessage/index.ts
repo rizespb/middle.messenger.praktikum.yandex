@@ -1,1 +1,1 @@
-export { imageMessage } from './imageMessage';
+export { ImageMessage } from './ImageMessage';

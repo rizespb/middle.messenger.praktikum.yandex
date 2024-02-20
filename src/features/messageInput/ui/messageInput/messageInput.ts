@@ -1,5 +1,3 @@
-import { compile } from '@/shared/utils';
-// import { icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import { Block, IBlockProps, IChildren } from '@/shared/render';
 import { Icon } from '@/shared/ui';

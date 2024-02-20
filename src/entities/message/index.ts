@@ -5,4 +5,4 @@ export {
   type IMessage,
   type IMessagesGroup,
 } from './model';
-export { textMessage, messageGroup } from './ui';
+export { MessageGroup } from './ui';

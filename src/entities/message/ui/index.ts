@@ -1,3 +1,3 @@
-export { textMessage } from './textMessage';
-export { imageMessage } from './imageMessage';
-export { messageGroup } from './messageGroup';
+export { TextMessage } from './TextMessage';
+export { ImageMessage } from './ImageMessage';
+export { MessageGroup } from './MessageGroup';
