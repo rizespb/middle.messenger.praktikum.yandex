@@ -1,6 +1,6 @@
 import { Block, IBlockProps } from '@/shared/render';
 
-export interface IActionProps extends IBlockProps {
+export interface IPopupActionProps extends IBlockProps {
   text: string;
   icon: Block;
   id?: string;

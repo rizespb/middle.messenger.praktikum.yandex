@@ -4,5 +4,4 @@ export { AuthorizationForm, type IAuthorizationFormProps } from './Authorization
 export { Button, type IButtonProps } from './Button';
 export { Icon } from './Icon';
 export { ModalWindow } from './ModalWindow';
-export { Popup } from './Popup';
-export { PopupAction } from './PopupAction';
+export { Popup, ActionsList, type IActionData } from './Popup';

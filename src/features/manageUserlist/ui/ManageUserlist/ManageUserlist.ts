@@ -1,12 +1,11 @@
 import { classNames } from '@/shared/utils';
-import { Icon, ModalWindow, Popup } from '@/shared/ui';
+import { Icon, ModalWindow, Popup, ActionsList } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import { ManageUserlistForm } from '@/widgets/ManageUserlistForm';
 import { Block, IChildren } from '@/shared/render';
 import tmpl from './ManageUserlist.hbs?raw';
 import classes from './ManageUserlist.module.scss';
-import { ActionsList } from '../ActionsList';
-import { SHOW_MORE_ICON_ID, TEXTS } from './ManageUserlist.constants';
+import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
 
 export class ManageUserlist extends Block {
   protected getInternalChildren(): IChildren<Block> {
@@ -26,7 +25,7 @@ export class ManageUserlist extends Block {
       id: SHOW_MORE_ICON_ID,
     });
 
-    const actions = new ActionsList({});
+    const actions = new ActionsList({ actionsData });
 
     const popup = new Popup({
       content: actions,
@@ -35,12 +34,12 @@ export class ManageUserlist extends Block {
     });
 
     const modalContent = new ManageUserlistForm({
-      buttonTitle: TEXTS.addUser.button,
+      buttonTitle: TEXTS.addUserModal.button,
     });
 
     const modalWindow = new ModalWindow({
       content: modalContent,
-      title: TEXTS.addUser.title,
+      title: TEXTS.addUserModal.title,
       isModalOpened,
     });
 

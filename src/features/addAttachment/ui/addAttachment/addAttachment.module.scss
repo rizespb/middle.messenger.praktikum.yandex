@@ -5,4 +5,6 @@
 .icon {
 	color: $primary-color;
 	cursor: pointer;
+
+	@include opacity;
 }
