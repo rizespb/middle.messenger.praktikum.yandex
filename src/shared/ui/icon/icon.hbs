@@ -1,7 +1,7 @@
-{{#if containerClass}}
-	<span class="{{classes.container}} {{containerClass}}" >
+<span class="{{classes.container}} {{containerClass}}" 
+	{{#if id}}
+		id="{{id}}"
+	{{/if}} 
+	>
 		{{{icon}}}
-	</span>
-{{else}}
-	{{{icon}}}
-{{/if}}
+</span>

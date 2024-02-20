@@ -1,7 +1,8 @@
-import { IBlockProps } from '@/shared/render';
+import { Block, IBlockProps } from '@/shared/render';
 
 export interface IModalWindowProps extends IBlockProps {
-  content: THtml;
+  content: Block;
   title: string;
   titleColor?: 'primary' | 'error';
+  isModalOpened: boolean;
 }

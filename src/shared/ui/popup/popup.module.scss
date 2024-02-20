@@ -2,9 +2,6 @@ $offset: 20px;
 
 .popup {
 	position: absolute;
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
 	padding: 15px;
 	background-color: $whte-color;
 	border-radius: 12px;
@@ -20,19 +17,5 @@ $offset: 20px;
 		left: 0;
 		top: 0;
 		transform: translateY(calc(-100% - $offset));
-	}
-}
-
-.action {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	white-space: nowrap;
-	cursor: pointer;
-
-	@include opacity;
-
-	& * {
-		flex-shrink: 0;
 	}
 }

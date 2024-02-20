@@ -5,7 +5,7 @@ import tmpl from './Popup.hbs?raw';
 import classes from './Popup.module.scss';
 
 export const popup = (props: IPopupUpProps): THtml => {
-  const { actions, direction } = props;
+  const { content, direction } = props;
 
   const popupClasses = classNames({
     [classes.popup]: true,
@@ -13,13 +13,12 @@ export const popup = (props: IPopupUpProps): THtml => {
     [classes.popup__topLeft]: direction === 'topLeft',
   });
 
-  return compile(tmpl)({ actions, popupClasses, classes });
+  return compile(tmpl)({ content, popupClasses, classes });
 };
 
 export class Popup extends Block<IPopupUpProps> {
   render(): DocumentFragment {
     const { direction } = this.props;
-    console.log(this.children);
 
     const popupClasses = classNames({
       [classes.popup]: true,

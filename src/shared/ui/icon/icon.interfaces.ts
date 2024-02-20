@@ -5,4 +5,5 @@ export interface IIconProps extends IBlockProps {
   iconClass: string;
   icon: EIcons;
   containerClass?: string;
+  id?: string;
 }
