@@ -1,20 +1,26 @@
 import { compile } from '@/shared/utils';
-import { icon } from '@/shared/ui';
+// import { icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
-import tmpl from './messageInput.hbs?raw';
-import classes from './messageInput.module.scss';
-import { inputData } from './messageInput.constants';
+import { Block, IBlockProps, IChildren } from '@/shared/render';
+import { Icon } from '@/shared/ui';
+import tmpl from './MessageInput.hbs?raw';
+import classes from './MessageInput.module.scss';
+import { inputData } from './MessageInput.constants';
 
-export const messageInput = (): THtml => {
-  const sendButton = icon({
-    icon: EIcons.ArrowIcon,
-    iconClass: classes.icon,
-  });
+export class MessageInput extends Block {
+  protected getInternalChildren(): IChildren<Block<IBlockProps>> {
+    const sendButton = new Icon({
+      icon: EIcons.ArrowIcon,
+      iconClass: classes.icon,
+    });
+    return { sendButton };
+  }
 
-  return compile(tmpl)({
-    sendButton,
-    name: inputData.name,
-    placeholder: inputData.placeholder,
-    classes,
-  });
-};
+  protected render(): DocumentFragment {
+    return this.compile(tmpl, {
+      classes,
+      name: inputData.name,
+      placeholder: inputData.placeholder,
+    });
+  }
+}

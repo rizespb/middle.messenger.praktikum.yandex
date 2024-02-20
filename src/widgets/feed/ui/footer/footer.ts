@@ -1,5 +1,6 @@
 import { AddAttachment } from '@/features/AddAttachment';
 import { Block, IChildren } from '@/shared/render';
+import { MessageInput } from '@/features/MessageInput';
 import tmpl from './Footer.hbs?raw';
 import classes from './Footer.module.scss';
 
@@ -7,11 +8,11 @@ export class Footer extends Block {
   protected getInternalChildren(): IChildren<Block> {
     const addAttachment = new AddAttachment({});
 
-    //   const messageInputStr = messageInput();
+    const messageInput = new MessageInput({});
 
     return {
       addAttachment,
-      // messageInput,
+      messageInput,
     };
   }
 
