@@ -1,1 +1,1 @@
-export { chatPreview, type IChatPreviewProps } from './ui';
+export { ChatPreview, type IChatPreviewProps } from './ui';

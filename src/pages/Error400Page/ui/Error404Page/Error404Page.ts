@@ -1,6 +1,6 @@
 import { CenterContentLayout } from '@/layouts/CenterContentLayout';
 import { Block, IChildren } from '@/shared/render';
-import { ErrorBlock } from '@/widgets/errorBlock';
+import { ErrorBlock } from '@/widgets/ErrorBlock';
 import { TEXTS } from './Error404Page.constants';
 import tmpl from './Error404Page.hbs?raw';
 

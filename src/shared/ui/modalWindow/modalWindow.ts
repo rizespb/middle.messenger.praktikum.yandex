@@ -1,8 +1,9 @@
 import { compile } from 'handlebars';
 import { classNames } from '@/shared/utils';
-import tmpl from './modalWindow.hbs?raw';
-import { IModalWindowProps } from './modalWindow.interface';
-import classes from './modalWindow.module.scss';
+import { Block } from '@/shared/render';
+import tmpl from './ModalWindow.hbs?raw';
+import { IModalWindowProps } from './ModalWindow.interface';
+import classes from './ModalWindow.module.scss';
 
 export const modalWindow = (props: IModalWindowProps): THtml => {
   const { content, title, titleColor } = props;
@@ -16,6 +17,13 @@ export const modalWindow = (props: IModalWindowProps): THtml => {
     classes,
     headingClasses,
     content,
+
     title,
   });
 };
+
+export class ModalWindow extends Block<IModalWindowProps> {
+  render(): DocumentFragment {
+    return this.compile('<div>ModalWindow</div>', { classes });
+  }
+}

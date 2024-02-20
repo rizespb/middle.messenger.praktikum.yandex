@@ -1,7 +1,8 @@
 import { classNames, compile } from '@/shared/utils';
-import { IPopupUpProps } from './popup.interface';
-import tmpl from './popup.hbs?raw';
-import classes from './popup.module.scss';
+import { Block } from '@/shared/render';
+import { IPopupUpProps } from './Popup.interfaces';
+import tmpl from './Popup.hbs?raw';
+import classes from './Popup.module.scss';
 
 export const popup = (props: IPopupUpProps): THtml => {
   const { actions, direction } = props;
@@ -14,3 +15,18 @@ export const popup = (props: IPopupUpProps): THtml => {
 
   return compile(tmpl)({ actions, popupClasses, classes });
 };
+
+export class Popup extends Block<IPopupUpProps> {
+  render(): DocumentFragment {
+    const { direction } = this.props;
+    console.log(this.children);
+
+    const popupClasses = classNames({
+      [classes.popup]: true,
+      [classes.popup__bottomRight]: direction === 'bottomRight',
+      [classes.popup__topLeft]: direction === 'topLeft',
+    });
+
+    return this.compile(tmpl, { classes, popupClasses });
+  }
+}

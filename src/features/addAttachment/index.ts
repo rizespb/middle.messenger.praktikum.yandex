@@ -1,1 +1,1 @@
-export { addAttachment } from './ui';
+export { AddAttachment } from './ui';

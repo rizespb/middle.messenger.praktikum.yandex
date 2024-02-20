@@ -1,1 +1,1 @@
-export { addAttachment } from './addAttachment';
+export { AddAttachment } from './AddAttachment';

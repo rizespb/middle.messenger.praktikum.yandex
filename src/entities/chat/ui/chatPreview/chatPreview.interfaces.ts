@@ -1,4 +1,6 @@
-export interface IChatPreviewProps {
+import { IBlockProps } from '@/shared/render';
+
+export interface IChatPreviewProps extends IBlockProps {
   title: string;
   lastMessage: string;
   time: string;

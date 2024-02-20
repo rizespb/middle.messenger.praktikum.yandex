@@ -1,19 +1,24 @@
-import { compile } from '@/shared/utils';
-import { chat } from '@/widgets/chat';
-import { header } from '../header';
-import { footer } from '../footer';
-import tmpl from './feed.hbs?raw';
-import classes from './feed.module.scss';
+import { Chat } from '@/widgets/Chat';
+import { Block, IChildren } from '@/shared/render';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import tmpl from './Feed.hbs?raw';
+import classes from './Feed.module.scss';
 
-export const feed = (): THtml => {
-  const headerStr = header({ title: 'СуперДискотЭка' });
-  const footerStr = footer();
-  const chatStr = chat();
+export class Feed extends Block {
+  protected getInternalChildren(): IChildren<Block> {
+    const header = new Header({ title: 'СуперДискотЭка' });
+    const footer = new Footer({});
+    const chat = new Chat({});
 
-  return compile(tmpl)({
-    classes,
-    header: headerStr,
-    chat: chatStr,
-    footer: footerStr,
-  });
-};
+    return {
+      header,
+      chat,
+      footer,
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

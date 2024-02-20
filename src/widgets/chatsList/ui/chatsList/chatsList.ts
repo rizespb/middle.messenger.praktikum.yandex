@@ -1,9 +1,19 @@
-import { compile } from '@/shared/utils';
-import { chatPreview } from '@/entities/chat';
-import { chatPreviewsMock } from './chatsList.mocks';
-import tmpl from './chatsList.hbs?raw';
-import classes from './chatList.module.scss';
+import { ChatPreview } from '@/entities/chat';
+import { Block, IChildren } from '@/shared/render';
+import { chatPreviewsMock } from './ChatsList.mocks';
+import tmpl from './ChatsList.hbs?raw';
+import classes from './ChatsList.module.scss';
 
-const chats = chatPreviewsMock.map((preview) => chatPreview(preview));
+export class ChatsList extends Block {
+  protected getInternalChildren(): IChildren<Block> {
+    const chats = chatPreviewsMock.map((preview) => new ChatPreview(preview));
 
-export const chatsList = (): THtml => compile(tmpl)({ classes, chats });
+    return {
+      chats,
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

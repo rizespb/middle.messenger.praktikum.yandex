@@ -1,21 +1,20 @@
-import { classNames, compile } from '@/shared/utils';
-import { IAvatarProps } from './avatar.interfaces';
-import tmpl from './avatar.hbs?raw';
-import classes from './avatar.module.scss';
-import { sizesMap } from './avatar.constants';
+import { classNames } from '@/shared/utils';
+import { Block } from '@/shared/render';
+import { IAvatarProps } from './Avatar.interfaces';
+import tmpl from './Avatar.hbs?raw';
+import classes from './Avatar.module.scss';
+import { sizesMap } from './Avatar.constants';
 
-export const avatar = (props: IAvatarProps): THtml => {
-  const { size, avatarAlt, avatarSrc, className = '' } = props;
+export class Avatar extends Block<IAvatarProps> {
+  render(): DocumentFragment {
+    const { size, className = '' } = this.props;
 
-  const avatarClassName = classNames({
-    [classes.image]: true,
-    [sizesMap[size]]: true,
-    [className]: Boolean(className),
-  });
+    const avatarClassName = classNames({
+      [classes.image]: true,
+      [sizesMap[size]]: true,
+      [className]: Boolean(className),
+    });
 
-  return compile(tmpl)({
-    className: avatarClassName,
-    avatarAlt,
-    avatarSrc,
-  });
-};
+    return this.compile(tmpl, { className: avatarClassName });
+  }
+}

@@ -1,1 +1,1 @@
-export { manageUserlist } from './manageUserlist';
+export { ManageUserlist } from './ui';

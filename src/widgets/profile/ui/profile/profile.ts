@@ -2,12 +2,13 @@ import { compile } from '@/shared/utils';
 import { interactiveInput } from '@/shared/ui/interactiveInput';
 import { button } from '@/shared/ui';
 import { updatePhoto } from '@/features/updatePhoto';
+import { Block } from '@/shared/render';
 import { PROFILE_DATA_INPUTS, CHANGE_PASSWORD_INPUTS } from '../../model';
-import { TEXTS } from './profile.constants';
-import tmpl from './profile.hbs?raw';
-import classes from './profile.module.scss';
-import { actions } from '../actions';
-import { userAvatar } from '../userAvatar';
+import { TEXTS } from './Profile.constants';
+import tmpl from './Profile.hbs?raw';
+import classes from './Profile.module.scss';
+import { actions } from '../Actions';
+import { userAvatar } from '../UserAvatar';
 
 export const profile = (): THtml => {
   // @TODO временные флаги
@@ -53,3 +54,9 @@ export const profile = (): THtml => {
     updatePhoto: isUpdateFormVisible ? updatePhotoStr : undefined,
   });
 };
+
+export class Profile extends Block {
+  render(): DocumentFragment {
+    return this.compile('<div>Profile</div>', { classes });
+  }
+}

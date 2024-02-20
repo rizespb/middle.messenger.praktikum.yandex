@@ -1,23 +1,27 @@
-import { avatar } from '@/shared/ui';
-import { compile } from '@/shared/utils';
-import { manageUserlist } from '@/features/manageUserlist';
-import tmpl from './header.hbs?raw';
-import { IHeaderProps } from './header.interfaces';
-import classes from './header.module.scss';
+import { Avatar } from '@/shared/ui';
+import { Block, IChildren } from '@/shared/render';
+import { ManageUserlist } from '@/features/ManageUserlist';
+import tmpl from './Header.hbs?raw';
+import { IHeaderProps } from './Header.interfaces';
+import classes from './Header.module.scss';
 
-export const header = (props: IHeaderProps): THtml => {
-  const { title, imageSrc } = props;
+export class Header extends Block<IHeaderProps> {
+  getInternalChildren(): IChildren<Block> {
+    const image = new Avatar({
+      size: 'small',
+      avatarAlt: this.props.title,
+      avatarSrc: this.props.imageSrc,
+    });
 
-  const image = avatar({
-    size: 'small',
-    avatarAlt: title,
-    avatarSrc: imageSrc,
-  });
+    const manageUserlist = new ManageUserlist({});
 
-  return compile(tmpl)({
-    title,
-    image,
-    manageUserlist: manageUserlist(),
-    classes,
-  });
-};
+    return {
+      image,
+      manageUserlist,
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

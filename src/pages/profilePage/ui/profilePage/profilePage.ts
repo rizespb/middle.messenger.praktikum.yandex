@@ -1,7 +1,7 @@
 import { compile } from '@/shared/utils';
 import { icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
-import { profile } from '@/widgets/profile';
+import { profile } from '@/widgets/Profile';
 import tmpl from './profilePage.hbs?raw';
 import classes from './profilePage.module.scss';
 

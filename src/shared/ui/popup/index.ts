@@ -1,1 +1,1 @@
-export { popup } from './popup';
+export { Popup } from './Popup';

@@ -1,9 +1,10 @@
 import { compile } from '@/shared/utils';
 import { baseInput, button } from '@/shared/ui';
-import tmpl from './manageUserlistForm.hbs?raw';
-import classes from './manageUserlistForm.module.scss';
-import { IManageUserlistFormProps } from './manageUserlistForm.interfaces';
-import { loginInput } from './manageUserlistForm.constants';
+import { Block } from '@/shared/render';
+import tmpl from './ManageUserlistForm.hbs?raw';
+import classes from './ManageUserlistForm.module.scss';
+import { IManageUserlistFormProps } from './ManageUserlistForm.interfaces';
+import { loginInput } from './ManageUserlistForm.constants';
 
 export const manageUserlistForm = (props: IManageUserlistFormProps): THtml => {
   const { buttonTitle } = props;
@@ -26,3 +27,9 @@ export const manageUserlistForm = (props: IManageUserlistFormProps): THtml => {
     input: inputStr,
   });
 };
+
+export class ManageUserlistForm extends Block<IManageUserlistFormProps> {
+  render(): DocumentFragment {
+    return this.compile('<div>ManageUserlistForm</div>', { classes });
+  }
+}

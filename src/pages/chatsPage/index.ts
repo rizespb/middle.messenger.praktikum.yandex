@@ -1,1 +1,1 @@
-export { chatsPage } from './ui';
+export { ChatsPage } from './ui';

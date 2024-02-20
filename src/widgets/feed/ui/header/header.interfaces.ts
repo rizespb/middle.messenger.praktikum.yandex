@@ -1,4 +1,6 @@
-export interface IHeaderProps {
+import { IBlockProps } from '@/shared/render';
+
+export interface IHeaderProps extends IBlockProps {
   title: string;
   imageSrc?: string;
 }

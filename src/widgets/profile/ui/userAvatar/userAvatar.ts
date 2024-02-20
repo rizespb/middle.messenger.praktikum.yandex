@@ -1,10 +1,11 @@
 import { avatar } from '@/shared/ui';
 import avatarFallback from '@/shared/assets/avatarFallback.webp';
 import { compile } from '@/shared/utils';
-import { IUserAvatarProps } from './userAvatar.interfaces';
-import { TEXTS } from './userAvatar.constants';
-import tmpl from './userAvatar.hbs?raw';
-import classes from './userAvatar.module.scss';
+import { Block } from '@/shared/render';
+import { IUserAvatarProps } from './UserAvatar.interfaces';
+import { TEXTS } from './UserAvatar.constants';
+import tmpl from './UserAvatar.hbs?raw';
+import classes from './UserAvatar.module.scss';
 
 export const userAvatar = ({ imageSrc }: IUserAvatarProps): THtml => {
   const avatarStr = avatar({
@@ -20,3 +21,9 @@ export const userAvatar = ({ imageSrc }: IUserAvatarProps): THtml => {
     classes,
   });
 };
+
+export class UserAvatar extends Block<IUserAvatarProps> {
+  render(): DocumentFragment {
+    return this.compile('<div>UserAvatar</div>', { classes });
+  }
+}

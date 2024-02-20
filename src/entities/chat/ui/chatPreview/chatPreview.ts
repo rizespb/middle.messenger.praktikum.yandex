@@ -1,17 +1,25 @@
-import { avatar } from '@/shared/ui';
-import { compile } from '@/shared/utils';
-import classes from './chatPreview.module.scss';
-import tmpl from './chatPreview.hbs?raw';
-import { IChatPreviewProps } from './chatPreview.interfaces';
+import { Avatar } from '@/shared/ui';
+import { Block, IChildren } from '@/shared/render';
+import classes from './ChatPreview.module.scss';
+import tmpl from './ChatPreview.hbs?raw';
+import { IChatPreviewProps } from './ChatPreview.interfaces';
 
-export const chatPreview = (props: IChatPreviewProps): THtml => {
-  const { avatarSrc, avatarAlt, ...rest } = props;
+export class ChatPreview extends Block<IChatPreviewProps> {
+  getInternalChildren(): IChildren<Block> {
+    const { avatarSrc, avatarAlt } = this.props;
 
-  const image = avatar({ avatarSrc, avatarAlt, size: 'medium' });
+    return {
+      image: new Avatar({
+        avatarSrc,
+        avatarAlt,
+        size: 'medium',
+      }),
+    };
+  }
 
-  return compile(tmpl)({
-    ...rest,
-    image,
-    classes,
-  });
-};
+  render(): DocumentFragment {
+    return this.compile(tmpl, {
+      classes,
+    });
+  }
+}
