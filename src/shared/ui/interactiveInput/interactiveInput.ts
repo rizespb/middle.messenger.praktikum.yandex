@@ -1,10 +1,10 @@
-import { compile } from '@/shared/utils';
-import tmpl from './interactiveInput.hbs?raw';
-import classes from './interactiveInput.module.scss';
-import { IInteractiveInputProps } from './interactiveInput.interfaces';
+import { Block } from '@/shared/render';
+import tmpl from './InteractiveInput.hbs?raw';
+import classes from './InteractiveInput.module.scss';
+import { IInteractiveInputProps } from './InteractiveInput.interfaces';
 
-export const interactiveInput = (props: IInteractiveInputProps): THtml =>
-  compile(tmpl)({
-    ...props,
-    classes,
-  });
+export class InteractiveInput extends Block<IInteractiveInputProps> {
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

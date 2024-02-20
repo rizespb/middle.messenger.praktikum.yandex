@@ -1,4 +1,4 @@
-export const PROFILE_DATA_INPUTS = [
+export const profileInputsData = [
   {
     name: 'email',
     title: 'Почта',
@@ -31,7 +31,7 @@ export const PROFILE_DATA_INPUTS = [
   },
 ];
 
-export const CHANGE_PASSWORD_INPUTS = [
+export const changePasswordInputsData = [
   {
     name: 'oldPassword',
     title: 'Старый пароль',

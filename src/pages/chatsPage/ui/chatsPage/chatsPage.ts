@@ -1,4 +1,3 @@
-// import { feed } from '@/widgets/feed/ui/feed/feed';
 import { ChatsList } from '@/widgets/ChatsList';
 import { ChatSearch } from '@/features/ChatSearch';
 import { Block, IChildren } from '@/shared/render';

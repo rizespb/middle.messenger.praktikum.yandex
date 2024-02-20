@@ -1,1 +1,1 @@
-export { updatePhoto } from './ui';
+export { UpdatePhoto } from './ui';

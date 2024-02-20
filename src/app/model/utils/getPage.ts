@@ -5,6 +5,7 @@ import { Error404Page } from '@/pages/Error400Page';
 import { LogInPage } from '@/pages/LogInPage';
 import { SignUpPage } from '@/pages/SignUpPage';
 import { ChatsPage } from '@/pages/ChatsPage';
+import { ProfilePage } from '@/pages/ProfilePage';
 
 export const getPage = (pageCode: EPages): Block => {
   switch (pageCode) {
@@ -16,6 +17,9 @@ export const getPage = (pageCode: EPages): Block => {
 
     case EPages.СhatsPage:
       return new ChatsPage({});
+
+    case EPages.ProfilePage:
+      return new ProfilePage({});
 
     case EPages.Error404:
       return new Error404Page({});

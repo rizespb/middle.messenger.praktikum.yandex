@@ -1,21 +1,26 @@
-import { compile } from '@/shared/utils';
-import { icon } from '@/shared/ui';
+import { Block, IChildren } from '@/shared/render';
+import { Icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
-import { profile } from '@/widgets/Profile';
-import tmpl from './profilePage.hbs?raw';
-import classes from './profilePage.module.scss';
+import { Profile } from '@/widgets/Profile';
+import tmpl from './ProfilePage.hbs?raw';
+import classes from './ProfilePage.module.scss';
 
-export const profilePage = (): THtml => {
-  const goBackIcon = icon({
-    icon: EIcons.ArrowIcon,
-    iconClass: classes.icon,
-  });
+export class ProfilePage extends Block {
+  protected getInternalChildren(): IChildren<Block> {
+    const goBackIcon = new Icon({
+      icon: EIcons.ArrowIcon,
+      iconClass: classes.icon,
+    });
 
-  const content = profile();
+    const content = new Profile({});
 
-  return compile(tmpl)({
-    classes,
-    icon: goBackIcon,
-    content,
-  });
-};
+    return {
+      goBackIcon,
+      content,
+    };
+  }
+
+  render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
+  }
+}

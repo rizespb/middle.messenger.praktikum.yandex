@@ -1,4 +1,6 @@
-export interface IInteractiveInputProps {
+import { IBlockProps } from '@/shared/render';
+
+export interface IInteractiveInputProps extends IBlockProps {
   label: string;
   name: string;
   placeholder: string;

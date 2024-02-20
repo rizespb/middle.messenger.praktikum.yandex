@@ -1,1 +1,1 @@
-export { interactiveInput } from './interactiveInput';
+export { InteractiveInput } from './InteractiveInput';

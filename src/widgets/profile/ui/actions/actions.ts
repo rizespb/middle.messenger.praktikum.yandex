@@ -1,18 +1,17 @@
-import { compile } from '@/shared/utils';
-import { button } from '@/shared/ui';
-import { Block } from '@/shared/render';
+import { Button } from '@/shared/ui';
+import { Block, IChildren } from '@/shared/render';
 import tmpl from './Actions.hbs?raw';
 import classes from './Actions.module.scss';
-import { ACTIONS } from './Actions.constants';
-
-export const actions = (): THtml => {
-  const actionsArray = ACTIONS.map((action) => button(action));
-
-  return compile(tmpl)({ classes, actions: actionsArray });
-};
+import { actionsData } from './Actions.constants';
 
 export class Actions extends Block {
-  render(): DocumentFragment {
-    return this.compile('<div>Actions</div>', { classes });
+  protected getInternalChildren(): IChildren<Block> {
+    const actions = actionsData.map((action) => new Button(action));
+
+    return { actions };
+  }
+
+  protected render(): DocumentFragment {
+    return this.compile(tmpl, { classes });
   }
 }

@@ -1,31 +1,29 @@
-import { button, modalWindow } from '@/shared/ui';
-import { compile } from '@/shared/utils';
-import { TEXTS, ACCEPT_FILES, UPLOAD_INPUT_NAME } from './updatePhoto.constants';
-import tmpl from './updatePhoto.hbs?raw';
-import classes from './updatePhoto.module.scss';
+import { Block, IChildren } from '@/shared/render';
+import { ModalWindow } from '@/shared/ui';
+import { UpdatePhotoForm } from '../UpdatePhotoForm';
+import { TEXTS } from './UpdatePhoto.constants';
+import tmpl from './UpdatePhoto.hbs?raw';
 
-export const updatePhoto = (): THtml => {
-  // @TODO временно
-  const isError = true;
+const isModalOpened = true;
+const isError = true;
 
-  const submitButton = button({
-    kind: 'primary',
-    title: TEXTS.button,
-    type: 'submit',
-  });
+export class UpdatePhoto extends Block {
+  protected getInternalChildren(): IChildren<Block> {
+    const modalContent = new UpdatePhotoForm({});
 
-  const form = compile(tmpl)({
-    classes,
-    ACCEPT_FILES,
-    submitButton,
-    error: isError ? TEXTS.error : undefined,
-    name: UPLOAD_INPUT_NAME,
-    label: TEXTS.label,
-  });
+    const modalWindow = new ModalWindow({
+      title: TEXTS.title.uploadPlease,
+      titleColor: isError ? 'error' : 'primary',
+      content: modalContent,
+      isModalOpened,
+    });
 
-  return modalWindow({
-    title: TEXTS.title.uploadPlease,
-    content: form,
-    titleColor: isError ? 'error' : 'primary',
-  });
-};
+    return {
+      modalWindow,
+    };
+  }
+
+  protected render(): DocumentFragment {
+    return this.compile(tmpl);
+  }
+}

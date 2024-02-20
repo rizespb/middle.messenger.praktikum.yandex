@@ -1,7 +1,7 @@
 import { IButtonProps } from '@/shared/ui';
-import classes from './actions.module.scss';
+import classes from './Actions.module.scss';
 
-export const ACTIONS: IButtonProps[] = [
+export const actionsData: IButtonProps[] = [
   {
     title: 'Изменить данные',
     type: 'button',
