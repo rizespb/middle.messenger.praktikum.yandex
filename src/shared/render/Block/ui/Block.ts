@@ -31,6 +31,9 @@ export class Block<T extends IBlockProps = IBlockProps> {
 
   protected internalEvents: TEvents = {};
 
+  // Надо ли произвести ререндер
+  private setUpdate = false;
+
   constructor(propsAndChildren: T = {} as T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
@@ -44,7 +47,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
     // Оборачиваем объект в прокси, чтобы при установке новых пропсов методом setProps эммитить событие component-did-update
     this.props = this._makePropsProxy({ ...props });
 
-    this.children = children;
+    this.children = this._makePropsProxy({ ...children });
 
     this.setInternalChildren();
 
@@ -175,12 +178,20 @@ export class Block<T extends IBlockProps = IBlockProps> {
     };
   }
 
-  public setProps = (nextProps: T): void => {
+  public setProps = (nextProps: Partial<T>): void => {
     if (!nextProps) {
       return;
     }
 
+    const prevProps = { ...this.props };
+
     Object.assign(this.props, nextProps);
+
+    if (this.setUpdate) {
+      this.eventBus().emit(EBlockEvents.UPDATE, prevProps, nextProps);
+    }
+
+    this.setUpdate = false;
   };
 
   private _render(): void {
@@ -209,29 +220,22 @@ export class Block<T extends IBlockProps = IBlockProps> {
     return new DocumentFragment();
   }
 
-  private _makePropsProxy(props: TPropsWithOutChildren<T>): TPropsWithOutChildren<T> {
-    return new Proxy(props, {
-      get: <K extends keyof TPropsWithOutChildren<T>>(
-        target: T,
-        prop: string
-      ): TPropsWithOutChildren<T>[K] => {
+  private _makePropsProxy<Obj extends object>(obj: Obj): Obj {
+    return new Proxy(obj, {
+      get: <K extends keyof Obj>(target: Obj, prop: string): Obj[K] => {
         const value = target[prop as K];
 
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set: <K extends keyof TPropsWithOutChildren<T>>(
-        target: T,
-        prop: string,
-        value: T[K]
-      ): boolean => {
+      set: <K extends keyof Obj>(target: Obj, prop: string, value: Obj[K]): boolean => {
         const prevProps = { ...target };
 
         // eslint-disable-next-line no-param-reassign
         target[prop as K] = value;
 
         if (prevProps[prop as K] !== target[prop as K]) {
-          this.eventBus().emit(EBlockEvents.UPDATE, prevProps, target);
+          this.setUpdate = true;
         }
 
         return true;
