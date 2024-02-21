@@ -1,31 +1,33 @@
+import { EInputNames } from '@/shared/types';
+
 export const profileInputsData = [
   {
-    name: 'email',
+    name: EInputNames.Email,
     title: 'Почта',
     type: 'text',
   },
   {
-    name: 'login',
+    name: EInputNames.Login,
     title: 'Логин',
     type: 'text',
   },
   {
-    name: 'first_name',
+    name: EInputNames.FirstName,
     title: 'Имя',
     type: 'text',
   },
   {
-    name: 'second_name',
+    name: EInputNames.SecondName,
     title: 'Фамилия',
     type: 'text',
   },
   {
-    name: 'display_name',
+    name: EInputNames.DisplayName,
     title: 'Имя в чате',
     type: 'text',
   },
   {
-    name: 'phone',
+    name: EInputNames.Phone,
     title: 'Телефон',
     type: 'text',
   },
@@ -33,18 +35,18 @@ export const profileInputsData = [
 
 export const changePasswordInputsData = [
   {
-    name: 'oldPassword',
+    name: EInputNames.Password,
     title: 'Старый пароль',
     type: 'password',
   },
   {
-    name: 'newPassword',
+    name: EInputNames.NewPassword,
     title: 'Новый пароль',
     type: 'password',
   },
   {
     name: 'passwordRepeat',
-    type: 'password',
+    type: EInputNames.PasswordRepeat,
     title: 'Повторите новый пароль',
   },
 ];

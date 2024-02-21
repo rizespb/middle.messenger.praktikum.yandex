@@ -1,4 +1,6 @@
+import { EInputNames } from '@/shared/types';
+
 export const loginInput = {
   label: 'Логин',
-  name: 'login',
+  name: EInputNames.Login,
 };

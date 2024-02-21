@@ -1,30 +1,32 @@
+import { EInputNames } from '@/shared/types';
+
 export const INPUTS = {
   email: {
-    name: 'email',
+    name: EInputNames.Email,
     title: 'Почта',
   },
   login: {
-    name: 'login',
+    name: EInputNames.Login,
     title: 'Логин',
   },
   firtsName: {
-    name: 'first_name',
+    name: EInputNames.FirstName,
     title: 'Имя',
   },
   secondName: {
-    name: 'second_name',
+    name: EInputNames.SecondName,
     title: 'Фамилия',
   },
   phoneNumber: {
-    name: 'phone',
+    name: EInputNames.Phone,
     title: 'Телефон',
   },
   password: {
-    name: 'password',
+    name: EInputNames.Password,
     title: 'Пароль',
   },
   passwordRepeat: {
-    name: 'passwordRepeat',
+    name: EInputNames.PasswordRepeat,
     title: 'Пароль (ещё раз)',
   },
 };
