@@ -13,7 +13,7 @@ export class Header extends Block<IHeaderProps> {
       avatarSrc: this.props.imageSrc,
     });
 
-    const manageUserlist = new ManageUserlist({});
+    const manageUserlist = new ManageUserlist();
 
     return {
       image,

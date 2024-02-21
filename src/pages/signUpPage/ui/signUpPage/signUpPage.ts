@@ -5,7 +5,7 @@ import tmpl from './SignUpPage.hbs?raw';
 
 export class SignUpPage extends Block {
   getInternalChildren(): IChildren<Block> {
-    const signUpForm = new SignUpForm({});
+    const signUpForm = new SignUpForm();
 
     return {
       page: new CenterContentLayout({

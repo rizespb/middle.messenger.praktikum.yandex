@@ -6,9 +6,9 @@ import classes from './Footer.module.scss';
 
 export class Footer extends Block {
   protected getInternalChildren(): IChildren<Block> {
-    const addAttachment = new AddAttachment({});
+    const addAttachment = new AddAttachment();
 
-    const messageInput = new MessageInput({});
+    const messageInput = new MessageInput();
 
     return {
       addAttachment,

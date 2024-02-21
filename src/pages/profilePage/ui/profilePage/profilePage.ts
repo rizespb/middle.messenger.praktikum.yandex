@@ -12,7 +12,7 @@ export class ProfilePage extends Block {
       iconClass: classes.icon,
     });
 
-    const content = new Profile({});
+    const content = new Profile();
 
     return {
       goBackIcon,

@@ -9,7 +9,7 @@ const isError = true;
 
 export class UpdatePhoto extends Block {
   protected getInternalChildren(): IChildren<Block> {
-    const modalContent = new UpdatePhotoForm({});
+    const modalContent = new UpdatePhotoForm();
 
     const modalWindow = new ModalWindow({
       title: TEXTS.title.uploadPlease,

@@ -31,7 +31,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
 
   protected internalEvents: TEvents = {};
 
-  constructor(propsAndChildren: T, tagName = 'div') {
+  constructor(propsAndChildren: T = {} as T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
 
