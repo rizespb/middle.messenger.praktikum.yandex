@@ -8,7 +8,7 @@ import classes from './ManageUserlist.module.scss';
 import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
 
 export class ManageUserlist extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const isPopupOpened = false;
     const isModalOpened = false;
 

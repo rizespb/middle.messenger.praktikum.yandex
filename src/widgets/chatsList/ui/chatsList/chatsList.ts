@@ -5,7 +5,7 @@ import tmpl from './ChatsList.hbs?raw';
 import classes from './ChatsList.module.scss';
 
 export class ChatsList extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const chats = chatPreviewsMock.map((preview) => new ChatPreview(preview));
 
     return {

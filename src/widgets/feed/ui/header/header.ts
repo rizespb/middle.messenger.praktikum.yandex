@@ -6,7 +6,7 @@ import { IHeaderProps } from './Header.interfaces';
 import classes from './Header.module.scss';
 
 export class Header extends Block<IHeaderProps> {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const image = new Avatar({
       size: 'small',
       avatarAlt: this.props.title,

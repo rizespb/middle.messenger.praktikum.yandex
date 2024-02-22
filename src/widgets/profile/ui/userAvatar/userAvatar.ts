@@ -7,7 +7,7 @@ import tmpl from './UserAvatar.hbs?raw';
 import classes from './UserAvatar.module.scss';
 
 export class UserAvatar extends Block<IUserAvatarProps> {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const avatar = new Avatar({
       avatarSrc: this.props.imageSrc || avatarFallback,
       avatarAlt: TEXTS.alt,

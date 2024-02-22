@@ -12,7 +12,7 @@ import {
 } from '../../model';
 
 export class ImageMessage extends Block<IRenderMessageProps> {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const { direction, status } = this.props;
 
     const isStatusVisible =

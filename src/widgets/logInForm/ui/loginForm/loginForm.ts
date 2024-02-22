@@ -5,7 +5,7 @@ import { getButtons, getInputs } from '../../model';
 import tmpl from './LogInForm.hbs?raw';
 
 export class LogInForm extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const inputs = getInputs();
 
     const buttons = getButtons();

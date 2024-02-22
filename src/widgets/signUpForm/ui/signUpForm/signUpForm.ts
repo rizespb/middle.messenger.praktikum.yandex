@@ -6,7 +6,7 @@ import tmpl from './SignUpForm.hbs?raw';
 import { getButtons, getInputs } from '../../model';
 
 export class SignUpForm extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const inputs = getInputs();
 
     const buttons = getButtons();

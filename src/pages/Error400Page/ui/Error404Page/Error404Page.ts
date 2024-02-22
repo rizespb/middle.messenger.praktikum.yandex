@@ -5,7 +5,7 @@ import { TEXTS } from './Error404Page.constants';
 import tmpl from './Error404Page.hbs?raw';
 
 export class Error404Page extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const errorBlock = new ErrorBlock({
       title: TEXTS.title,
       description: TEXTS.description,

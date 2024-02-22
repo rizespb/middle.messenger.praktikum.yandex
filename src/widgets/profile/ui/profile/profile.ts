@@ -13,7 +13,7 @@ const isUpdateFormVisible = false;
 const isEditMode = false;
 
 export class Profile extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const userAvatar = new UserAvatar({});
 
     const inputsData = isChangePasswordMode ? changePasswordInputsData : profileInputsData;
@@ -39,7 +39,7 @@ export class Profile extends Block {
 
     const actions = new Actions({});
 
-    let children: IChildren<Block> = {
+    let children: IChildren = {
       userAvatar,
       inputs,
       submitButton,

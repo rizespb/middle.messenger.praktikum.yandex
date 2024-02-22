@@ -5,7 +5,7 @@ import tmpl from './Footer.hbs?raw';
 import classes from './Footer.module.scss';
 
 export class Footer extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const addAttachment = new AddAttachment({});
 
     const messageInput = new MessageInput({});

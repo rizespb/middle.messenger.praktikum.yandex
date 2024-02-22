@@ -6,7 +6,7 @@ import tmpl from './ProfilePage.hbs?raw';
 import classes from './ProfilePage.module.scss';
 
 export class ProfilePage extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const goBackIcon = new Icon({
       icon: EIcons.ArrowIcon,
       iconClass: classes.icon,

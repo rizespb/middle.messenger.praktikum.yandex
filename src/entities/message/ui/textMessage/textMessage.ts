@@ -7,7 +7,7 @@ import tmpl from './TextMessage.hbs?raw';
 import classes from './TextMessage.module.scss';
 
 export class TextMessage extends Block<IRenderMessageProps> {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const { direction, status } = this.props;
 
     const isStatusVisible =

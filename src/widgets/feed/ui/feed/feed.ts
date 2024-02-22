@@ -6,7 +6,7 @@ import tmpl from './Feed.hbs?raw';
 import classes from './Feed.module.scss';
 
 export class Feed extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const header = new Header({ title: 'СуперДискотЭка' });
     const footer = new Footer({});
     const chat = new Chat({});

@@ -5,7 +5,7 @@ import { LogInForm } from '@/widgets/LogInForm';
 import tmpl from './LogInPage.hbs?raw';
 
 export class LogInPage extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const loginForm = new LogInForm({});
 
     return {

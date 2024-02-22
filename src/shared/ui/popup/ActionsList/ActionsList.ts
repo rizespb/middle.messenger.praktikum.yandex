@@ -6,7 +6,7 @@ import { PopupAction } from '../PopupAction';
 import { IActionsListProps } from './ActionsList.interfaces';
 
 export class ActionsList extends Block<IActionsListProps> {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const actions = this.props.actionsData.map((action) => {
       const { text, icon, iconClass, containerClass } = action;
 

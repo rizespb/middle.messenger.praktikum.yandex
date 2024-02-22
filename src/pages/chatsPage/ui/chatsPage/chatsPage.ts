@@ -7,7 +7,7 @@ import tmpl from './ChatsPage.hbs?raw';
 import { linkData } from './ChatsPage.constants';
 
 export class ChatsPage extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const chatsList = new ChatsList({});
     const search = new ChatSearch({});
     const feed = new Feed({});

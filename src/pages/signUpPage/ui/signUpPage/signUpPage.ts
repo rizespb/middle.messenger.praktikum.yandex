@@ -4,7 +4,7 @@ import { SignUpForm } from '@/widgets/SignUpForm';
 import tmpl from './SignUpPage.hbs?raw';
 
 export class SignUpPage extends Block {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const signUpForm = new SignUpForm({});
 
     return {

@@ -5,7 +5,7 @@ import tmpl from './ChatPreview.hbs?raw';
 import { IChatPreviewProps } from './ChatPreview.interfaces';
 
 export class ChatPreview extends Block<IChatPreviewProps> {
-  getInternalChildren(): IChildren<Block> {
+  getInternalChildren(): IChildren {
     const { avatarSrc, avatarAlt } = this.props;
 
     return {

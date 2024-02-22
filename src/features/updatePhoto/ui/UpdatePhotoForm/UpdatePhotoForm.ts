@@ -1,4 +1,4 @@
-import { Block, IBlockProps, IChildren } from '@/shared/render';
+import { Block, IChildren } from '@/shared/render';
 import { Button } from '@/shared/ui';
 import classes from './UpdatePhotoForm.module.scss';
 import tmpl from './UpdatePhotoForm.hbs?raw';
@@ -7,7 +7,7 @@ import { TEXTS, UPLOAD_INPUT_NAME, ACCEPT_FILES } from './UpdatePhotoForm.consta
 const isError = true;
 
 export class UpdatePhotoForm extends Block {
-  protected getInternalChildren(): IChildren<Block<IBlockProps>> {
+  protected getInternalChildren(): IChildren {
     const submitButton = new Button({
       kind: 'primary',
       title: TEXTS.button,

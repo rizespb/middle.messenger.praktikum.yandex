@@ -10,7 +10,7 @@ import tmpl from './AddAttachment.hbs?raw';
 import classes from './AddAttachment.module.scss';
 
 export class AddAttachment extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const isPopupOpened = false;
 
     const addFileIcon = new Icon({

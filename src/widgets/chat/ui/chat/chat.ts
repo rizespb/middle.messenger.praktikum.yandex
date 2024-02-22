@@ -5,7 +5,7 @@ import classes from './Chat.module.scss';
 import { messagesGroupsMock } from './Chat.mocks';
 
 export class Chat extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const messagesGroups = messagesGroupsMock.map((group) => new MessageGroup(group));
 
     return { messagesGroups };

@@ -7,7 +7,7 @@ import { TextMessage } from '../TextMessage';
 import { ImageMessage } from '../ImageMessage';
 
 export class MessageGroup extends Block<IMessageGroupProps> {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const { messages } = this.props;
 
     const messagesArray = getMessagesStr(messages, TextMessage, ImageMessage);

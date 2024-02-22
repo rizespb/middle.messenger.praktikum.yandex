@@ -28,7 +28,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   public id: TUuid;
 
   // eslint-disable-next-line no-use-before-define
-  protected children: IChildren<Block>;
+  protected children: IChildren;
 
   protected internalEvents: TEvents = {};
 
@@ -80,7 +80,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   }
 
   // Определение списка "внутренних" дочерних компонентов - компонентов, которые не передаются в пропсах, а определяются внутри текущего компонента
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     return {};
   }
 
@@ -153,10 +153,10 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
   // Отделяем пропсы от children
   private _getChildren(propsAndChildren: T): {
-    children: IChildren<Block>;
+    children: IChildren;
     props: TPropsWithOutChildren<T>;
   } {
-    const children: IChildren<Block> = {};
+    const children: IChildren = {};
     const props = {} as TPropsWithOutChildren<T>;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -303,7 +303,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   }
 
   // Заменяем стабы на реальные эелементы, когда в ребенке пришел массив элементов
-  private replaceStubs(stubs: Element[], child: Block[]): void {
+  private replaceStubs(stubs: Element[], child: IBlock[]): void {
     stubs.forEach((stub, index) => {
       stub.replaceWith(child[index].getContent());
     });

@@ -5,7 +5,7 @@ import classes from './Actions.module.scss';
 import { actionsData } from './Actions.constants';
 
 export class Actions extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const actions = actionsData.map((action) => new Button(action));
 
     return { actions };

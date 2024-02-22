@@ -8,7 +8,7 @@ const isModalOpened = true;
 const isError = true;
 
 export class UpdatePhoto extends Block {
-  protected getInternalChildren(): IChildren<Block> {
+  protected getInternalChildren(): IChildren {
     const modalContent = new UpdatePhotoForm({});
 
     const modalWindow = new ModalWindow({
