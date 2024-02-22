@@ -1,5 +1,5 @@
-import { TAvatarSize } from './avatar.interfaces';
-import classes from './avatar.module.scss';
+import { TAvatarSize } from './Avatar.interfaces';
+import classes from './Avatar.module.scss';
 
 export const sizesMap: Record<TAvatarSize, string> = {
   large: classes.large,

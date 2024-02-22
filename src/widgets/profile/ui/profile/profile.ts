@@ -14,7 +14,7 @@ const isEditMode = false;
 
 export class Profile extends Block {
   protected getInternalChildren(): IChildren<Block> {
-    const userAvatar = new UserAvatar();
+    const userAvatar = new UserAvatar({});
 
     const inputsData = isChangePasswordMode ? changePasswordInputsData : profileInputsData;
 
@@ -37,7 +37,7 @@ export class Profile extends Block {
       kind: 'primary',
     });
 
-    const actions = new Actions();
+    const actions = new Actions({});
 
     let children: IChildren<Block> = {
       userAvatar,
@@ -47,7 +47,7 @@ export class Profile extends Block {
     };
 
     if (isUpdateFormVisible) {
-      const updatePhoto = new UpdatePhoto();
+      const updatePhoto = new UpdatePhoto({});
 
       children = { ...children, updatePhoto };
     }

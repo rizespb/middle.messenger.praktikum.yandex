@@ -34,7 +34,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
   // Надо ли произвести ререндер
   private setUpdate = false;
 
-  constructor(propsAndChildren: T = {} as T, tagName = 'div') {
+  constructor(propsAndChildren: T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
 

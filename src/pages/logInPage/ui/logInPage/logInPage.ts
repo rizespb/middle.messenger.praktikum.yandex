@@ -6,7 +6,7 @@ import tmpl from './LogInPage.hbs?raw';
 
 export class LogInPage extends Block {
   getInternalChildren(): IChildren<Block> {
-    const loginForm = new LogInForm();
+    const loginForm = new LogInForm({});
 
     return {
       page: new CenterContentLayout({

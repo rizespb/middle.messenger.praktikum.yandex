@@ -8,9 +8,9 @@ import { linkData } from './ChatsPage.constants';
 
 export class ChatsPage extends Block {
   getInternalChildren(): IChildren<Block> {
-    const chatsList = new ChatsList();
-    const search = new ChatSearch();
-    const feed = new Feed();
+    const chatsList = new ChatsList({});
+    const search = new ChatSearch({});
+    const feed = new Feed({});
 
     return {
       chatsList,

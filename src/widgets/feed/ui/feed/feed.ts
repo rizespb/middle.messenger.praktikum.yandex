@@ -8,8 +8,8 @@ import classes from './Feed.module.scss';
 export class Feed extends Block {
   protected getInternalChildren(): IChildren<Block> {
     const header = new Header({ title: 'СуперДискотЭка' });
-    const footer = new Footer();
-    const chat = new Chat();
+    const footer = new Footer({});
+    const chat = new Chat({});
 
     return {
       header,

@@ -10,22 +10,22 @@ import { ProfilePage } from '@/pages/ProfilePage';
 export const getPage = (pageCode: EPages): Block => {
   switch (pageCode) {
     case EPages.LogInPage:
-      return new LogInPage();
+      return new LogInPage({});
 
     case EPages.SignUpPage:
-      return new SignUpPage();
+      return new SignUpPage({});
 
     case EPages.СhatsPage:
-      return new ChatsPage();
+      return new ChatsPage({});
 
     case EPages.ProfilePage:
-      return new ProfilePage();
+      return new ProfilePage({});
 
     case EPages.Error404:
-      return new Error404Page();
+      return new Error404Page({});
 
     case EPages.Error500:
     default:
-      return new Error500Page();
+      return new Error500Page({});
   }
 };
