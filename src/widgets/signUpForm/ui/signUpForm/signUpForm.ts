@@ -1,4 +1,4 @@
-import { AuthorizationForm } from '@/shared/ui';
+import { AuthorizationForm } from '@/widgets/AuthorizationForm';
 import { Block, IChildren } from '@/shared/render';
 import { TEXTS } from './SignUpForm.constants';
 import tmpl from './SignUpForm.hbs?raw';
@@ -13,10 +13,8 @@ export class SignUpForm extends Block {
 
     const authorizationForm = new AuthorizationForm({
       title: TEXTS.title,
-      children: {
-        buttons,
-        inputs,
-      },
+      buttons,
+      inputs,
     });
 
     return {

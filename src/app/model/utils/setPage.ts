@@ -1,6 +1,6 @@
 import { EPages } from '@/shared/constants';
 
-let currentPage = EPages.ProfilePage;
+let currentPage = EPages.SignUpPage;
 
 export const setPage = (pageCode: EPages): void => {
   currentPage = pageCode;

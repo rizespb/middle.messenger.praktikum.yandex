@@ -1,4 +1,6 @@
+import { EInputNames } from '@/shared/types';
+
 export const inputData = {
-  name: 'message',
+  name: EInputNames.Message,
   placeholder: 'Сообщение',
 };

@@ -1,10 +1,12 @@
+import { EInputNames } from '@/shared/types';
+
 export const INPUTS = {
   login: {
-    name: 'login',
+    name: EInputNames.Login,
     title: 'Логин',
   },
   password: {
-    name: 'password',
+    name: EInputNames.Password,
     title: 'Пароль',
   },
 };

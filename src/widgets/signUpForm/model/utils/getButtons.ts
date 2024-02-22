@@ -3,17 +3,17 @@ import { Block } from '@/shared/render';
 import { BUTTONS } from '../constants';
 
 export const getButtons = (): Block[] => {
-  const logInButton = new Button({
-    title: BUTTONS.logInButton,
-    kind: 'primary',
-    type: 'button',
-  });
-
   const creatAccountButton = new Button({
     title: BUTTONS.creatAccountButton,
+    kind: 'primary',
+    type: 'submit',
+  });
+
+  const logInButton = new Button({
+    title: BUTTONS.logInButton,
     kind: 'secondary',
     type: 'button',
   });
 
-  return [logInButton, creatAccountButton];
+  return [creatAccountButton, logInButton];
 };

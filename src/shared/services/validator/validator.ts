@@ -3,7 +3,7 @@ import { IError } from './validator.interfaces';
 import { inputValidationMap, validation } from './validator.constants';
 
 export class Validator {
-  test = (value: string, inputName: EInputNames): IError => {
+  test = (inputName: EInputNames, value: string): IError => {
     switch (inputName) {
       case EInputNames.Email:
       case EInputNames.FirstName:
@@ -28,7 +28,7 @@ export class Validator {
     }
   };
 
-  baseValidation = (value: string, inputName: EInputNames): IError => {
+  private baseValidation = (value: string, inputName: EInputNames): IError => {
     const validationType = inputValidationMap[inputName];
 
     const { errorMessage, regExp } = validation[validationType];
@@ -47,7 +47,7 @@ export class Validator {
     };
   };
 
-  text = (value: string, inputName: EInputNames): IError => {
+  private text = (value: string, inputName: EInputNames): IError => {
     if (!value) {
       const validationType = inputValidationMap[inputName];
       const { errorMessage } = validation[validationType];

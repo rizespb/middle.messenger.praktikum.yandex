@@ -15,7 +15,6 @@ export const getInputs = (): Block[] => {
     placeholder: login.title,
     label: login.title,
     name: login.name,
-    error: 'Some error',
   });
 
   const firtsNameInput = new BaseInput({

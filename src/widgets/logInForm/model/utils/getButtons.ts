@@ -5,7 +5,7 @@ import { BUTTONS } from '../constants';
 export const getButtons = (): Block[] => {
   const logInButton = new Button({
     title: BUTTONS.logInButton,
-    type: 'button',
+    type: 'submit',
     kind: 'primary',
   });
 
