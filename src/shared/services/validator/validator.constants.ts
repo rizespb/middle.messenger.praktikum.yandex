@@ -26,7 +26,7 @@ export const validation = {
       'Телефон должен содержать от 10 до 15 символов. Состоит из цифр, может начинается с плюса.',
     regExp: /^\+?\d{10,15}$/,
   },
-  message: {
+  text: {
     errorMessage: 'Поле не должно быть пустым',
     regExp: null,
   },
@@ -46,5 +46,6 @@ export const inputValidationMap: Record<EInputNames, keyof typeof validation> = 
   [EInputNames.PasswordRepeat]: 'password',
   [EInputNames.NewPassword]: 'password',
   [EInputNames.Phone]: 'phone',
-  [EInputNames.Message]: 'message',
+  [EInputNames.Message]: 'text',
+  [EInputNames.Search]: 'text',
 };

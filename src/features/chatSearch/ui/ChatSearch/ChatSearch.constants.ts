@@ -1,6 +1,8 @@
+import { EInputNames } from '@/shared/types';
+
 export const inputData = {
   title: 'Поиск',
-  name: 'search',
+  name: EInputNames.Search,
 };
 
 export const SEARCH_INPUT_ID = 'chats-search-input';

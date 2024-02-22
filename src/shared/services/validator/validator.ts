@@ -17,7 +17,8 @@ export class Validator {
         return this.baseValidation(value, inputName);
 
       case EInputNames.Message:
-        return this.message(value);
+      case EInputNames.Search:
+        return this.text(value, inputName);
 
       default:
         return {
@@ -46,11 +47,14 @@ export class Validator {
     };
   };
 
-  message = (value: string): IError => {
+  text = (value: string, inputName: EInputNames): IError => {
     if (!value) {
+      const validationType = inputValidationMap[inputName];
+      const { errorMessage } = validation[validationType];
+
       return {
         isError: true,
-        errorMessage: validation.message.errorMessage,
+        errorMessage,
       };
     }
 

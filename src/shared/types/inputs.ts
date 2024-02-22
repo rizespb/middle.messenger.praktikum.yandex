@@ -9,4 +9,5 @@ export enum EInputNames {
   Phone = 'phone',
   DisplayName = 'display_name',
   Message = 'message',
+  Search = 'search',
 }
