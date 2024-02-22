@@ -1,5 +1,4 @@
-import { EInputNames } from '@/shared/types';
-import { IError } from './validator.interfaces';
+import { EInputNames, IError } from '@/shared/types';
 import { inputValidationMap, validation } from './validator.constants';
 
 export class Validator {

@@ -1,6 +1,7 @@
 import { Block, IChildren } from '@/shared/render';
 import { validateForm } from '@/shared/services';
 import { getFormDataEntries } from '@/shared/utils';
+import { comparePasswords } from '@/shared/services/validator';
 import { IAuthorizationFormProps } from './AuthorizationForm.interfaces';
 import tmpl from './AuthorizationForm.hbs?raw';
 import classes from './AuthorizationForm.module.scss';
@@ -36,7 +37,13 @@ export class AuthorizationForm extends Block<IAuthorizationFormProps> {
             }
           });
 
-          if (isValidationPassed) {
+          const { isError: isComparePasswordsFailed, errorMessage } = comparePasswords(entries);
+
+          if (isComparePasswordsFailed) {
+            form.setProps({ passwordsError: errorMessage });
+          }
+
+          if (isValidationPassed && !isComparePasswordsFailed) {
             entries.forEach(([name, value]) => {
               console.log(`${name}: `, value);
             });

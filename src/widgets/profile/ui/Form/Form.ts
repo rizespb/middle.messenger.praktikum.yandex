@@ -2,6 +2,7 @@ import { Block, IChildren, TEvents } from '@/shared/render';
 import { Button, InteractiveInput } from '@/shared/ui';
 import { getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
+import { comparePasswords } from '@/shared/services/validator';
 import { IFormProps } from './Form.interfaces';
 import { profileInputsData, changePasswordInputsData } from '../../model';
 import tmpl from './Form.hbs?raw';
@@ -69,7 +70,13 @@ export class Form extends Block<IFormProps> {
           }
         });
 
-        if (isValidationPassed) {
+        const { isError: isComparePasswordsFailed, errorMessage } = comparePasswords(entries);
+
+        if (isComparePasswordsFailed) {
+          this.setProps({ passwordsError: errorMessage });
+        }
+
+        if (isValidationPassed && !isComparePasswordsFailed) {
           entries.forEach(([name, value]) => {
             console.log(`${name}: `, value);
           });

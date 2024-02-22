@@ -3,6 +3,12 @@
 			{{#each inputs}}
 				{{{this}}}
 			{{/each}}
+
+			{{#if passwordsError}}
+				<div class="{{classes.passwordsError}}">
+					{{{passwordsError}}}
+				</div>
+			{{/if}}
 		</div>
 
 		{{#if isEditMode}}

@@ -15,11 +15,15 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-
-    // Алиасы
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/app": ["app/index"],
+      "@/entities/*": ["entities/*"],
+      "@/features/*": ["features/*"],
+      "@/layouts/*": ["layouts/*"],
+      "@/pages/*": ["pages/*"],
+      "@/shared/*": ["shared/*"],
+      "@/widgets/*": ["widgets/*"]
     }
   }
 }

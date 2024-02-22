@@ -1,6 +1,5 @@
-import { EInputNames } from '@/shared/types';
-import { IError } from './validator.interfaces';
-import { validator } from './validator';
+import { EInputNames, IError } from '@/shared/types';
+import { validator } from '../validator';
 
 export const validateForm = (entries: [string, string][]): IError[] => {
   const validationResults = entries.map<IError>((input) => {

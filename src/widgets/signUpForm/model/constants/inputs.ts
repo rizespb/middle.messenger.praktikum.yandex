@@ -22,7 +22,7 @@ export const INPUTS = {
     title: 'Телефон',
   },
   password: {
-    name: EInputNames.Password,
+    name: EInputNames.NewPassword,
     title: 'Пароль',
   },
   passwordRepeat: {
