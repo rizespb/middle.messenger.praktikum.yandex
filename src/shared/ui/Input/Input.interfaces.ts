@@ -4,6 +4,7 @@ import { EInputNames } from '@/shared/types';
 export interface IInputProps extends IBlockProps {
   name: EInputNames;
   placeholder: string;
-  type?: HTMLInputElement['type'];
   className: string;
+  type?: HTMLInputElement['type'];
+  isDisabled?: boolean;
 }

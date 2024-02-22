@@ -6,19 +6,11 @@
 	</h4>
 
 
-	<form class="{{classes.form}}">
-		<div class="{{classes.inputs}}">
-			{{#each inputs}}
-				{{{this}}}
-			{{/each}}
-		</div>
-
-		{{#if isEditMode}}
-			{{{submitButton}}}
-		{{else}}
-			{{{actions}}}
-		{{/if}}
-	</form>
+	{{{form}}}
 
 	{{{updatePhoto}}}
+
+	{{#if isViewMode}}
+		{{{actions}}}
+	{{/if}}
 </div>

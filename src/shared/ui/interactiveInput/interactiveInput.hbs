@@ -3,16 +3,11 @@
 		{{{label}}}
 	</label>
 
-	<input class="{{classes.input}}" id="{{name}}" name="{{name}}"
-		{{#if isDisabled}}
-			disabled 
-		{{/if}}
+	{{{input}}}
 
-		placeholder="{{label}}"
-
-		{{#if type}}
-			type="{{type}}"
-		{{/if}}
-		/>
-
+	{{#if error}}
+		<span class={{classes.error}} >
+			{{{error}}}
+		</span>
+	{{/if}}
 </div>

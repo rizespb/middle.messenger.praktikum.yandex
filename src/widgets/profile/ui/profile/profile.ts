@@ -1,48 +1,28 @@
 import { Block, IChildren } from '@/shared/render';
-import { Button, InteractiveInput } from '@/shared/ui';
 import { UpdatePhoto } from '@/features/UpdatePhoto';
-import { profileInputsData, changePasswordInputsData } from '../../model';
-import { TEXTS } from './Profile.constants';
+import { UserAvatar } from '../UserAvatar';
+import { Form } from '../Form';
 import tmpl from './Profile.hbs?raw';
 import classes from './Profile.module.scss';
-import { UserAvatar } from '../UserAvatar';
 import { Actions } from '../Actions';
 
-const isChangePasswordMode = false;
-const isUpdatePhotoFormVisible = false;
 const isEditMode = true;
+const isUpdatePhotoFormVisible = false;
 
 export class Profile extends Block {
   protected getInternalChildren(): IChildren {
     const userAvatar = new UserAvatar({});
 
-    const inputsData = isChangePasswordMode ? changePasswordInputsData : profileInputsData;
-
-    const inputs = inputsData.map((input) => {
-      const { name, title, type } = input;
-
-      return new InteractiveInput({
-        label: title,
-        name,
-        placeholder: title,
-        isDisabled: !isEditMode,
-        type,
-      });
-    });
-
-    const submitButton = new Button({
-      title: TEXTS.submitButton,
-      type: 'submit',
-      className: classes.submitButtom,
-      kind: 'primary',
+    const form = new Form({
+      mode: 'password',
+      isEditMode,
     });
 
     const actions = new Actions({});
 
     let children: IChildren = {
       userAvatar,
-      inputs,
-      submitButton,
+      form,
       actions,
     };
 
@@ -58,8 +38,8 @@ export class Profile extends Block {
   render(): DocumentFragment {
     return this.compile(tmpl, {
       classes,
-      isEditMode,
       firstName: 'Иван',
+      isViewMode: !isEditMode,
     });
   }
 }

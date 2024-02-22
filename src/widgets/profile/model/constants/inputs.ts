@@ -45,8 +45,8 @@ export const changePasswordInputsData = [
     type: 'password',
   },
   {
-    name: 'passwordRepeat',
-    type: EInputNames.PasswordRepeat,
+    name: EInputNames.PasswordRepeat,
     title: 'Повторите новый пароль',
+    type: 'password',
   },
 ];

@@ -1,0 +1,11 @@
+<form class="{{classes.form}}">
+		<div class="{{classes.inputs}}">
+			{{#each inputs}}
+				{{{this}}}
+			{{/each}}
+		</div>
+
+		{{#if isEditMode}}
+			{{{submitButton}}}
+		{{/if}}
+	</form>

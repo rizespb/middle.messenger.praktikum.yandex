@@ -1,6 +1,6 @@
 import { Avatar } from '@/shared/ui';
 import { Block, IChildren } from '@/shared/render';
-import { ManageUserlist } from '@/features/ManageUserlist';
+import { ManageUserlist } from '@/widgets/ManageUserlist';
 import tmpl from './Header.hbs?raw';
 import { IHeaderProps } from './Header.interfaces';
 import classes from './Header.module.scss';

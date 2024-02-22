@@ -1,11 +1,11 @@
 import { classNames } from '@/shared/utils';
 import { Icon, ModalWindow, Popup, ActionsList } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
-import { ManageUserlistForm } from '@/widgets/ManageUserlistForm';
 import { Block, IChildren } from '@/shared/render';
 import tmpl from './ManageUserlist.hbs?raw';
 import classes from './ManageUserlist.module.scss';
 import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
+import { Form } from '../Form';
 
 const isPopupOpened = false;
 const isModalOpened = true;
@@ -35,7 +35,7 @@ export class ManageUserlist extends Block {
       isPopupOpened,
     });
 
-    const modalContent = new ManageUserlistForm({
+    const modalContent = new Form({
       buttonTitle: TEXTS.addUserModal.button,
     });
 

@@ -2,12 +2,12 @@ import { Block, IChildren, TEvents } from '@/shared/render';
 import { BaseInput, Button } from '@/shared/ui';
 import { getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
-import tmpl from './ManageUserlistForm.hbs?raw';
-import classes from './ManageUserlistForm.module.scss';
-import { IManageUserlistFormProps } from './ManageUserlistForm.interfaces';
-import { loginInput } from './ManageUserlistForm.constants';
+import tmpl from './Form.hbs?raw';
+import classes from './Form.module.scss';
+import { IManageUserlistFormProps } from './Form.interfaces';
+import { loginInput } from './Form.constants';
 
-export class ManageUserlistForm extends Block<IManageUserlistFormProps> {
+export class Form extends Block<IManageUserlistFormProps> {
   protected getInternalChildren(): IChildren {
     const input = new BaseInput({
       label: loginInput.label,
