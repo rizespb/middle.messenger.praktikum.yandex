@@ -15,7 +15,7 @@ export const getPage = (pageCode: EPages): Block => {
     case EPages.SignUpPage:
       return new SignUpPage({});
 
-    case EPages.СhatsPage:
+    case EPages.ChatsPage:
       return new ChatsPage({});
 
     case EPages.ProfilePage:

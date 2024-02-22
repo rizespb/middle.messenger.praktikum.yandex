@@ -1,2 +1,2 @@
 export { EventBus } from './eventBus';
-export { validator, type IError } from './validator';
+export { validator, validateForm, type IError } from './validator';

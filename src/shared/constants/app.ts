@@ -3,7 +3,7 @@ export enum EPages {
   SignUpPage = 'signUp',
   Error404 = '404',
   Error500 = '500',
-  СhatsPage = 'chatsPage',
+  ChatsPage = 'chatsPage',
   ProfilePage = 'profile',
   SandboxPage = 'sandboxPage',
 }

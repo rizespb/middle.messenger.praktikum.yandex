@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '@/shared/services';
@@ -14,14 +15,14 @@ import {
   IChildren,
 } from '../model';
 
-export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
+export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Props> {
   private tagName: string;
 
   public id: TUuid;
 
   private _element: HTMLElement;
 
-  protected props: TClearProps<T>;
+  protected props: TClearProps<Props>;
 
   // eslint-disable-next-line no-use-before-define
   protected children: IChildren;
@@ -35,7 +36,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
   private eventBus: () => TBlockEventBus;
 
-  constructor(propsAndChildren: T, tagName = 'div') {
+  constructor(propsAndChildren: Props, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
     this.tagName = tagName;
 
@@ -116,7 +117,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
     this.eventBus().emit(EBlockEvents.RENDER);
   }
 
-  private _componentDidMount(props: TClearProps<T>): void {
+  private _componentDidMount(props: TClearProps<Props>): void {
     this.componentDidMount(props);
 
     // Эммитим событие MOUNT в детях
@@ -138,7 +139,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
     this.eventBus().emit(EBlockEvents.MOUNT, this.props);
   }
 
-  private _componentDidUpdate(oldProps: T, newProps: T): void {
+  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
     // Если пользовательский componentDidUpdate вернет false, значит компонент перерисовывать не надо
     // componentDidUpdate можно не переопределять, по умолчанию возвращает true - перерисовка на каждое изменение пропсов
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -150,18 +151,20 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidMount(_props: TClearProps<T>): void {}
+  protected componentDidMount(_props: TClearProps<Props>): void {}
 
   // Может переопределять пользователь, необязательно трогать
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidUpdate(_oldProps: TClearProps<T>, _newProps: TClearProps<T>): boolean {
+  protected componentDidUpdate(
+    _oldProps: TClearProps<Props>,
+    _newProps: TClearProps<Props>
+  ): boolean {
     return true;
   }
 
   // Отделяем пропсы от children и events
-  private _separateProps(propsAndChildren: T): {
+  private _separateProps(propsAndChildren: Props): {
     children: IChildren;
-    props: TClearProps<T>;
+    props: TClearProps<Props>;
     events: TEvents;
   } {
     const children: IChildren = propsAndChildren.children || {};
@@ -174,7 +177,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
     return { props, children, events };
   }
 
-  public setProps = (nextProps: Partial<TClearProps<T>>): void => {
+  public setProps = (nextProps: Partial<TClearProps<Props>>): void => {
     if (!nextProps) {
       return;
     }
@@ -190,7 +193,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
     this.shouldRerender = false;
   };
 
-  public setChildren = (nextChildren: Partial<T['children']>): void => {
+  public setChildren = (nextChildren: Partial<Props['children']>): void => {
     if (!nextChildren) {
       return;
     }

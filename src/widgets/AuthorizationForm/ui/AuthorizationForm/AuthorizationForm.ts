@@ -1,6 +1,6 @@
 import { Block, IChildren } from '@/shared/render';
-import { EInputNames } from '@/shared/types';
-import { IError, validator } from '@/shared/services';
+import { validateForm } from '@/shared/services';
+import { getFormDataEntries } from '@/shared/utils';
 import { IAuthorizationFormProps } from './AuthorizationForm.interfaces';
 import tmpl from './AuthorizationForm.hbs?raw';
 import classes from './AuthorizationForm.module.scss';
@@ -21,27 +21,23 @@ export class AuthorizationForm extends Block<IAuthorizationFormProps> {
           if (!event) {
             return;
           }
+          const entries = getFormDataEntries(event);
 
-          const data = [...new FormData(event.currentTarget as HTMLFormElement).entries()];
+          const validationResults = validateForm(entries);
 
-          const validationResults = data.map<IError>((input) => {
-            const [name, value] = input as [EInputNames, string];
-
-            const result = validator.test(name, value);
-            return result;
-          });
-
-          const isErrorExist = false;
+          let isValidationPassed = true;
 
           validationResults.forEach((result, index) => {
             const { isError, errorMessage } = result;
+
             if (isError) {
+              isValidationPassed = false;
               inputs[index].setProps({ error: errorMessage });
             }
           });
 
-          if (!isErrorExist) {
-            data.forEach(([name, value]) => {
+          if (isValidationPassed) {
+            entries.forEach(([name, value]) => {
               console.log(`${name}: `, value);
             });
           }
