@@ -4,16 +4,17 @@ import { EventBus } from '@/shared/services';
 import {
   EBlockEvents,
   IBlockProps,
-  IChildren,
   TAnyObject,
   TBlockEventBus,
   TEvents,
   TPropsWithOutChildren,
   addListeners,
   removeListeners,
+  IBlock,
+  IChildren,
 } from '../model';
 
-export class Block<T extends IBlockProps = IBlockProps> {
+export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   private tagName: string;
 
   private eventBus: () => TBlockEventBus;
@@ -172,10 +173,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
       props[key as keyof TPropsWithOutChildren<T>] = value;
     });
 
-    return { children, props } as {
-      children: IChildren<Block>;
-      props: TPropsWithOutChildren<T>;
-    };
+    return { children, props };
   }
 
   public setProps = (nextProps: Partial<T>): void => {
@@ -222,19 +220,19 @@ export class Block<T extends IBlockProps = IBlockProps> {
 
   private _makePropsProxy<Obj extends object>(obj: Obj): Obj {
     return new Proxy(obj, {
-      get: <K extends keyof Obj>(target: Obj, prop: string): Obj[K] => {
-        const value = target[prop as K];
+      get: <K extends keyof Obj & string>(target: Obj, prop: K): Obj[K] => {
+        const value = target[prop];
 
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set: <K extends keyof Obj>(target: Obj, prop: string, value: Obj[K]): boolean => {
+      set: <K extends keyof Obj & string>(target: Obj, prop: K, value: Obj[K]): boolean => {
         const prevProps = { ...target };
 
         // eslint-disable-next-line no-param-reassign
-        target[prop as K] = value;
+        target[prop] = value;
 
-        if (prevProps[prop as K] !== target[prop as K]) {
+        if (prevProps[prop] !== target[prop]) {
           this.setUpdate = true;
         }
 
@@ -255,8 +253,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
 
   protected compile(template: string, additioanlProps?: TAnyObject): DocumentFragment {
     // Объект, в котором будут собраны пропсы и загулшки для чилдренов
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const propsAndStubs = { ...this.props } as any;
+    const propsAndStubs: TAnyObject = { ...this.props };
 
     // При вставке дочернего элемента в шаблон шаблонизатор приведет дочерний элемент к примитиву ([object Object]). Элементы в DOM и элементы в пропсах будут разными. Чтобы не потерять дочерние элементы, используем вначале заглушки
     // Добавляем заглушки вместо чилдренов
@@ -297,7 +294,7 @@ export class Block<T extends IBlockProps = IBlockProps> {
   }
 
   // Создаем стабы в случае, когда в ребенке пришел массив элементов
-  private getChildrenStrubs(child: Block[], fragment: HTMLTemplateElement): Element[] {
+  private getChildrenStrubs(child: IBlock[], fragment: HTMLTemplateElement): Element[] {
     const stubs = child.map(
       (item) => fragment.content.querySelector(`[data-id="${item.id}"]`) as Element
     );
