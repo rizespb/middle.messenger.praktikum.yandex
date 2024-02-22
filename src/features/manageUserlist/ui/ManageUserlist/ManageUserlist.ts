@@ -7,11 +7,11 @@ import tmpl from './ManageUserlist.hbs?raw';
 import classes from './ManageUserlist.module.scss';
 import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
 
+const isPopupOpened = false;
+const isModalOpened = false;
+
 export class ManageUserlist extends Block {
   protected getInternalChildren(): IChildren {
-    const isPopupOpened = false;
-    const isModalOpened = false;
-
     const showMoreIcon = new Icon({
       icon: EIcons.ShowMore,
       iconClass: classNames({
@@ -28,7 +28,9 @@ export class ManageUserlist extends Block {
     const actions = new ActionsList({ actionsData });
 
     const popup = new Popup({
-      content: actions,
+      children: {
+        content: actions,
+      },
       direction: 'bottomRight',
       isPopupOpened,
     });
@@ -38,7 +40,9 @@ export class ManageUserlist extends Block {
     });
 
     const modalWindow = new ModalWindow({
-      content: modalContent,
+      children: {
+        content: modalContent,
+      },
       title: TEXTS.addUserModal.title,
       isModalOpened,
     });

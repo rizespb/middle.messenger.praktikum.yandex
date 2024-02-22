@@ -6,13 +6,14 @@ export interface IBlockProps {
   children?: IChildren;
 }
 
-export type TPropsWithOutChildren<T extends IBlockProps> = Omit<T, 'children'>;
+export type TClearProps<T extends IBlockProps> = Omit<T, 'children' | 'events'>;
 
 export interface IBlock<T extends IBlockProps = IBlockProps> {
   id: TUuid;
   dispatchComponentDidMount: () => void;
   getContent: () => HTMLElement;
-  setProps: (nextProps: Partial<T>) => void;
+  setProps: (nextProps: Partial<TClearProps<T>>) => void;
+  setChildren: (nextChildren: Partial<T['children']>) => void;
   show: () => void;
   hide: () => void;
 }

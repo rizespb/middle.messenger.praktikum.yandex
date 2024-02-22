@@ -7,7 +7,7 @@ import {
   TAnyObject,
   TBlockEventBus,
   TEvents,
-  TPropsWithOutChildren,
+  TClearProps,
   addListeners,
   removeListeners,
   IBlock,
@@ -17,23 +17,23 @@ import {
 export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   private tagName: string;
 
-  private eventBus: () => TBlockEventBus;
+  public id: TUuid;
 
   private _element: HTMLElement;
 
-  protected props: TPropsWithOutChildren<T>;
-
-  public renderCount = 0;
-
-  public id: TUuid;
+  protected props: TClearProps<T>;
 
   // eslint-disable-next-line no-use-before-define
   protected children: IChildren;
 
-  protected internalEvents: TEvents = {};
+  protected events: TEvents;
+
+  public renderCount = 0;
 
   // Надо ли произвести ререндер
-  private setUpdate = false;
+  private shouldRerender = false;
+
+  private eventBus: () => TBlockEventBus;
 
   constructor(propsAndChildren: T, tagName = 'div') {
     const eventBus = new EventBus<EBlockEvents>();
@@ -43,12 +43,14 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
     this.id = makeUUID();
 
-    const { props, children } = this._getChildren(propsAndChildren);
+    const { props, children, events } = this._separateProps(propsAndChildren);
 
     // Оборачиваем объект в прокси, чтобы при установке новых пропсов методом setProps эммитить событие component-did-update
     this.props = this._makePropsProxy({ ...props });
 
     this.children = this._makePropsProxy({ ...children });
+
+    this.events = events;
 
     this.setInternalChildren();
 
@@ -100,7 +102,12 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   }
 
   private setInternalListeners(): void {
-    this.internalEvents = this.getInternalEvents();
+    const internalEvents = this.getInternalEvents();
+
+    this.events = {
+      ...this.events,
+      ...internalEvents,
+    };
   }
 
   private init(): void {
@@ -109,7 +116,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
     this.eventBus().emit(EBlockEvents.RENDER);
   }
 
-  private _componentDidMount(props: T): void {
+  private _componentDidMount(props: TClearProps<T>): void {
     this.componentDidMount(props);
 
     // Эммитим событие MOUNT в детях
@@ -143,40 +150,31 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidMount(_props: T): void {}
+  protected componentDidMount(_props: TClearProps<T>): void {}
 
   // Может переопределять пользователь, необязательно трогать
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidUpdate(_oldProps: T, _newProps: T): boolean {
+  protected componentDidUpdate(_oldProps: TClearProps<T>, _newProps: TClearProps<T>): boolean {
     return true;
   }
 
-  // Отделяем пропсы от children
-  private _getChildren(propsAndChildren: T): {
+  // Отделяем пропсы от children и events
+  private _separateProps(propsAndChildren: T): {
     children: IChildren;
-    props: TPropsWithOutChildren<T>;
+    props: TClearProps<T>;
+    events: TEvents;
   } {
-    const children: IChildren = {};
-    const props = {} as TPropsWithOutChildren<T>;
+    const children: IChildren = propsAndChildren.children || {};
+    const events: TEvents = propsAndChildren.events || {};
 
-    Object.entries(propsAndChildren).forEach(([key, value]) => {
-      const isBlockOrBlockArray =
-        value instanceof Block ||
-        (Array.isArray(value) && value.every((item) => item instanceof Block));
+    const props = { ...propsAndChildren };
+    delete props.children;
+    delete props.events;
 
-      if (isBlockOrBlockArray) {
-        children[key] = value;
-
-        return;
-      }
-
-      props[key as keyof TPropsWithOutChildren<T>] = value;
-    });
-
-    return { children, props };
+    return { props, children, events };
   }
 
-  public setProps = (nextProps: Partial<T>): void => {
+  public setProps = (nextProps: Partial<TClearProps<T>>): void => {
     if (!nextProps) {
       return;
     }
@@ -185,11 +183,25 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
 
     Object.assign(this.props, nextProps);
 
-    if (this.setUpdate) {
+    if (this.shouldRerender) {
       this.eventBus().emit(EBlockEvents.UPDATE, prevProps, nextProps);
     }
 
-    this.setUpdate = false;
+    this.shouldRerender = false;
+  };
+
+  public setChildren = (nextChildren: Partial<T['children']>): void => {
+    if (!nextChildren) {
+      return;
+    }
+
+    Object.assign(this.children, nextChildren);
+
+    if (this.shouldRerender) {
+      this.eventBus().emit(EBlockEvents.UPDATE, this.props, this.props);
+    }
+
+    this.shouldRerender = false;
   };
 
   private _render(): void {
@@ -233,7 +245,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
         target[prop] = value;
 
         if (prevProps[prop] !== target[prop]) {
-          this.setUpdate = true;
+          this.shouldRerender = true;
         }
 
         return true;
@@ -326,10 +338,7 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
   }
 
   private _addEvents(): void {
-    const { events = {} } = this.props;
-
-    addListeners(this._element, events);
-    addListeners(this._element, this.internalEvents);
+    addListeners(this._element, this.events);
   }
 
   private _removeEvents(): void {
@@ -337,9 +346,6 @@ export class Block<T extends IBlockProps = IBlockProps> implements IBlock<T> {
       return;
     }
 
-    const { events = {} } = this.props;
-
-    removeListeners(this._element, events);
-    removeListeners(this._element, this.internalEvents);
+    removeListeners(this._element, this.events);
   }
 }

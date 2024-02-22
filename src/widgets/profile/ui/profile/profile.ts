@@ -9,8 +9,8 @@ import { UserAvatar } from '../UserAvatar';
 import { Actions } from '../Actions';
 
 const isChangePasswordMode = false;
-const isUpdateFormVisible = false;
-const isEditMode = false;
+const isUpdatePhotoFormVisible = false;
+const isEditMode = true;
 
 export class Profile extends Block {
   protected getInternalChildren(): IChildren {
@@ -46,7 +46,7 @@ export class Profile extends Block {
       actions,
     };
 
-    if (isUpdateFormVisible) {
+    if (isUpdatePhotoFormVisible) {
       const updatePhoto = new UpdatePhoto({});
 
       children = { ...children, updatePhoto };

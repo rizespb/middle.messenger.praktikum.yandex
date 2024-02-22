@@ -9,7 +9,9 @@ export class SignUpPage extends Block {
 
     return {
       page: new CenterContentLayout({
-        content: signUpForm,
+        children: {
+          content: signUpForm,
+        },
       }),
     };
   }

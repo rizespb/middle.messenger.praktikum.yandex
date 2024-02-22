@@ -18,7 +18,9 @@ export class ActionsList extends Block<IActionsListProps> {
 
       const actionBlock = new PopupAction({
         text,
-        icon: iconBlock,
+        children: {
+          icon: iconBlock,
+        },
       });
 
       return actionBlock;

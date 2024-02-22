@@ -13,7 +13,9 @@ export class Error404Page extends Block {
 
     return {
       page: new CenterContentLayout({
-        content: errorBlock,
+        children: {
+          content: errorBlock,
+        },
       }),
     };
   }

@@ -11,9 +11,11 @@ export class LogInForm extends Block {
     const buttons = getButtons();
 
     const authorizationForm = new AuthorizationForm({
-      buttons,
       title: TEXTS.title,
-      inputs,
+      children: {
+        buttons,
+        inputs,
+      },
     });
 
     return {

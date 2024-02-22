@@ -9,10 +9,10 @@ import { actionsData } from './AddAttachment.constants';
 import tmpl from './AddAttachment.hbs?raw';
 import classes from './AddAttachment.module.scss';
 
+const isPopupOpened = true;
+
 export class AddAttachment extends Block {
   protected getInternalChildren(): IChildren {
-    const isPopupOpened = false;
-
     const addFileIcon = new Icon({
       icon: EIcons.ClipIcon,
       iconClass: classes.icon,
@@ -21,7 +21,9 @@ export class AddAttachment extends Block {
     const actions = new ActionsList({ actionsData });
 
     const popup = new Popup({
-      content: actions,
+      children: {
+        content: actions,
+      },
       direction: 'topLeft',
       isPopupOpened,
     });

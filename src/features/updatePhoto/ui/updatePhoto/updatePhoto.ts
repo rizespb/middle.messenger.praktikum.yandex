@@ -14,7 +14,9 @@ export class UpdatePhoto extends Block {
     const modalWindow = new ModalWindow({
       title: TEXTS.title.uploadPlease,
       titleColor: isError ? 'error' : 'primary',
-      content: modalContent,
+      children: {
+        content: modalContent,
+      },
       isModalOpened,
     });
 

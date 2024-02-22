@@ -10,7 +10,9 @@ export class LogInPage extends Block {
 
     return {
       page: new CenterContentLayout({
-        content: loginForm,
+        children: {
+          content: loginForm,
+        },
       }),
     };
   }

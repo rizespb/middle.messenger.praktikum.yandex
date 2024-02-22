@@ -13,7 +13,9 @@ export class Error500Page extends Block {
 
     return {
       page: new CenterContentLayout({
-        content: errorBlock,
+        children: {
+          content: errorBlock,
+        },
       }),
     };
   }

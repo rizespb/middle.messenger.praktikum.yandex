@@ -2,7 +2,7 @@ export {
   type TAnyObject,
   type IChildren,
   type IBlockProps,
-  type TPropsWithOutChildren,
+  type TClearProps,
   EBlockEvents,
   type TBlockEventBus,
   type TEvents,
