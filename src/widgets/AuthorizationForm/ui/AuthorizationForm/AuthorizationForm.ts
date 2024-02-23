@@ -1,6 +1,6 @@
 import { Block, IChildren } from '@/shared/render';
 import { validateForm } from '@/shared/services';
-import { getFormDataEntries } from '@/shared/utils';
+import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { comparePasswords } from '@/shared/services/validator';
 import { IAuthorizationFormProps } from './AuthorizationForm.interfaces';
 import tmpl from './AuthorizationForm.hbs?raw';
@@ -45,9 +45,7 @@ export class AuthorizationForm extends Block<IAuthorizationFormProps> {
           }
 
           if (isValidationPassed) {
-            entries.forEach(([name, value]) => {
-              console.log(`${name}: `, value);
-            });
+            covertFormEntries(entries);
           }
         },
       },

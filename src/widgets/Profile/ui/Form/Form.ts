@@ -1,6 +1,6 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
 import { Button, InteractiveInput } from '@/shared/ui';
-import { getFormDataEntries } from '@/shared/utils';
+import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
 import { comparePasswords } from '@/shared/services/validator';
 import { IFormProps } from './Form.interfaces';
@@ -79,9 +79,7 @@ export class Form extends Block<IFormProps> {
         }
 
         if (isValidationPassed) {
-          entries.forEach(([name, value]) => {
-            console.log(`${name}: `, value);
-          });
+          covertFormEntries(entries);
         }
       },
     };
