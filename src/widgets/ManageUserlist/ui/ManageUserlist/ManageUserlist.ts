@@ -8,7 +8,7 @@ import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constant
 import { Form } from '../Form';
 
 const isPopupOpened = false;
-const isModalOpened = true;
+const isModalOpened = false;
 
 export class ManageUserlist extends Block {
   protected getInternalChildren(): IChildren {
