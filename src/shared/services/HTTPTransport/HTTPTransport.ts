@@ -1,9 +1,4 @@
-import {
-  EMethods,
-  IHTTPOptions,
-  IHeaders,
-  TOptionsWithoutMethod,
-} from './HTTPTransport.interfaces';
+import { EMethods, IHTTPOptions, IHeaders, THTTPMethod } from './HTTPTransport.interfaces';
 
 const queryStringify = <T extends Record<string, string>>(data: T): string => {
   if (typeof data !== 'object') {
@@ -22,7 +17,7 @@ const queryStringify = <T extends Record<string, string>>(data: T): string => {
 };
 
 export class HTTPTransport {
-  get = <T>(url: string, options: TOptionsWithoutMethod = {}): Promise<T> => {
+  get: THTTPMethod = (url, options = {}) => {
     const { data, timeout } = options;
 
     const query = queryStringify(data);
@@ -32,25 +27,25 @@ export class HTTPTransport {
     return this.request(formattedUrl, { ...options, method: EMethods.GET }, timeout);
   };
 
-  post = <T>(url: string, options: TOptionsWithoutMethod = {}): Promise<T> => {
+  post: THTTPMethod = (url, options = {}) => {
     const { timeout } = options;
 
     return this.request(url, { ...options, method: EMethods.POST }, timeout);
   };
 
-  put = <T>(url: string, options: TOptionsWithoutMethod = {}): Promise<T> => {
+  put: THTTPMethod = (url, options = {}) => {
     const { timeout } = options;
 
     return this.request(url, { ...options, method: EMethods.PUT }, timeout);
   };
 
-  delete = <T>(url: string, options: TOptionsWithoutMethod = {}): Promise<T> => {
+  delete: THTTPMethod = (url, options = {}) => {
     const { timeout } = options;
 
     return this.request(url, { ...options, method: EMethods.DELETE }, timeout);
   };
 
-  patch = <T>(url: string, options: TOptionsWithoutMethod = {}): Promise<T> => {
+  patch: THTTPMethod = (url, options = {}) => {
     const { timeout } = options;
 
     return this.request(url, { ...options, method: EMethods.PATCH }, timeout);

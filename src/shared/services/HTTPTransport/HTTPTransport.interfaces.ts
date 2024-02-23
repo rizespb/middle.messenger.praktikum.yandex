@@ -19,3 +19,5 @@ export interface IHTTPOptions {
 }
 
 export type TOptionsWithoutMethod = Omit<IHTTPOptions, 'method'>;
+
+export type THTTPMethod = <T = unknown>(url: string, options?: TOptionsWithoutMethod) => Promise<T>;
