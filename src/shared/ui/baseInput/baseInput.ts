@@ -9,7 +9,7 @@ export class BaseInput extends Block<IBaseInputProps> {
   protected getInternalChildren(): IChildren {
     const { type, name, placeholder } = this.props;
 
-    const validateInput = (event: FocusEvent | KeyboardEvent): void => {
+    const validateInput = (event: Event): void => {
       const { value } = event.target as HTMLInputElement;
 
       const { isError, errorMessage } = validator.test(name, value);
@@ -26,27 +26,14 @@ export class BaseInput extends Block<IBaseInputProps> {
       });
     };
 
-    // Если нажать клавишу Enter, это стриггерит отправку формы и фокус у инпута будет потерян. В результате будет выполнен blur на элементе, которого уже нет в DOM (после this.setProps в getInternalChildren уже был выполнен replaceWith)
-    let isEnterPressed = false;
-
     const input = new Input({
       type,
       name,
       placeholder,
       className: classes.input,
       events: {
-        blur: (event): void => {
-          if (isEnterPressed) {
-            isEnterPressed = false;
-            return;
-          }
-
+        change: (event): void => {
           validateInput(event);
-        },
-        keypress: (event): void => {
-          if (event.key === 'Enter') {
-            isEnterPressed = true;
-          }
         },
       },
     });

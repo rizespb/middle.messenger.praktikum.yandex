@@ -41,9 +41,10 @@ export class AuthorizationForm extends Block<IAuthorizationFormProps> {
 
           if (isComparePasswordsFailed) {
             form.setProps({ passwordsError: errorMessage });
+            return;
           }
 
-          if (isValidationPassed && !isComparePasswordsFailed) {
+          if (isValidationPassed) {
             entries.forEach(([name, value]) => {
               console.log(`${name}: `, value);
             });

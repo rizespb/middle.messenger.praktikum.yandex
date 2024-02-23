@@ -74,9 +74,11 @@ export class Form extends Block<IFormProps> {
 
         if (isComparePasswordsFailed) {
           this.setProps({ passwordsError: errorMessage });
+
+          return;
         }
 
-        if (isValidationPassed && !isComparePasswordsFailed) {
+        if (isValidationPassed) {
           entries.forEach(([name, value]) => {
             console.log(`${name}: `, value);
           });
