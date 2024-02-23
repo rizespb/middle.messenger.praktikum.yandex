@@ -21,11 +21,11 @@ export const getPage = (pageCode: EPages): Block => {
     case EPages.ProfilePage:
       return new ProfilePage({});
 
-    case EPages.Error404:
-      return new Error404Page({});
-
     case EPages.Error500:
-    default:
       return new Error500Page({});
+
+    case EPages.Error404:
+    default:
+      return new Error404Page({});
   }
 };

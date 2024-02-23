@@ -7,7 +7,7 @@
     "dev": "vite",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build",
-    "lint": "eslint --ext .js,.ts ./src && stylelint **/*.scss"
+    "lint": "eslint --ext .js,.ts ./src && stylelint **/*.scss && tsc --noEmit"
   },
   "repository": {
     "type": "git",

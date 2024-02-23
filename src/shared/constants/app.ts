@@ -5,5 +5,4 @@ export enum EPages {
   Error500 = '500',
   ChatsPage = 'chatsPage',
   ProfilePage = 'profile',
-  SandboxPage = 'sandboxPage',
 }
