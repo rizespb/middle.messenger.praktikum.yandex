@@ -1,6 +1,6 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
 import { BaseInput, Button } from '@/shared/ui';
-import { getFormDataEntries } from '@/shared/utils';
+import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
 import tmpl from './Form.hbs?raw';
 import classes from './Form.module.scss';
@@ -51,9 +51,7 @@ export class Form extends Block<IManageUserlistFormProps> {
         }
 
         if (isValidationPassed) {
-          entries.forEach(([name, value]) => {
-            console.log(`${name}: `, value);
-          });
+          covertFormEntries(entries);
         }
       },
     };

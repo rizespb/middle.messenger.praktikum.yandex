@@ -2,7 +2,7 @@ import { EIcons } from '@/shared/types';
 import { Block, IChildren, TEvents } from '@/shared/render';
 import { Icon } from '@/shared/ui';
 import { Input } from '@/shared/ui/Input';
-import { getFormDataEntries } from '@/shared/utils';
+import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
 import tmpl from './MessageInput.hbs?raw';
 import classes from './MessageInput.module.scss';
@@ -41,9 +41,7 @@ export class MessageInput extends Block {
         const isValidationPassed = !validationResults[0].isError;
 
         if (isValidationPassed) {
-          entries.forEach(([name, value]) => {
-            console.log(`${name}: `, value);
-          });
+          covertFormEntries(entries);
         }
       },
     };

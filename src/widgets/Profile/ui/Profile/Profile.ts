@@ -14,7 +14,7 @@ export class Profile extends Block {
     const userAvatar = new UserAvatar({});
 
     const form = new Form({
-      mode: 'password',
+      mode: 'personalDetails',
       isEditMode,
     });
 

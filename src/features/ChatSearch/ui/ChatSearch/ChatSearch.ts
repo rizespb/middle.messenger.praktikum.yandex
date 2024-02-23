@@ -1,7 +1,7 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
 import { validateForm } from '@/shared/services';
 import { Input } from '@/shared/ui/Input';
-import { getFormDataEntries } from '@/shared/utils';
+import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import tmpl from './ChatSearch.hbs?raw';
 import classes from './ChatSearch.module.scss';
 import { SEARCH_INPUT_ID, inputData } from './ChatSearch.constants';
@@ -33,9 +33,7 @@ export class ChatSearch extends Block {
         const isValidationPassed = !validationResults[0].isError;
 
         if (isValidationPassed) {
-          entries.forEach(([name, value]) => {
-            console.log(`${name}: `, value);
-          });
+          covertFormEntries(entries);
         }
       },
     };
