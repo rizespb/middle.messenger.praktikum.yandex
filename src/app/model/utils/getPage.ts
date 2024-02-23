@@ -1,30 +1,31 @@
+import { Block } from '@/shared/render';
 import { EPages } from '@/shared/constants';
-import { logInPage } from '@/pages/logInPage';
-import { signUpPage } from '@/pages/signUpPage';
-import { error404Page } from '@/pages/error404Page';
-import { error500Page } from '@/pages/error500Page';
-import { chatsPage } from '@/pages/chatsPage';
-import { profilePage } from '@/pages/profilePage';
+import { Error500Page } from '@/pages/Error500Page';
+import { Error404Page } from '@/pages/Error400Page';
+import { LogInPage } from '@/pages/LogInPage';
+import { SignUpPage } from '@/pages/SignUpPage';
+import { ChatsPage } from '@/pages/ChatsPage';
+import { ProfilePage } from '@/pages/ProfilePage';
 
-export const getPage = (pageCode: EPages): (() => THtml) => {
+export const getPage = (pageCode: EPages): Block => {
   switch (pageCode) {
+    case EPages.LogInPage:
+      return new LogInPage({});
+
     case EPages.SignUpPage:
-      return signUpPage;
+      return new SignUpPage({});
 
-    case EPages.Error404:
-      return error404Page;
-
-    case EPages.Error500:
-      return error500Page;
-
-    case EPages.СhatsPage:
-      return chatsPage;
+    case EPages.ChatsPage:
+      return new ChatsPage({});
 
     case EPages.ProfilePage:
-      return profilePage;
+      return new ProfilePage({});
 
-    case EPages.LogInPage:
+    case EPages.Error404:
+      return new Error404Page({});
+
+    case EPages.Error500:
     default:
-      return logInPage;
+      return new Error500Page({});
   }
 };

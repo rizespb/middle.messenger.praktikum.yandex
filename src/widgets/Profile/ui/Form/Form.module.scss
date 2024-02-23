@@ -1,0 +1,27 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.inputs {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 13px;
+	width: 100%;
+	margin-bottom: 60px;
+}
+
+.submitButtom {
+	width: 100%;
+	max-width: 280px;
+}
+
+.passwordsError {
+	position: absolute;
+	bottom: -30px;
+	color: $error-text-color;
+}

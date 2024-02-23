@@ -1,1 +1,0 @@
-export { errorBlock } from './ui';

@@ -1,1 +1,0 @@
-export { chatsList } from './chatsList';

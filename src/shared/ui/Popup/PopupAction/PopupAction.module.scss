@@ -1,0 +1,13 @@
+.action {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	white-space: nowrap;
+	cursor: pointer;
+
+	@include opacity;
+
+	& * {
+		flex-shrink: 0;
+	}
+}

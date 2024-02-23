@@ -1,1 +1,0 @@
-export { chatsPage } from './chatsPage';

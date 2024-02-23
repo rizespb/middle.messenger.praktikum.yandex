@@ -1,0 +1,17 @@
+<form class="{{classes.form}}">
+		<div class="{{classes.inputs}}">
+			{{#each inputs}}
+				{{{this}}}
+			{{/each}}
+
+			{{#if passwordsError}}
+				<div class="{{classes.passwordsError}}">
+					{{{passwordsError}}}
+				</div>
+			{{/if}}
+		</div>
+
+		{{#if isEditMode}}
+			{{{submitButton}}}
+		{{/if}}
+	</form>
