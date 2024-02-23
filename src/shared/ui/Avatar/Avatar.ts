@@ -1,9 +1,9 @@
 import { classNames } from '@/shared/utils';
 import { Block } from '@/shared/render';
-import { IAvatarProps } from './1Avatar.interfaces';
+import { IAvatarProps } from './Avatar.interfaces';
 import tmpl from './Avatar.hbs?raw';
 import classes from './Avatar.module.scss';
-import { sizesMap } from './1Avatar.constants';
+import { sizesMap } from './Avatar.constants';
 
 export class Avatar extends Block<IAvatarProps> {
   render(): DocumentFragment {
