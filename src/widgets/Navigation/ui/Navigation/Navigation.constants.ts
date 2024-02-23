@@ -28,8 +28,4 @@ export const pagesMap: IPageMapItem[] = [
     code: EPages.ProfilePage,
     title: 'Profile',
   },
-  {
-    code: EPages.SandboxPage,
-    title: 'Sandbox',
-  },
 ];
