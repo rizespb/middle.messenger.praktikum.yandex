@@ -15,15 +15,9 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/app": ["app/index"],
-      "@/entities/*": ["entities/*"],
-      "@/features/*": ["features/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/pages/*": ["pages/*"],
-      "@/shared/*": ["shared/*"],
-      "@/widgets/*": ["widgets/*"]
+      "@/*": ["src/*"]
     }
   }
 }
