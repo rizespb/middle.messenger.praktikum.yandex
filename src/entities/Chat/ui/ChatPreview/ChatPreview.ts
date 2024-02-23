@@ -2,7 +2,7 @@ import { Avatar } from '@/shared/ui';
 import { Block, IChildren } from '@/shared/render';
 import classes from './ChatPreview.module.scss';
 import tmpl from './ChatPreview.hbs?raw';
-import { IChatPreviewProps } from './1ChatPreview.interfaces';
+import { IChatPreviewProps } from './ChatPreview.interfaces';
 
 export class ChatPreview extends Block<IChatPreviewProps> {
   getInternalChildren(): IChildren {

@@ -1,6 +1,6 @@
 // @TODO в дальнейшем удалить
 
-import { IChatPreviewProps } from '@/entities/chat';
+import { IChatPreviewProps } from '@/entities/Chat';
 
 export const chatPreviewsMock: IChatPreviewProps[] = [
   {

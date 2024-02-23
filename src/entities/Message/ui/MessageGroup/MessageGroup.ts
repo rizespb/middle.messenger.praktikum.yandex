@@ -1,6 +1,6 @@
 import { Block, IChildren } from '@/shared/render';
 import tmpl from './MessageGroup.hbs?raw';
-import { IMessageGroupProps } from './1MessageGroup.interfaces';
+import { IMessageGroupProps } from './MessageGroup.interfaces';
 import classes from './MessageGroup.module.scss';
 import { getMessagesStr } from '../../model';
 import { TextMessage } from '../TextMessage';

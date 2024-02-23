@@ -1,5 +1,5 @@
 import { Block, IChildren } from '@/shared/render';
-import { MessageGroup } from '@/entities/message';
+import { MessageGroup } from '@/entities/Message';
 import tmpl from './Chat.hbs?raw';
 import classes from './Chat.module.scss';
 import { messagesGroupsMock } from './Chat.mocks';

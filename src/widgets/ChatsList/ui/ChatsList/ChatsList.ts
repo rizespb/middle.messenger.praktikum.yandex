@@ -1,4 +1,4 @@
-import { ChatPreview } from '@/entities/chat';
+import { ChatPreview } from '@/entities/Chat';
 import { Block, IChildren } from '@/shared/render';
 import { chatPreviewsMock } from './ChatsList.mocks';
 import tmpl from './ChatsList.hbs?raw';

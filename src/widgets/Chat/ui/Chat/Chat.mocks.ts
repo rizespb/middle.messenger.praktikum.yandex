@@ -3,7 +3,7 @@ import {
   EMessageType,
   IMessagesGroup,
   EMessageStatus,
-} from '@/entities/message';
+} from '@/entities/Message';
 
 // @TODO в дальнейшем удалить
 export const messagesGroupsMock: IMessagesGroup[] = [
