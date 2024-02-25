@@ -13,6 +13,10 @@ app.use(
   })
 );
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(APP_SUCCESS_START_MESSAGE);
