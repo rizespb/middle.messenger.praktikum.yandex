@@ -4,8 +4,6 @@ import { render } from '@/shared/render';
 import { Navigation } from '@/widgets/Navigation';
 import { EPages } from '@/shared/constants';
 import { getPage } from './getPage';
-// import { currentPage, setPage } from './setPage';
-import { currentPage, setPage } from './setPage';
 import { APP_CONTAINER_ID } from '../contstants';
 
 export const renderPage = (): void => {
@@ -17,7 +15,9 @@ export const renderPage = (): void => {
 
   root.innerHTML = '';
 
-  const page = getPage(currentPage);
+  const { pathname } = window.location;
+
+  const page = getPage(pathname.slice(1));
 
   const appContainerSelector = `#${APP_CONTAINER_ID}`;
 
@@ -25,8 +25,7 @@ export const renderPage = (): void => {
 
   const navigation = new Navigation({
     onNavItemClick: (pageCode: EPages): void => {
-      setPage(pageCode);
-      renderPage();
+      window.location.href = pageCode;
     },
   });
 

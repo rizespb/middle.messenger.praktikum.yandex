@@ -7,9 +7,10 @@ import { SignUpPage } from '@/pages/SignUpPage';
 import { ChatsPage } from '@/pages/ChatsPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 
-export const getPage = (pageCode: EPages): Block => {
+export const getPage = (pageCode: EPages | string): Block => {
   switch (pageCode) {
     case EPages.LogInPage:
+    case '':
       return new LogInPage({});
 
     case EPages.SignUpPage:
