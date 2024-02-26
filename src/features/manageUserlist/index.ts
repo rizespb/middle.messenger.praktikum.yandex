@@ -1,1 +1,0 @@
-export { manageUserlist } from './manageUserlist';

@@ -1,1 +1,0 @@
-export { textMessage } from './textMessage';

@@ -1,1 +1,0 @@
-export { signUpForm } from './signUpForm';

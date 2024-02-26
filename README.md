@@ -7,7 +7,6 @@
 - [Макет](#макет)
 - [Команды](#команды)
 - [Ссылки на страницы](#ссылки-на-страницы)
-<!-- @TODO добавить ссылку на проекте в Netlify -->
 - [Netlify](#ссылки-на-страницы)
 
 ## Описание
@@ -36,7 +35,6 @@
 
 Ссылка на макет в Figma – [Макеты](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design&node-id=1-600&mode=design&t=VCp4U8leBxHmG3QZ-4)
 
-<!-- @TODO заполнить раздел -->
 
 ## Команды
 
@@ -48,7 +46,31 @@
 
 `npm run lint` – запуск ESLint и Stylelint
 
-<!-- @TODO заполнить раздел -->
 
 ## Ссылки на страницы
-Сайт со всеми страницами доступен по адресу [https://messanger-praktikum.netlify.app](https://messanger-praktikum.netlify.app/)
+
+`/login` – страница авторизации
+
+`/signup` – страница регистрации
+
+`/chats` – страница чатов
+
+`/profile` – страница профиля
+
+`/404` – страница 404
+
+`/500` – страница 500
+
+Сайт со всеми страницами доступен по адресу [https://messanger-praktikum.netlify.app](https://messanger-praktikum.netlify.app/):
+
+[Страница авторизации](https://messanger-praktikum.netlify.app/login)
+
+[Страница регистрации](https://messanger-praktikum.netlify.app/signup)
+
+[Страница чатов](https://messanger-praktikum.netlify.app/chats)
+
+[Страница профиля](https://messanger-praktikum.netlify.app/profile)
+
+[Страница 404](https://messanger-praktikum.netlify.app/404)
+
+[Страница 500](https://messanger-praktikum.netlify.app/500)

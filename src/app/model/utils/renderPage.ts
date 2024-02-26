@@ -1,30 +1,33 @@
-import { navigation, setNavigationClickEventListener } from '@/widgets/navigation';
+// import { navigation, setNavigationClickEventListener } from '@/widgets/navigation';
+// import { EPages } from '@/shared/constants';
+import { render } from '@/shared/render';
+import { Navigation } from '@/widgets/Navigation';
 import { EPages } from '@/shared/constants';
 import { getPage } from './getPage';
-import { currentPage, setPage } from './setPage';
 import { APP_CONTAINER_ID } from '../contstants';
 
 export const renderPage = (): void => {
   const root = document.getElementById(APP_CONTAINER_ID);
 
   if (!root) {
-    throw new Error('root not found');
+    throw new Error('Root not found');
   }
 
-  const page = getPage(currentPage);
+  root.innerHTML = '';
 
-  const pageHtml = page();
+  const { pathname } = window.location;
 
-  const navigationHtml = navigation();
+  const page = getPage(pathname.slice(1));
 
-  const result = `${pageHtml}${navigationHtml}`;
+  const appContainerSelector = `#${APP_CONTAINER_ID}`;
 
-  root.innerHTML = result;
+  render(appContainerSelector, page);
 
-  const onNavItemClick = (pageCode: EPages): void => {
-    setPage(pageCode);
-    renderPage();
-  };
+  const navigation = new Navigation({
+    onNavItemClick: (pageCode: EPages): void => {
+      window.location.href = pageCode;
+    },
+  });
 
-  setNavigationClickEventListener(onNavItemClick);
+  render(appContainerSelector, navigation);
 };

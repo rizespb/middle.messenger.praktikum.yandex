@@ -1,0 +1,10 @@
+.container {
+	position: relative;
+}
+
+.icon {
+	color: $primary-color;
+	cursor: pointer;
+
+	@include opacity;
+}

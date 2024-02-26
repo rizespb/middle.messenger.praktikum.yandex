@@ -1,6 +1,7 @@
-export { avatar } from './avatar';
-export { baseInput, type IBaseInputProps } from './baseInput';
-export { authorizationForm, type IAuthorizationFormProps } from './authorizationForm';
-export { button, type IButtonProps } from './button';
-export { icon } from './icon';
-export { modalWindow } from './modalWindow';
+export { Avatar } from './Avatar';
+export { BaseInput, type IBaseInputProps } from './BaseInput';
+export { Button, type IButtonProps } from './Button';
+export { Icon } from './Icon';
+export { ModalWindow } from './ModalWindow';
+export { Popup, ActionsList, type IActionData } from './Popup';
+export { InteractiveInput } from './InteractiveInput';

@@ -1,8 +1,8 @@
 export enum EPages {
-  LogInPage = 'logIn',
-  SignUpPage = 'signUp',
+  LogInPage = 'login',
+  SignUpPage = 'signup',
   Error404 = '404',
   Error500 = '500',
-  СhatsPage = 'chatsPage',
+  ChatsPage = 'chats',
   ProfilePage = 'profile',
 }
