@@ -1,4 +1,7 @@
 export const BUTTONS = {
   logInButton: 'Авторизоваться',
-  creatAccountButton: 'Нет аккаунта?',
+  signUpLink: {
+    text: 'Нет аккаунта?',
+    href: '/sign-up',
+  },
 };

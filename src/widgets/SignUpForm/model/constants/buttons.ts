@@ -1,4 +1,7 @@
 export const BUTTONS = {
   creatAccountButton: 'Зарегистрироваться',
-  logInButton: 'Войти',
+  loginLink: {
+    text: 'Войти',
+    href: '/',
+  },
 };

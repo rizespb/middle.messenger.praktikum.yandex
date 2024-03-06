@@ -1,4 +1,4 @@
 export const linkData = {
   text: 'Профиль >',
-  href: '/profile',
+  href: '/settings',
 };

@@ -2,6 +2,7 @@ import { Block, IChildren } from '@/shared/render';
 import { Icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import { Profile } from '@/widgets/Profile';
+import { router } from '@/entities/Router';
 import tmpl from './ProfilePage.hbs?raw';
 import classes from './ProfilePage.module.scss';
 
@@ -10,6 +11,11 @@ export class ProfilePage extends Block {
     const goBackIcon = new Icon({
       icon: EIcons.ArrowIcon,
       iconClass: classes.icon,
+      events: {
+        click: (): void => {
+          router.go('/messenger');
+        },
+      },
     });
 
     const content = new Profile({});
