@@ -19,6 +19,14 @@ export class ChatsPage extends Block {
     };
   }
 
+  public show(): void {
+    const content = this.getContent();
+
+    if (content) {
+      content.style.display = 'grid';
+    }
+  }
+
   render(): DocumentFragment {
     return this.compile(tmpl, {
       classes,

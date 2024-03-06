@@ -1,1 +1,1 @@
-export { Navigation } from './Navigation';
+export { Navigation, type INavLink } from './Navigation';
