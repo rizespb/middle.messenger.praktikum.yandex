@@ -1,20 +1,5 @@
+import { queryStringify } from '@/shared/utils';
 import { EMethods, IHTTPOptions, IHeaders, THTTPMethod } from './HTTPTransport.interfaces';
-
-const queryStringify = <T extends Record<string, string>>(data: T): string => {
-  if (typeof data !== 'object') {
-    return data;
-  }
-
-  const query = Object.entries(data).reduce((acc, [key, value], index, array) => {
-    const isLast = index === array.length - 1;
-
-    const postFix = isLast ? '' : '&';
-
-    return `${acc}${key}=${value}${postFix}`;
-  }, '?');
-
-  return query;
-};
 
 export class HTTPTransport {
   get: THTTPMethod = (url, options = {}) => {
@@ -22,7 +7,7 @@ export class HTTPTransport {
 
     const query = queryStringify(data);
 
-    const formattedUrl = typeof query === 'string' ? `${url}${query}` : url;
+    const formattedUrl = typeof query === 'string' ? `${url}?${query}` : url;
 
     return this.request(formattedUrl, { ...options, method: EMethods.GET }, timeout);
   };

@@ -2,10 +2,10 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '@/shared/services';
+import { TAnyObject } from '@/shared/types';
 import {
   EBlockEvents,
   IBlockProps,
-  TAnyObject,
   TBlockEventBus,
   TEvents,
   TClearProps,
