@@ -3,9 +3,12 @@ import { render } from '@/shared/render';
 import { router } from '@/entities/Router';
 import { APP_CONTAINER_ID, routes } from '../contstants';
 import { registerRoutes } from './registerRoutes';
+import { initStore } from './initStore';
 
 export const startApp = (): void => {
   const appContainerSelector = `#${APP_CONTAINER_ID}`;
+
+  initStore();
 
   router.init(appContainerSelector);
 

@@ -1,13 +1,27 @@
-declare module '*.scss' {
-  const content: Record<string, string>;
-  export default content;
+import { Store } from '@/shared/store';
+
+declare global {
+  module '*.scss' {
+    const content: Record<string, string>;
+    export default content;
+  }
+
+  module '*.svg';
+  module '*.webp';
+
+  module '*.hbs?raw';
+
+  type THtml = string;
+
+  type TUuid = string;
+
+  interface Window {
+    appStore: Store;
+  }
+
+  interface IAppState {
+    isLoading: boolean;
+  }
+
+  const appStore: Store;
 }
-
-declare module '*.svg';
-declare module '*.webp';
-
-declare module '*.hbs?raw';
-
-declare type THtml = string;
-
-declare type TUuid = string;
