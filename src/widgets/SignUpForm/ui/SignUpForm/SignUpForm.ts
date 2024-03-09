@@ -2,11 +2,11 @@ import { AuthorizationForm } from '@/widgets/AuthorizationForm';
 import { Block, IChildren } from '@/shared/render';
 import { userController } from '@/entities/User';
 import { IUserData } from '@/entities/User/api';
-import { ISignUpUserData } from '@/widgets/AuthorizationForm/ui/AuthorizationForm/AuthorizationForm.interfaces';
 import { TEXTS } from './SignUpForm.constants';
 import tmpl from './SignUpForm.hbs?raw';
 
 import { getButtons, getInputs } from '../../model';
+import { ISignUpFormData } from './SignUpForm.interfaces';
 
 export class SignUpForm extends Block {
   getInternalChildren(): IChildren {
@@ -14,11 +14,11 @@ export class SignUpForm extends Block {
 
     const buttons = getButtons();
 
-    const authorizationForm = new AuthorizationForm<ISignUpUserData>({
+    const authorizationForm = new AuthorizationForm<ISignUpFormData>({
       title: TEXTS.title,
       buttons,
       inputs,
-      onSubmit: (userData: ISignUpUserData): void => {
+      onSubmit: (userData): void => {
         const { first_name, second_name, login, email, phone, newPassword } = userData;
 
         const createUserData: IUserData = {

@@ -59,15 +59,13 @@ export class HTTPTransportClass {
         const status = xhr.status || 0;
 
         if (status >= 200 && status < 300) {
-          resolve(xhr as T);
+          resolve(xhr.response as T);
         } else {
           const roundedStatus = (Math.floor(status / 100) * 100) as keyof typeof responseMessages;
 
-          reject(
-            new Error(
-              `Response status is ${roundedStatus}. Message: ${responseMessages[roundedStatus]}`
-            )
-          );
+          const message = xhr.response.reason || responseMessages[roundedStatus];
+
+          reject(new Error(`Response status is ${roundedStatus}. Message: ${message}`));
         }
       };
 

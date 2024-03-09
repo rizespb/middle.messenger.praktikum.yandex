@@ -2,9 +2,11 @@ import { CenterContentLayout } from '@/layouts/CenterContentLayout';
 
 import { Block, IChildren } from '@/shared/render';
 import { LogInForm } from '@/widgets/LogInForm';
+import { Loader } from '@/shared/ui';
+import { connect } from '@/shared/HOC';
 import tmpl from './LogInPage.hbs?raw';
 
-export class LogInPage extends Block {
+class LogInPageClass extends Block {
   getInternalChildren(): IChildren {
     const loginForm = new LogInForm({});
 
@@ -14,6 +16,7 @@ export class LogInPage extends Block {
           content: loginForm,
         },
       }),
+      loader: new Loader({}),
     };
   }
 
@@ -21,3 +24,7 @@ export class LogInPage extends Block {
     return this.compile(tmpl);
   }
 }
+
+export const LogInPage = connect(LogInPageClass, (state) => ({
+  isLoading: state.isLoading,
+}));
