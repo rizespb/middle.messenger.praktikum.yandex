@@ -10,9 +10,12 @@ export class Route {
 
   _props: IRouteProps;
 
+  isProtected: boolean;
+
   constructor(pathname: string, view: TBlockClass, props: IRouteProps) {
     this._pathname = pathname;
     this._blockClass = view;
+    this.isProtected = props.isProtected;
     this._props = props;
   }
 

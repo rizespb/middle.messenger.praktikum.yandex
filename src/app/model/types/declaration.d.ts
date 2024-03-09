@@ -21,6 +21,7 @@ declare global {
 
   interface IAppState {
     isLoading: boolean;
+    isLoggedIn: boolean;
   }
 
   const appStore: Store;

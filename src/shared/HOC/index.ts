@@ -1,1 +1,1 @@
-export { connect } from './connect';
+export { connect, type TMapStateToProps } from './connect';
