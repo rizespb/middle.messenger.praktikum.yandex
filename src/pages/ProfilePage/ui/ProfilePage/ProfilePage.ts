@@ -3,6 +3,7 @@ import { Icon } from '@/shared/ui';
 import { EIcons } from '@/shared/types';
 import { Profile } from '@/widgets/Profile';
 import { router } from '@/entities/Router';
+import { EPagesUrls } from '@/shared/constants';
 import tmpl from './ProfilePage.hbs?raw';
 import classes from './ProfilePage.module.scss';
 
@@ -13,7 +14,7 @@ export class ProfilePage extends Block {
       iconClass: classes.icon,
       events: {
         click: (): void => {
-          router.go('/messenger');
+          router.go(EPagesUrls.ChatsPage);
         },
       },
     });

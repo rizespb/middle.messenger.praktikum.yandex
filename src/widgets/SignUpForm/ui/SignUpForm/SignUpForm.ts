@@ -1,5 +1,8 @@
 import { AuthorizationForm } from '@/widgets/AuthorizationForm';
 import { Block, IChildren } from '@/shared/render';
+import { userController } from '@/entities/User';
+import { IUserData } from '@/entities/User/api';
+import { ISignUpUserData } from '@/widgets/AuthorizationForm/ui/AuthorizationForm/AuthorizationForm.interfaces';
 import { TEXTS } from './SignUpForm.constants';
 import tmpl from './SignUpForm.hbs?raw';
 
@@ -11,10 +14,24 @@ export class SignUpForm extends Block {
 
     const buttons = getButtons();
 
-    const authorizationForm = new AuthorizationForm({
+    const authorizationForm = new AuthorizationForm<ISignUpUserData>({
       title: TEXTS.title,
       buttons,
       inputs,
+      onSubmit: (userData: ISignUpUserData): void => {
+        const { first_name, second_name, login, email, phone, newPassword } = userData;
+
+        const createUserData: IUserData = {
+          first_name,
+          second_name,
+          login,
+          email,
+          password: newPassword,
+          phone,
+        };
+
+        userController.createUser(createUserData);
+      },
     });
 
     return {

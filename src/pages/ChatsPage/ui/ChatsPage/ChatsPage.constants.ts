@@ -1,4 +1,6 @@
+import { EPagesUrls } from '@/shared/constants';
+
 export const linkData = {
   text: 'Профиль >',
-  href: '/settings',
+  href: EPagesUrls.ProfilePage,
 };

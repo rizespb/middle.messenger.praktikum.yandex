@@ -16,6 +16,8 @@ export interface IHTTPOptions {
   data?: any;
   timeout?: number;
   headers?: IHeaders;
+  withCredentials?: boolean;
+  responseType?: XMLHttpRequestResponseType;
 }
 
 export type TOptionsWithoutMethod = Omit<IHTTPOptions, 'method'>;

@@ -7,7 +7,7 @@ export class Store extends EventBus<EStoreEvents> {
   static instance: Store;
 
   private state: IAppState = {
-    isLoading: true,
+    isLoading: false,
     isLoggedIn: false,
   };
 

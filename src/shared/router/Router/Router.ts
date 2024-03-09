@@ -1,3 +1,4 @@
+import { EPagesUrls } from '@/shared/constants';
 import { Route, TBlockClass } from '../Route';
 
 export class Router {
@@ -36,7 +37,7 @@ export class Router {
     this._rootQuery = rootQuery;
     this._checkIsProtectedRoutesAllowed = checkIsProtectedRoutesAllowed;
 
-    const notFoundPageRoute = new Route('/404', notFoundPage, {
+    const notFoundPageRoute = new Route(EPagesUrls.Error404, notFoundPage, {
       rootQuery: this._rootQuery as string,
       isProtected: false,
     });
@@ -87,9 +88,9 @@ export class Router {
     }
 
     if (route.isProtected && !this._checkIsProtectedRoutesAllowed()) {
-      const mainPage = this.getRoute('/') || this._notFoundPageRoute;
+      const mainPage = this.getRoute(EPagesUrls.LogInPage) || this._notFoundPageRoute;
       mainPage?.render();
-      this.history.replaceState({}, '', '/');
+      this.history.replaceState({}, '', EPagesUrls.LogInPage);
 
       this._currentRoute = mainPage;
 

@@ -1,8 +1,8 @@
 import { classNames } from '@/shared/utils';
 import { Block } from '@/shared/render';
+import { IButtonProps } from './Button.interfaces';
 import tmpl from './Button.hbs?raw';
 import classes from './Button.module.scss';
-import { IButtonProps } from './Button.interfaces';
 
 export class Button extends Block<IButtonProps> {
   render(): DocumentFragment {
