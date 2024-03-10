@@ -1,5 +1,6 @@
 import { router } from '@/entities/Router';
 import { EPagesUrls } from '@/shared/constants';
+import { showSnackBar } from '@/shared/ui';
 import { ILogInData, IUserData, createUserApi, logInApi } from '../../api';
 
 class UserController {
@@ -7,15 +8,18 @@ class UserController {
     appStore.set('isLoading', true);
 
     createUserApi(userData)
-      .finally(() => {
-        appStore.set('isLoading', false);
-      })
       .then(() => {
         appStore.set('isLoggedIn', true);
+
         router.go(EPagesUrls.ChatsPage);
       })
       .catch((error: Error) => {
-        console.log(error.message);
+        console.error(error.message);
+
+        showSnackBar(error.message);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
       });
   }
 
@@ -23,15 +27,17 @@ class UserController {
     appStore.set('isLoading', true);
 
     logInApi(logInData)
-      .finally(() => {
-        appStore.set('isLoading', false);
-      })
       .then(() => {
         appStore.set('isLoggedIn', true);
         router.go(EPagesUrls.ChatsPage);
       })
       .catch((error: Error) => {
-        console.log(error.message);
+        console.error(error.message);
+
+        showSnackBar(error.message);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
       });
   }
 }

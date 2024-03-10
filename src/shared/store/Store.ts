@@ -6,18 +6,17 @@ export class Store extends EventBus<EStoreEvents> {
   // eslint-disable-next-line no-use-before-define
   static instance: Store;
 
-  private state: IAppState = {
-    isLoading: false,
-    isLoggedIn: false,
-  };
+  private state: IAppState;
 
-  constructor() {
+  constructor(initialState: IAppState) {
     if (Store.instance) {
       // eslint-disable-next-line no-constructor-return
       return Store.instance;
     }
 
     super();
+
+    this.state = initialState;
 
     Store.instance = this;
   }

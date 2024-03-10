@@ -1,5 +1,3 @@
-import { Store } from '@/shared/store';
-
 declare global {
   module '*.scss' {
     const content: Record<string, string>;
@@ -22,7 +20,13 @@ declare global {
   interface IAppState {
     isLoading: boolean;
     isLoggedIn: boolean;
+    snackBar: {
+      isVisible: boolean;
+      message: string;
+    };
   }
 
   const appStore: Store;
 }
+
+export {};

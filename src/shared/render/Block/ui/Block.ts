@@ -208,13 +208,17 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
   };
 
   private _render(): void {
+    const { display } = this._element.style;
+
     const block = this.render();
 
-    const innerElement = block.firstElementChild;
+    const innerElement = block.firstElementChild as HTMLElement;
 
     if (!this._element || !innerElement) {
       return;
     }
+
+    // Сохраняем текущее значение display элемента
 
     this._removeEvents();
 
@@ -222,7 +226,8 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
     this._element.replaceWith(innerElement);
 
     // Меняем ссылку в экземпляре с элемента-контейнера на наш элемент из шаблона
-    this._element = innerElement as HTMLElement;
+    this._element = innerElement;
+    this._element.style.display = display;
 
     this._addEvents();
     this.renderCount += 1;
