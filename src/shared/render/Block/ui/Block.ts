@@ -22,7 +22,7 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
 
   private _element: HTMLElement;
 
-  protected props: TClearProps<Props>;
+  public props: TClearProps<Props>;
 
   // eslint-disable-next-line no-use-before-define
   protected children: IChildren;
