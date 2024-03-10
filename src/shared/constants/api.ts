@@ -5,4 +5,6 @@ export const servicesUrls = {
   logIn: `${API_HOST}/auth/signin`,
   logOut: `${API_HOST}/auth/logout`,
   userInfo: `${API_HOST}/auth/user`,
+  media: `${API_HOST}/resources`,
+  chats: `${API_HOST}/chats`,
 };

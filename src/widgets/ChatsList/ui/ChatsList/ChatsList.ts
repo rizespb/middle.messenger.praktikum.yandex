@@ -1,12 +1,26 @@
 import { ChatPreview } from '@/entities/Chat';
 import { Block, IChildren } from '@/shared/render';
-import { chatPreviewsMock } from './ChatsList.mocks';
+import { connect } from '@/shared/HOC';
+import { servicesUrls } from '@/shared/constants';
 import tmpl from './ChatsList.hbs?raw';
 import classes from './ChatsList.module.scss';
+import { IChatsListProps } from './ChatsList.interfaces';
 
-export class ChatsList extends Block {
+export class ChatsListClass extends Block<IChatsListProps> {
   protected getInternalChildren(): IChildren {
-    const chats = chatPreviewsMock.map((preview) => new ChatPreview(preview));
+    const chats =
+      this.props.chats?.map((chat) => {
+        const { id, title, avatar, unread_count, last_message } = chat;
+
+        return new ChatPreview({
+          title,
+          lastMessage: last_message || '',
+          newMessagesCount: unread_count,
+          avatarSrc: `${servicesUrls.media}${avatar}`,
+          avatarAlt: title,
+          id,
+        });
+      }) || [];
 
     return {
       chats,
@@ -17,3 +31,7 @@ export class ChatsList extends Block {
     return this.compile(tmpl, { classes });
   }
 }
+
+export const ChatsList = connect(ChatsListClass, (state) => ({
+  chats: state.chats || [],
+}));

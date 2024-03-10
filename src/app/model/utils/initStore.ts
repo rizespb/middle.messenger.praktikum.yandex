@@ -9,6 +9,7 @@ const initialState: IAppState = {
   },
   user: null,
   initialPage: new InitialPage({}),
+  chats: null,
 };
 
 export const initStore = (): void => {

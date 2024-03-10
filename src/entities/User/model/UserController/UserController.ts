@@ -1,6 +1,7 @@
 import { router } from '@/entities/Router';
 import { EPagesUrls } from '@/shared/constants';
 import { showSnackBar } from '@/shared/ui';
+import { fetchChatsListApi } from '../../api/fetchChatsListApi/fetchChatsListApi';
 import {
   ILogInData,
   IUserData,
@@ -35,9 +36,13 @@ class UserController {
     appStore.set('isLoading', true);
 
     return logInApi(logInData)
-      .then(() => fetchUserInfoApi())
+      .then(() => Promise.all([fetchUserInfoApi(), fetchChatsListApi()]))
       .then((res) => {
-        appStore.set('user', res);
+        const [userInfo, chatsList] = res;
+
+        appStore.set('user', userInfo);
+        appStore.set('chats', chatsList);
+
         router.go(EPagesUrls.ChatsPage);
       })
       .catch((error: Error) => {
@@ -66,7 +71,20 @@ class UserController {
     return logOutApi()
       .then(() => {
         appStore.set('user', null);
+        appStore.set('chats', null);
+
         router.go(EPagesUrls.LogInPage);
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      });
+  }
+
+  fetchChatsList(): Promise<void> {
+    return fetchChatsListApi()
+      .then((res) => {
+        appStore.set('chats', res);
       })
       .catch((error: Error) => {
         // eslint-disable-next-line no-console

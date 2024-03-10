@@ -3,10 +3,13 @@ import { userController } from '@/entities/User';
 import { EPagesUrls } from '@/shared/constants';
 
 export const initApp = (): void => {
-  userController.fetchUserInfo().then(() => {
+  const { fetchUserInfo, fetchChatsList } = userController;
+  Promise.all([fetchUserInfo(), fetchChatsList()]).then(() => {
     router.start();
 
-    if (appStore.getState().user === null) {
+    const { user, chats } = appStore.getState();
+
+    if (user === null || chats === null) {
       router.go(EPagesUrls.LogInPage);
     }
 

@@ -1,3 +1,4 @@
+import { IChat } from '@/entities/Chat';
 import { Block } from '@/shared/render';
 import { Store } from '@/shared/store';
 
@@ -27,8 +28,9 @@ declare global {
       isVisible: boolean;
       message: string;
     };
-    user: IUser | null;
     initialPage: Block;
+    user: IUser | null;
+    chats: IChat[] | null;
   }
 
   const appStore: Store;
