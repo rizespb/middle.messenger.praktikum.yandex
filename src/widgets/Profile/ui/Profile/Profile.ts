@@ -1,45 +1,69 @@
 import { Block, IChildren } from '@/shared/render';
-import { UpdatePhoto } from '@/features/UpdatePhoto';
+// import { UpdatePhoto } from '@/features/UpdatePhoto';
+import { connect } from '@/shared/HOC';
 import { UserAvatar } from '../UserAvatar';
-import { Form } from '../Form';
 import tmpl from './Profile.hbs?raw';
 import classes from './Profile.module.scss';
 import { Actions } from '../Actions';
+import { IProfileProps } from './Profile.interfaces';
+import { PersonalDetailsForm } from '../PersonalDetailsForm';
+import { UpdatePasswordForm } from '../UpdatePasswordForm';
 
-const isEditMode = true;
-const isUpdatePhotoFormVisible = false;
+export class ProfileClass extends Block<IProfileProps> {
+  protected componentDidMount(): void {
+    appStore.set('profileMode', 'view');
+    appStore.set('isUpdateProfilePhotoFormVisible', false);
+  }
 
-export class Profile extends Block {
   protected getInternalChildren(): IChildren {
+    const { profileMode } = this.props;
+
     const userAvatar = new UserAvatar({});
 
-    const form = new Form({
-      mode: 'personalDetails',
-      isEditMode,
+    const actions = new Actions({
+      changePersonalDetails: (): void => {
+        appStore.set('profileMode', 'updatePersonalDetails');
+      },
+      changePasswrod: (): void => {
+        appStore.set('profileMode', 'updatePassword');
+      },
     });
 
-    const actions = new Actions({});
+    let form: Block;
 
-    let children: IChildren = {
+    if (profileMode === 'view' || profileMode === 'updatePersonalDetails') {
+      form = new PersonalDetailsForm({});
+    } else {
+      form = new UpdatePasswordForm({});
+    }
+
+    const children: IChildren = {
       userAvatar,
       form,
       actions,
     };
 
-    if (isUpdatePhotoFormVisible) {
-      const updatePhoto = new UpdatePhoto({});
+    // if (isUpdatePhotoFormVisible) {
+    //   const updatePhoto = new UpdatePhoto({});
 
-      children = { ...children, updatePhoto };
-    }
+    //   children = { ...children, updatePhoto };
+    // }
 
     return children;
   }
 
   render(): DocumentFragment {
+    this.setInternalChildren();
+
     return this.compile(tmpl, {
       classes,
       firstName: 'Иван',
-      isViewMode: !isEditMode,
+      isViewMode: this.props.profileMode === 'view',
     });
   }
 }
+
+export const Profile = connect(ProfileClass, (state) => ({
+  profileMode: state.profileMode,
+  isUpdatePhotoFormVisible: state.isUpdateProfilePhotoFormVisible,
+}));

@@ -7,4 +7,6 @@ export const servicesUrls = {
   userInfo: `${API_HOST}/auth/user`,
   media: `${API_HOST}/resources`,
   chats: `${API_HOST}/chats`,
+  userProfile: `${API_HOST}/user/profile`,
+  password: `${API_HOST}/user/password`,
 };

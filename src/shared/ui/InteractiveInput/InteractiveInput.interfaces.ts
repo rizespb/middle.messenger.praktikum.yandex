@@ -8,4 +8,5 @@ export interface IInteractiveInputProps extends IBlockProps {
   type?: HTMLInputElement['type'];
   error?: string;
   isDisabled: boolean;
+  value?: string;
 }

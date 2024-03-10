@@ -88,7 +88,7 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
   }
 
   // Создание дочерних компонентов внутри конструктора (не переданных через props)
-  private setInternalChildren(): void {
+  protected setInternalChildren(): void {
     const internalChildren = this.getInternalChildren();
 
     this.children = {

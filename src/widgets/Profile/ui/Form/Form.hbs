@@ -11,7 +11,10 @@
 			{{/if}}
 		</div>
 
-		{{#if isEditMode}}
-			{{{submitButton}}}
+		{{#if isButtonsVisible}}
+			<div class="{{classes.buttons}}">
+				{{{submitButton}}}
+				{{{cancelButton}}}
+			</div>
 		{{/if}}
 	</form>

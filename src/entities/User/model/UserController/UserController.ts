@@ -4,11 +4,15 @@ import { showSnackBar } from '@/shared/ui';
 import { fetchChatsListApi } from '../../api/fetchChatsListApi/fetchChatsListApi';
 import {
   ILogInData,
+  IUpdatePasswordApiData,
+  IUpdateProfileData,
   IUserData,
   createUserApi,
   fetchUserInfoApi,
   logInApi,
   logOutApi,
+  updatePasswordApi,
+  updateProfileApi,
 } from '../../api';
 
 class UserController {
@@ -89,6 +93,43 @@ class UserController {
       .catch((error: Error) => {
         // eslint-disable-next-line no-console
         console.error(error.message);
+      });
+  }
+
+  updateProfile(userData: IUpdateProfileData): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return updateProfileApi(userData)
+      .then((res) => {
+        appStore.set('user', res);
+        appStore.set('profileMode', 'view');
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+
+        showSnackBar(error.message);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
+      });
+  }
+
+  updatePassword(passwordsData: IUpdatePasswordApiData): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return updatePasswordApi(passwordsData)
+      .then(() => {
+        appStore.set('profileMode', 'view');
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+
+        showSnackBar(error.message);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
       });
   }
 }

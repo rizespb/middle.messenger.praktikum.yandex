@@ -31,6 +31,8 @@ declare global {
     initialPage: Block;
     user: IUser | null;
     chats: IChat[] | null;
+    profileMode: 'view' | 'updatePersonalDetails' | 'updatePassword';
+    isUpdateProfilePhotoFormVisible: boolean;
   }
 
   const appStore: Store;

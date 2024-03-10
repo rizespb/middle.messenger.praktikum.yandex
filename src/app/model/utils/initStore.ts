@@ -10,6 +10,8 @@ const initialState: IAppState = {
   user: null,
   initialPage: new InitialPage({}),
   chats: null,
+  profileMode: 'view',
+  isUpdateProfilePhotoFormVisible: false,
 };
 
 export const initStore = (): void => {
