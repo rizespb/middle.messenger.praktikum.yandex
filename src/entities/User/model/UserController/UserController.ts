@@ -1,6 +1,8 @@
 import { router } from '@/entities/Router';
 import { EPagesUrls } from '@/shared/constants';
 import { showSnackBar } from '@/shared/ui';
+import { merge } from '@/shared/utils';
+import { TAnyObject } from '@/shared/types';
 import { fetchChatsListApi } from '../../api/fetchChatsListApi/fetchChatsListApi';
 import {
   ILogInData,
@@ -11,6 +13,7 @@ import {
   fetchUserInfoApi,
   logInApi,
   logOutApi,
+  updateAvatarApi,
   updatePasswordApi,
   updateProfileApi,
 } from '../../api';
@@ -101,7 +104,9 @@ class UserController {
 
     return updateProfileApi(userData)
       .then((res) => {
-        appStore.set('user', res);
+        const user = merge(appStore.getState().user, res as unknown as TAnyObject);
+
+        appStore.set('user', user);
         appStore.set('profileMode', 'view');
       })
       .catch((error: Error) => {
@@ -121,6 +126,25 @@ class UserController {
     return updatePasswordApi(passwordsData)
       .then(() => {
         appStore.set('profileMode', 'view');
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+
+        showSnackBar(error.message);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
+      });
+  }
+
+  updateAvatar(avatar: FormData): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return updateAvatarApi(avatar)
+      .then((res) => {
+        appStore.set('isUpdateAvatarFormVisible', false);
+        appStore.set('user', res);
       })
       .catch((error: Error) => {
         // eslint-disable-next-line no-console

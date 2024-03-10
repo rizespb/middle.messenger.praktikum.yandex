@@ -208,7 +208,11 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
   };
 
   private _render(): void {
+    // Сохраняем текущее значение display элемента
     const { display } = this._element.style;
+
+    // Children устанавливаются при создании компонента (вызов метода setInternalChildren в конструкторе) и сохраняются в this.children. И при перерисовке children не изменяются. Чтобы из изменить children, надо или вызвать на setProps на соответствующем ребенке, или пересоздать детей здесь с помощью this.setInternalChildren() (по аналогии с Реактом перерисовывать детей при перерисовке родителей), или вызывать this.setInternalChildren() в пользоватльском методе render (только там, где это необходимо)
+    // this.setInternalChildren();
 
     const block = this.render();
 
@@ -218,8 +222,6 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
       return;
     }
 
-    // Сохраняем текущее значение display элемента
-
     this._removeEvents();
 
     // Заменяем прежний элемент в DOM
@@ -227,6 +229,8 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
 
     // Меняем ссылку в экземпляре с элемента-контейнера на наш элемент из шаблона
     this._element = innerElement;
+
+    // Восстанавливаем значение display
     this._element.style.display = display;
 
     this._addEvents();

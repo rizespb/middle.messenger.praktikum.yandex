@@ -10,9 +10,9 @@ export class InteractiveInput extends Block<IInteractiveInputProps> {
     const { type, name, placeholder, isDisabled, value } = this.props;
 
     const validateInput = (event: Event): void => {
-      const { value } = event.target as HTMLInputElement;
+      const { value: currentValue } = event.target as HTMLInputElement;
 
-      const { isError, errorMessage } = validator.test(name, value);
+      const { isError, errorMessage } = validator.test(name, currentValue);
 
       if (isError) {
         this.setProps({

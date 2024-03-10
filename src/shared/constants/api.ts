@@ -9,4 +9,5 @@ export const servicesUrls = {
   chats: `${API_HOST}/chats`,
   userProfile: `${API_HOST}/user/profile`,
   password: `${API_HOST}/user/password`,
+  avatar: `${API_HOST}/user/profile/avatar`,
 };

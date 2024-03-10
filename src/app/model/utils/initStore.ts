@@ -11,7 +11,7 @@ const initialState: IAppState = {
   initialPage: new InitialPage({}),
   chats: null,
   profileMode: 'view',
-  isUpdateProfilePhotoFormVisible: false,
+  isUpdateAvatarFormVisible: false,
 };
 
 export const initStore = (): void => {

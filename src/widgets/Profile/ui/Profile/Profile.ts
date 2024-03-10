@@ -1,6 +1,7 @@
 import { Block, IChildren } from '@/shared/render';
-// import { UpdatePhoto } from '@/features/UpdatePhoto';
+import { UpdatePhoto } from '@/features/UpdatePhoto';
 import { connect } from '@/shared/HOC';
+import { servicesUrls } from '@/shared/constants';
 import { UserAvatar } from '../UserAvatar';
 import tmpl from './Profile.hbs?raw';
 import classes from './Profile.module.scss';
@@ -12,13 +13,16 @@ import { UpdatePasswordForm } from '../UpdatePasswordForm';
 export class ProfileClass extends Block<IProfileProps> {
   protected componentDidMount(): void {
     appStore.set('profileMode', 'view');
-    appStore.set('isUpdateProfilePhotoFormVisible', false);
+    appStore.set('isUpdateAvatarFormVisible', false);
   }
 
   protected getInternalChildren(): IChildren {
-    const { profileMode } = this.props;
+    const { profileMode, user } = this.props;
+    const { avatar } = user || {};
 
-    const userAvatar = new UserAvatar({});
+    const avatarSrc = avatar ? `${servicesUrls.media}${avatar}` : null;
+
+    const userAvatar = new UserAvatar({ imageSrc: avatarSrc });
 
     const actions = new Actions({
       changePersonalDetails: (): void => {
@@ -37,19 +41,14 @@ export class ProfileClass extends Block<IProfileProps> {
       form = new UpdatePasswordForm({});
     }
 
-    const children: IChildren = {
+    const updatePhoto = new UpdatePhoto({});
+
+    return {
       userAvatar,
       form,
       actions,
+      updatePhoto,
     };
-
-    // if (isUpdatePhotoFormVisible) {
-    //   const updatePhoto = new UpdatePhoto({});
-
-    //   children = { ...children, updatePhoto };
-    // }
-
-    return children;
   }
 
   render(): DocumentFragment {
@@ -57,7 +56,7 @@ export class ProfileClass extends Block<IProfileProps> {
 
     return this.compile(tmpl, {
       classes,
-      firstName: 'Иван',
+      firstName: this.props.user?.first_name,
       isViewMode: this.props.profileMode === 'view',
     });
   }
@@ -65,5 +64,5 @@ export class ProfileClass extends Block<IProfileProps> {
 
 export const Profile = connect(ProfileClass, (state) => ({
   profileMode: state.profileMode,
-  isUpdatePhotoFormVisible: state.isUpdateProfilePhotoFormVisible,
+  user: state.user,
 }));

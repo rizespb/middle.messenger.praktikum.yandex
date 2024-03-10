@@ -32,7 +32,7 @@ declare global {
     user: IUser | null;
     chats: IChat[] | null;
     profileMode: 'view' | 'updatePersonalDetails' | 'updatePassword';
-    isUpdateProfilePhotoFormVisible: boolean;
+    isUpdateAvatarFormVisible: boolean;
   }
 
   const appStore: Store;
