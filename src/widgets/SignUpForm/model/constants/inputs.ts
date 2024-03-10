@@ -9,6 +9,10 @@ export const INPUTS = {
     name: EInputNames.Login,
     title: 'Логин',
   },
+  displayName: {
+    name: EInputNames.DisplayName,
+    title: 'Имя в чате',
+  },
   firtsName: {
     name: EInputNames.FirstName,
     title: 'Имя',

@@ -1,3 +1,6 @@
+import { Block } from '@/shared/render';
+import { Store } from '@/shared/store';
+
 declare global {
   module '*.scss' {
     const content: Record<string, string>;
@@ -6,6 +9,7 @@ declare global {
 
   module '*.svg';
   module '*.webp';
+  module '*.gif';
 
   module '*.hbs?raw';
 
@@ -19,11 +23,12 @@ declare global {
 
   interface IAppState {
     isLoading: boolean;
-    isLoggedIn: boolean;
     snackBar: {
       isVisible: boolean;
       message: string;
     };
+    user: IUser | null;
+    initialPage: Block;
   }
 
   const appStore: Store;

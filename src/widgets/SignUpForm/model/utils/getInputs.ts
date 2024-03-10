@@ -3,7 +3,16 @@ import { Block } from '@/shared/render';
 import { INPUTS } from '../constants';
 
 export const getInputs = (): Block[] => {
-  const { email, login, firtsName, secondName, phoneNumber, password, passwordRepeat } = INPUTS;
+  const {
+    email,
+    login,
+    firtsName,
+    secondName,
+    phoneNumber,
+    password,
+    passwordRepeat,
+    displayName,
+  } = INPUTS;
 
   const emailInput = new BaseInput({
     placeholder: email.title,
@@ -15,6 +24,12 @@ export const getInputs = (): Block[] => {
     placeholder: login.title,
     label: login.title,
     name: login.name,
+  });
+
+  const displayNameInput = new BaseInput({
+    placeholder: displayName.title,
+    label: displayName.title,
+    name: displayName.name,
   });
 
   const firtsNameInput = new BaseInput({
@@ -52,6 +67,7 @@ export const getInputs = (): Block[] => {
   return [
     emailInput,
     loginInput,
+    displayNameInput,
     firtsNameInput,
     secondNameInput,
     phoneNumberInput,

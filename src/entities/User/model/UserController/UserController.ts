@@ -1,19 +1,27 @@
 import { router } from '@/entities/Router';
 import { EPagesUrls } from '@/shared/constants';
 import { showSnackBar } from '@/shared/ui';
-import { ILogInData, IUserData, createUserApi, logInApi } from '../../api';
+import {
+  ILogInData,
+  IUserData,
+  createUserApi,
+  fetchUserInfoApi,
+  logInApi,
+  logOutApi,
+} from '../../api';
 
 class UserController {
-  createUser(userData: IUserData): void {
+  createUser(userData: IUserData): Promise<void> {
     appStore.set('isLoading', true);
 
-    createUserApi(userData)
-      .then(() => {
-        appStore.set('isLoggedIn', true);
-
+    return createUserApi(userData)
+      .then(() => fetchUserInfoApi())
+      .then((res) => {
+        appStore.set('user', res);
         router.go(EPagesUrls.ChatsPage);
       })
       .catch((error: Error) => {
+        // eslint-disable-next-line no-console
         console.error(error.message);
 
         showSnackBar(error.message);
@@ -23,21 +31,46 @@ class UserController {
       });
   }
 
-  logIn(logInData: ILogInData): void {
+  logIn(logInData: ILogInData): Promise<void> {
     appStore.set('isLoading', true);
 
-    logInApi(logInData)
-      .then(() => {
-        appStore.set('isLoggedIn', true);
+    return logInApi(logInData)
+      .then(() => fetchUserInfoApi())
+      .then((res) => {
+        appStore.set('user', res);
         router.go(EPagesUrls.ChatsPage);
       })
       .catch((error: Error) => {
+        // eslint-disable-next-line no-console
         console.error(error.message);
 
         showSnackBar(error.message);
       })
       .finally(() => {
         appStore.set('isLoading', false);
+      });
+  }
+
+  fetchUserInfo(): Promise<void> {
+    return fetchUserInfoApi()
+      .then((res) => {
+        appStore.set('user', res);
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+      });
+  }
+
+  logOut(): Promise<void> {
+    return logOutApi()
+      .then(() => {
+        appStore.set('user', null);
+        router.go(EPagesUrls.LogInPage);
+      })
+      .catch((error: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
       });
   }
 }

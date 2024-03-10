@@ -6,6 +6,10 @@ export class HTTPTransportClass {
   get: THTTPMethod = (url, options = {}) => {
     const { data, timeout } = options;
 
+    if (data === undefined) {
+      return this.request(url, { ...options, method: EMethods.GET }, timeout);
+    }
+
     const query = queryStringify(data);
 
     const formattedUrl = typeof query === 'string' ? `${url}?${query}` : url;

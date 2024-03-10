@@ -1,1 +1,1 @@
-export { userController } from './model';
+export { userController, type IUser } from './model';
