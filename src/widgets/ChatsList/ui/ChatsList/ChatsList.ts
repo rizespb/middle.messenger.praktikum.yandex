@@ -32,10 +32,6 @@ export class ChatsListClass extends Block<IChatsListProps> {
   }
 }
 
-export const ChatsList = connect(ChatsListClass, (state) => {
-  console.log(state.chats);
-
-  return {
-    chats: state.chats || [],
-  };
-});
+export const ChatsList = connect(ChatsListClass, (state) => ({
+  chats: state.chats || [],
+}));

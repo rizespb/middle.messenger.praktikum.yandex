@@ -1,6 +1,6 @@
-import { IMessagesGroup } from '@/entities/Message';
+import { IMessage } from '@/entities/Message';
 import { IBlockProps } from '@/shared/render';
 
 export interface IChatProps extends IBlockProps {
-  messagesGroups: IMessagesGroup[];
+  chatMessages?: IMessage[];
 }

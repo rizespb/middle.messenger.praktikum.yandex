@@ -5,14 +5,14 @@ import { ERouterEvents } from '@/shared/router';
 import { connect } from '@/shared/HOC';
 import { chatController } from '@/entities/Chat';
 import { WSClient } from '@/shared/services';
+import { servicesUrls } from '@/shared/constants';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import tmpl from './Feed.hbs?raw';
 import classes from './Feed.module.scss';
 import { TEXTS } from './Feed.constants';
-import { messagesGroupsMock } from './Feed.mocks';
-import { IFeedProps, IWSMessage } from './Feed.interfaces';
-import { getChatId } from '../../model';
+import { IFeedProps } from './Feed.interfaces';
+import { IWSMessage, getChatId, normilizeWSMessage } from '../../model';
 
 export class FeedClass extends Block<IFeedProps> {
   async initSocket(): Promise<void> {
@@ -34,9 +34,17 @@ export class FeedClass extends Block<IFeedProps> {
       socketClient.getOldMessages();
     });
 
-    socketClient.onMessage<string>((data) =>
-      console.log('From onMessage', JSON.parse(data) as IWSMessage | IWSMessage[])
-    );
+    socketClient.onMessage<IWSMessage | IWSMessage[]>((data) => {
+      if (Array.isArray(data)) {
+        const messages = data.map((item) => normilizeWSMessage(item, userId));
+
+        appStore.set('chat.chatMessages', messages);
+      } else {
+        const message = normilizeWSMessage(data, userId);
+
+        appStore.set('chat.chatMessages', [message, ...this.props.chatMessages!]);
+      }
+    });
 
     appStore.set('chat.socketClient', socketClient);
   }
@@ -51,6 +59,8 @@ export class FeedClass extends Block<IFeedProps> {
 
   componentDidMount(): void {
     router.on(ERouterEvents.PopState, (): void => {
+      this.props.socketClient?.close();
+
       const chatId = getChatId();
 
       this.resetChatState(chatId);
@@ -60,16 +70,28 @@ export class FeedClass extends Block<IFeedProps> {
       }
     });
 
+    const chatId = getChatId();
+
+    this.resetChatState(chatId);
     this.initSocket();
   }
 
   protected getInternalChildren(): IChildren {
-    const header = new Header({ title: 'СуперДискотЭка' });
-    const footer = new Footer({
-      socketClient: this.props.socketClient || null,
-    });
+    if (this.props.chatId === null) {
+      return {};
+    }
 
-    const chat = new Chat({ messagesGroups: messagesGroupsMock });
+    const { chats, chatId } = this.props;
+
+    const currentChat = chats?.find(({ id }) => id === chatId);
+
+    const title = currentChat?.title || '';
+    const imageSrc = `${servicesUrls.media}${currentChat?.avatar}`;
+
+    const header = new Header({ title, imageSrc });
+    const footer = new Footer({});
+
+    const chat = new Chat({});
 
     return {
       header,
@@ -79,6 +101,8 @@ export class FeedClass extends Block<IFeedProps> {
   }
 
   render(): DocumentFragment {
+    this.setInternalChildren();
+
     return this.compile(tmpl, {
       classes,
       noChatSelectedText: TEXTS.noChatSelectedText,
@@ -87,7 +111,9 @@ export class FeedClass extends Block<IFeedProps> {
 }
 
 export const Feed = connect(FeedClass, (state) => ({
-  chatId: state.chat.currentChatId,
   userId: state.user?.id,
+  chatId: state.chat.currentChatId,
   socketClient: state.chat.socketClient,
+  chatMessages: state.chat.chatMessages,
+  chats: state.chats,
 }));

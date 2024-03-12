@@ -2,6 +2,7 @@ $offset: 20px;
 
 .chat {
 	position: relative;
+	flex-grow: 1;
 	display: flex;
 	flex-direction: column-reverse;
 	gap: 30px;

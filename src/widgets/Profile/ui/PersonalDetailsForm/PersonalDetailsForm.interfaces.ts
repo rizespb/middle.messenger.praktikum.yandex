@@ -3,7 +3,7 @@ import { IBlockProps } from '@/shared/render';
 
 export interface IPersonalDetailsFormProps extends IBlockProps {
   profileMode?: IAppState['profileMode'];
-  user?: IUser;
+  user?: IUser | null;
 }
 
 export interface IPersonalDetailsFormData {

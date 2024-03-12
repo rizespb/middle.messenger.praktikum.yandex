@@ -104,7 +104,13 @@ class UserController {
 
     return updateProfileApi(userData)
       .then((res) => {
-        const user = merge(appStore.getState().user, res as unknown as TAnyObject);
+        const currentUser = appStore.getState().user;
+
+        if (!currentUser) {
+          throw new Error('User is not defined');
+        }
+
+        const user = merge(currentUser as unknown as TAnyObject, res as unknown as TAnyObject);
 
         appStore.set('user', user);
         appStore.set('profileMode', 'view');
