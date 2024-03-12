@@ -9,12 +9,6 @@ import { IRouteData } from '../types';
 
 export const routes: IRouteData[] = [
   {
-    pathname: EPagesUrls.LogInPage,
-    block: LogInPage,
-    title: 'LogIn',
-    isProtected: false,
-  },
-  {
     pathname: EPagesUrls.SignUpPage,
     block: SignUpPage,
     title: 'SignUp',
@@ -42,6 +36,12 @@ export const routes: IRouteData[] = [
     pathname: EPagesUrls.Error500,
     block: Error500Page,
     title: '500',
+    isProtected: false,
+  },
+  {
+    pathname: EPagesUrls.LogInPage,
+    block: LogInPage,
+    title: 'LogIn',
     isProtected: false,
   },
 ];

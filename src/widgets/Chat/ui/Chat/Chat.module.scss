@@ -11,3 +11,7 @@ $offset: 20px;
 	@include dividerAfter($offset);
 	@include scroll;
 }
+
+.noChat{
+	flex-grow: 1;
+}

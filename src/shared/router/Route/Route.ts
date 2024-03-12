@@ -33,7 +33,7 @@ export class Route {
   }
 
   match(pathname: string): boolean {
-    return pathname === this._pathname;
+    return pathname.startsWith(this._pathname);
   }
 
   render(): void {

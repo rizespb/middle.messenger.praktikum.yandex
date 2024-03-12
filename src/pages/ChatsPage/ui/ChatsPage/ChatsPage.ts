@@ -13,7 +13,9 @@ export class ChatsPage extends Block {
   getInternalChildren(): IChildren {
     const chatsList = new ChatsList({});
     const search = new ChatSearch({});
+
     const feed = new Feed({});
+
     const profileLink = new Link({
       text: linkData.text,
       href: linkData.href,

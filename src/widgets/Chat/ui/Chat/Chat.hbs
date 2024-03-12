@@ -1,5 +1,11 @@
-<div class={{classes.chat}} >
-	{{#each messagesGroups}}
-		{{{this}}}
-	{{/each}}
+<div class='{{classes.chat}}' >
+	{{#if chatId}}
+		{{#each messagesGroups}}
+			{{{this}}}
+		{{/each}}
+	{{else}}
+		<div class='{{classes.noChat}}'>
+			{{{noChatSelectedText}}}
+		</div>
+	{{/if}}
 </div>
