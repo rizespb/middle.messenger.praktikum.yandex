@@ -12,6 +12,11 @@ const initialState: IAppState = {
   chats: null,
   profileMode: 'view',
   isUpdateAvatarFormVisible: false,
+  chat: {
+    chatMessages: [],
+    socketClient: null,
+    currentChatId: null,
+  },
 };
 
 export const initStore = (): void => {

@@ -1,7 +1,13 @@
-<div class={{classes.feed}}>
-	{{{header}}}
+<div class="{{classes.feed}}">
+	{{#if chatId}}
+		{{{header}}}
 
-	{{{chat}}}
+		{{{chat}}}
 
-	{{{footer}}}
+		{{{footer}}}
+	{{else}}
+		<div class="{{classes.noChatSelected}}">
+			{{{noChatSelectedText}}}
+		</div>
+	{{/if}}
 </div>

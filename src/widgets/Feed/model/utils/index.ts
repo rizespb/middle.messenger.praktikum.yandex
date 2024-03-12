@@ -1,0 +1,1 @@
+export { getChatId } from './getChatId';

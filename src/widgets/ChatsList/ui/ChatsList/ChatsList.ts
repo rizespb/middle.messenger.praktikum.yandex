@@ -14,7 +14,7 @@ export class ChatsListClass extends Block<IChatsListProps> {
 
         return new ChatPreview({
           title,
-          lastMessage: last_message || '',
+          lastMessage: last_message?.content || '',
           newMessagesCount: unread_count,
           avatarSrc: `${servicesUrls.media}${avatar}`,
           avatarAlt: title,
@@ -32,6 +32,10 @@ export class ChatsListClass extends Block<IChatsListProps> {
   }
 }
 
-export const ChatsList = connect(ChatsListClass, (state) => ({
-  chats: state.chats || [],
-}));
+export const ChatsList = connect(ChatsListClass, (state) => {
+  console.log(state.chats);
+
+  return {
+    chats: state.chats || [],
+  };
+});

@@ -1,5 +1,8 @@
 import { IChat } from '@/entities/Chat';
+import { IMessage } from '@/entities/Message';
+import { IUser } from '@/entities/User';
 import { Block } from '@/shared/render';
+import { WSClient } from '@/shared/services';
 import { Store } from '@/shared/store';
 
 declare global {
@@ -33,6 +36,11 @@ declare global {
     chats: IChat[] | null;
     profileMode: 'view' | 'updatePersonalDetails' | 'updatePassword';
     isUpdateAvatarFormVisible: boolean;
+    chat: {
+      currentChatId: number | null;
+      chatMessages: IMessage[];
+      socketClient: WSClient | null;
+    };
   }
 
   const appStore: Store;
