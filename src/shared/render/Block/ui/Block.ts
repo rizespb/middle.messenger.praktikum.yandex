@@ -2,10 +2,10 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '@/shared/services';
+import { TAnyObject } from '@/shared/types';
 import {
   EBlockEvents,
   IBlockProps,
-  TAnyObject,
   TBlockEventBus,
   TEvents,
   TClearProps,
@@ -22,7 +22,7 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
 
   private _element: HTMLElement;
 
-  protected props: TClearProps<Props>;
+  public props: TClearProps<Props>;
 
   // eslint-disable-next-line no-use-before-define
   protected children: IChildren;
@@ -88,7 +88,7 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
   }
 
   // Создание дочерних компонентов внутри конструктора (не переданных через props)
-  private setInternalChildren(): void {
+  protected setInternalChildren(): void {
     const internalChildren = this.getInternalChildren();
 
     this.children = {
@@ -208,9 +208,15 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
   };
 
   private _render(): void {
+    // Сохраняем текущее значение display элемента
+    const { display } = this._element.style;
+
+    // Children устанавливаются при создании компонента (вызов метода setInternalChildren в конструкторе) и сохраняются в this.children. И при перерисовке children не изменяются. Чтобы из изменить children, надо или вызвать на setProps на соответствующем ребенке, или пересоздать детей здесь с помощью this.setInternalChildren() (по аналогии с Реактом перерисовывать детей при перерисовке родителей), или вызывать this.setInternalChildren() в пользоватльском методе render (только там, где это необходимо)
+    // this.setInternalChildren();
+
     const block = this.render();
 
-    const innerElement = block.firstElementChild;
+    const innerElement = block.firstElementChild as HTMLElement;
 
     if (!this._element || !innerElement) {
       return;
@@ -222,7 +228,10 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
     this._element.replaceWith(innerElement);
 
     // Меняем ссылку в экземпляре с элемента-контейнера на наш элемент из шаблона
-    this._element = innerElement as HTMLElement;
+    this._element = innerElement;
+
+    // Восстанавливаем значение display
+    this._element.style.display = display;
 
     this._addEvents();
     this.renderCount += 1;

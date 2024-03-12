@@ -7,24 +7,10 @@ import classes from './ManageUserlist.module.scss';
 import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
 import { Form } from '../Form';
 
-const isPopupOpened = false;
 const isModalOpened = false;
 
 export class ManageUserlist extends Block {
   protected getInternalChildren(): IChildren {
-    const showMoreIcon = new Icon({
-      icon: EIcons.ShowMore,
-      iconClass: classNames({
-        [classes.showMoreIcon]: true,
-        [classes.showMoreIcon__active]: isPopupOpened,
-      }),
-      containerClass: classNames({
-        [classes.showMoreIconContainer]: true,
-        [classes.showMoreIconContainer__active]: isPopupOpened,
-      }),
-      id: SHOW_MORE_ICON_ID,
-    });
-
     const actions = new ActionsList({ actionsData });
 
     const popup = new Popup({
@@ -32,7 +18,7 @@ export class ManageUserlist extends Block {
         content: actions,
       },
       direction: 'bottomRight',
-      isPopupOpened,
+      isPopupOpened: false,
     });
 
     const modalContent = new Form({
@@ -45,6 +31,25 @@ export class ManageUserlist extends Block {
       },
       title: TEXTS.addUserModal.title,
       isModalOpened,
+    });
+
+    const showMoreIcon = new Icon({
+      icon: EIcons.ShowMore,
+      iconClass: classNames({
+        [classes.showMoreIcon]: true,
+        [classes.showMoreIcon__active]: popup.props.isPopupOpened,
+      }),
+      containerClass: classNames({
+        [classes.showMoreIconContainer]: true,
+        [classes.showMoreIconContainer__active]: popup.props.isPopupOpened,
+      }),
+      id: SHOW_MORE_ICON_ID,
+      events: {
+        click: (event): void => {
+          event.stopPropagation();
+          popup.setProps({ isPopupOpened: !popup.props.isPopupOpened });
+        },
+      },
     });
 
     return {

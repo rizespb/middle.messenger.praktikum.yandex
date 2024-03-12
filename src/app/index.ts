@@ -1,1 +1,1 @@
-export { renderPage } from './model';
+export { startApp } from './model';

@@ -1,5 +1,4 @@
 export {
-  type TAnyObject,
   type IChildren,
   type IBlockProps,
   type TClearProps,

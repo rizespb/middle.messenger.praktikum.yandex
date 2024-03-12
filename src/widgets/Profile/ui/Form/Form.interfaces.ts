@@ -1,7 +1,10 @@
-import { IBlockProps } from '@/shared/render';
+import { Block, IBlockProps } from '@/shared/render';
 
-export interface IFormProps extends IBlockProps {
-  mode: 'personalDetails' | 'password';
-  isEditMode: boolean;
+export interface IFormProps<T> extends IBlockProps {
+  isButtonsVisible: boolean;
   passwordsError?: string;
+  children: {
+    inputs: Block[];
+  };
+  onSubmit: (data: T) => void;
 }

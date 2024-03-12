@@ -1,45 +1,68 @@
 import { Block, IChildren } from '@/shared/render';
 import { UpdatePhoto } from '@/features/UpdatePhoto';
+import { connect } from '@/shared/HOC';
+import { servicesUrls } from '@/shared/constants';
 import { UserAvatar } from '../UserAvatar';
-import { Form } from '../Form';
 import tmpl from './Profile.hbs?raw';
 import classes from './Profile.module.scss';
 import { Actions } from '../Actions';
+import { IProfileProps } from './Profile.interfaces';
+import { PersonalDetailsForm } from '../PersonalDetailsForm';
+import { UpdatePasswordForm } from '../UpdatePasswordForm';
 
-const isEditMode = true;
-const isUpdatePhotoFormVisible = false;
+export class ProfileClass extends Block<IProfileProps> {
+  protected componentDidMount(): void {
+    appStore.set('profileMode', 'view');
+    appStore.set('isUpdateAvatarFormVisible', false);
+  }
 
-export class Profile extends Block {
   protected getInternalChildren(): IChildren {
-    const userAvatar = new UserAvatar({});
+    const { profileMode, user } = this.props;
+    const { avatar } = user || {};
 
-    const form = new Form({
-      mode: 'personalDetails',
-      isEditMode,
+    const avatarSrc = avatar ? `${servicesUrls.media}${avatar}` : null;
+
+    const userAvatar = new UserAvatar({ imageSrc: avatarSrc });
+
+    const actions = new Actions({
+      changePersonalDetails: (): void => {
+        appStore.set('profileMode', 'updatePersonalDetails');
+      },
+      changePasswrod: (): void => {
+        appStore.set('profileMode', 'updatePassword');
+      },
     });
 
-    const actions = new Actions({});
+    let form: Block;
 
-    let children: IChildren = {
+    if (profileMode === 'view' || profileMode === 'updatePersonalDetails') {
+      form = new PersonalDetailsForm({});
+    } else {
+      form = new UpdatePasswordForm({});
+    }
+
+    const updatePhoto = new UpdatePhoto({});
+
+    return {
       userAvatar,
       form,
       actions,
+      updatePhoto,
     };
-
-    if (isUpdatePhotoFormVisible) {
-      const updatePhoto = new UpdatePhoto({});
-
-      children = { ...children, updatePhoto };
-    }
-
-    return children;
   }
 
   render(): DocumentFragment {
+    this.setInternalChildren();
+
     return this.compile(tmpl, {
       classes,
-      firstName: 'Иван',
-      isViewMode: !isEditMode,
+      firstName: this.props.user?.first_name,
+      isViewMode: this.props.profileMode === 'view',
     });
   }
 }
+
+export const Profile = connect(ProfileClass, (state) => ({
+  profileMode: state.profileMode,
+  user: state.user,
+}));

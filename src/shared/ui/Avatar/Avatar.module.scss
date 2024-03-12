@@ -2,6 +2,7 @@
 	flex-shrink: 0;
 	border-radius: 50%;
 	background-color: $image-bg-color;
+	object-fit: contain;
 }
 
 .large {

@@ -1,9 +1,9 @@
 export const TEXTS = {
-  button: 'Поменять',
+  submitButton: 'Поменять',
+  cancelButton: 'Отменить',
   error: 'Нужно выбрать файл',
-  label: 'Выбрать файл на компьютере',
 };
 
-export const ACCEPT_FILES = 'image/png, image/jpeg, image/webp';
+export const ACCEPT_FILES = 'image/png, image/jpeg, image/jpg, image/webp';
 
 export const UPLOAD_INPUT_NAME = 'uploadPhoto';

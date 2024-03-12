@@ -26,6 +26,11 @@ $offset: 10px;
 	@include dividerAfter($offset);
 }
 
+.userControls {
+	display: flex;
+	justify-content: space-between;
+}
+
 .link,
 .link:active,
 .link:visited {
@@ -35,3 +40,5 @@ $offset: 10px;
 
 	@include opacity;
 }
+
+

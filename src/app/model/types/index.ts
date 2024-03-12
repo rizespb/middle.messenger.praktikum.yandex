@@ -1,1 +1,1 @@
-export {};
+export { type IRouteData } from './routes';

@@ -7,9 +7,26 @@
 	padding: 50px 30px 25px;
 	border-radius: 12px;
 	box-shadow: $shadow;
+
+	& form a,
+	& form a:active,
+	& form a:hover {
+		padding: 12px;
+		border: none;
+		border-radius: 8px;
+		font-size: 13px;
+		color: $button-secondary-text-color;
+		background-color: transparent;
+		text-align: center;
+
+		@include opacity;
+	}
 }
 
 .header {
 	margin-bottom: 40px;
 	text-align: center;
 }
+
+
+

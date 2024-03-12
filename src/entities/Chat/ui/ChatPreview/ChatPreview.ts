@@ -1,5 +1,7 @@
 import { Avatar } from '@/shared/ui';
-import { Block, IChildren } from '@/shared/render';
+import { Block, IChildren, TEvents } from '@/shared/render';
+import { router } from '@/entities/Router';
+import { EPagesUrls } from '@/shared/constants';
 import classes from './ChatPreview.module.scss';
 import tmpl from './ChatPreview.hbs?raw';
 import { IChatPreviewProps } from './ChatPreview.interfaces';
@@ -14,6 +16,14 @@ export class ChatPreview extends Block<IChatPreviewProps> {
         avatarAlt,
         size: 'medium',
       }),
+    };
+  }
+
+  protected getInternalEvents(): TEvents {
+    return {
+      click: (): void => {
+        router.go(`${EPagesUrls.ChatsPage}/${this.props.id}`);
+      },
     };
   }
 

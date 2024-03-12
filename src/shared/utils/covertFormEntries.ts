@@ -5,7 +5,5 @@ export const covertFormEntries = (entries: [string, string][]): Record<string, s
     return acc;
   }, {});
 
-  console.log(data);
-
   return data;
 };

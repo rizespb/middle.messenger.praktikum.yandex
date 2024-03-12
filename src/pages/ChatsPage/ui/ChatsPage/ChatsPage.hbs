@@ -1,15 +1,19 @@
-<div class={{classes.container}}>
-	<div class={{classes.left}}>
-		<div class={{classes.leftHeading}}>
-			<a href={{href}} class={{classes.link}} >
-				{{{linkText}}}
-			</a>
+<div>
+	<div class={{classes.container}}>
+		<div class={{classes.left}}>
+			<div class={{classes.leftHeading}}>
+				<div class="{{classes.userControls}}">
+					{{{profileLink}}}
 
-			{{{search}}}
+					{{{logOutButton}}}
+				</div>
+
+				{{{search}}}
+			</div>
+
+			{{{chatsList}}}
 		</div>
 
-		{{{chatsList}}}
+		{{{feed}}}
 	</div>
-
-	{{{feed}}}
 </div>
