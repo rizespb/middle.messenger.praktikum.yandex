@@ -6,6 +6,7 @@ const initialState: IAppState = {
   snackBar: {
     message: '',
     isVisible: false,
+    type: null,
   },
   user: null,
   initialPage: new InitialPage({}),

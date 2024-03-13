@@ -1,7 +1,3 @@
-// import { compile } from '@/shared/utils';
-// import { icon } from '@/shared/ui';
-// import { EIcons } from '@/shared/types';
-// import { popup } from '@/shared/ui/';
 import { Block, IChildren } from '@/shared/render';
 import { ActionsList, Icon, Popup } from '@/shared/ui';
 import { EIcons } from '@/shared/types';

@@ -78,13 +78,9 @@ export class FormClass extends Block<IFormProps> {
           const { login } = covertFormEntries(entries);
 
           if (mode === 'addUser') {
-            chatController.addUser(login, currentChatId).then(() => {
-              this.props.onCancel();
-            });
+            chatController.addUser(login, currentChatId);
           } else if (mode === 'deleteUser') {
-            chatController.deleteUser(login, currentChatId).then(() => {
-              this.props.onCancel();
-            });
+            chatController.deleteUser(login, currentChatId);
           }
         }
       },

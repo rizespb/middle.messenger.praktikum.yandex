@@ -30,6 +30,7 @@ declare global {
     snackBar: {
       isVisible: boolean;
       message: string;
+      type: 'error' | 'success' | null;
     };
     initialPage: Block;
     user: IUser | null;

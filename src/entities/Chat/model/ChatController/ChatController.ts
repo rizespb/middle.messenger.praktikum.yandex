@@ -11,7 +11,7 @@ export class ChatController {
         // eslint-disable-next-line no-console
         console.error(error.message);
 
-        showSnackBar(error.message);
+        showSnackBar(error.message, 'error');
 
         return null;
       });
@@ -36,7 +36,8 @@ export class ChatController {
         return addUserApi(targetUser.id, chatId);
       })
       .then(() => {
-        console.log('Пользователь добавлен');
+        showSnackBar('Пользователь добавлен', 'success');
+        appStore.set('isManageUserlistFormVisible', false);
       })
       .catch((error) => {
         handleErrorWithSnackBar(error);
@@ -65,7 +66,8 @@ export class ChatController {
         return deleteUserApi(targetUser.id, chatId);
       })
       .then(() => {
-        console.log('Пользователь удален');
+        showSnackBar('Пользователь удален', 'success');
+        appStore.set('isManageUserlistFormVisible', false);
       })
       .catch((error) => {
         handleErrorWithSnackBar(error);

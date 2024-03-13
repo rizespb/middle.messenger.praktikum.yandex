@@ -70,8 +70,6 @@ class UserController {
       .then(() => {
         appStore.resetState();
 
-        console.log(appStore.getState().chats);
-
         router.go(EPagesUrls.LogInPage);
       })
       .catch((error: Error) => {

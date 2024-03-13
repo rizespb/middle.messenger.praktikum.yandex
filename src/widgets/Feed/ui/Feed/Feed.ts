@@ -35,8 +35,6 @@ export class FeedClass extends Block<IFeedProps> {
     });
 
     socketClient.onMessage<IWSMessage | IWSMessage[]>((data) => {
-      console.log(userId);
-
       if (Array.isArray(data)) {
         const messages = data.map((item) => normilizeWSMessage(item, userId));
 
