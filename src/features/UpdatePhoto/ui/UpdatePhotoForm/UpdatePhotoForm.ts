@@ -1,5 +1,5 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
-import { Button } from '@/shared/ui';
+import { Button, FileInput } from '@/shared/ui';
 import { userController } from '@/entities/User';
 import classes from './UpdatePhotoForm.module.scss';
 import tmpl from './UpdatePhotoForm.hbs?raw';
@@ -25,9 +25,15 @@ export class UpdatePhotoForm extends Block<IUpdatePhotoFormProps> {
       },
     });
 
+    const input = new FileInput({
+      acceptedFiles: ACCEPT_FILES,
+      name: UPLOAD_INPUT_NAME,
+    });
+
     return {
       submitButton,
       cancelButton,
+      input,
     };
   }
 

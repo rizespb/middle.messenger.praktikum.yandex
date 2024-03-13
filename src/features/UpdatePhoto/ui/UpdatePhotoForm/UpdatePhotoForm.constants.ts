@@ -6,4 +6,4 @@ export const TEXTS = {
 
 export const ACCEPT_FILES = 'image/png, image/jpeg, image/jpg, image/webp';
 
-export const UPLOAD_INPUT_NAME = 'uploadPhoto';
+export const UPLOAD_INPUT_NAME = 'uploadPhotoInput';
