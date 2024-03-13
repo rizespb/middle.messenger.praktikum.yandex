@@ -3,4 +3,4 @@ import { servicesUrls } from '@/shared/constants';
 import { IUpdateAvatarApiResponse } from './updateAvatarApi.interfaces';
 
 export const updateAvatarApi = (avatar: FormData): Promise<IUpdateAvatarApiResponse> =>
-  HTTPTransport.put<IUpdateAvatarApiResponse>(servicesUrls.avatar, { data: avatar });
+  HTTPTransport.put<IUpdateAvatarApiResponse>(servicesUrls.userAvatar, { data: avatar });

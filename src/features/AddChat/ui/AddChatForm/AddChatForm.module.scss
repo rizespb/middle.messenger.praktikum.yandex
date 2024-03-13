@@ -1,0 +1,24 @@
+.form {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 45px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+
+	* {
+		flex-grow: 1;
+	}
+}
+
+.error {
+	position: absolute;
+	top: calc(100% + 5px);
+	width: 100%;
+	text-align: center;
+	color: $error-text-color;
+}

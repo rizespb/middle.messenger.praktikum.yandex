@@ -37,6 +37,7 @@ export class Store extends EventBus<EStoreEvents> {
     this.set('profileMode', 'view');
     this.set('isUpdateAvatarFormVisible', false);
     this.set('isManageUserlistFormVisible', false);
+    this.set('isAddChatFormVisible', false);
     this.set('chat', {
       currentChatId: null,
       socketClient: null,

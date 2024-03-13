@@ -57,7 +57,7 @@ export class ManageUserlistClass extends Block<IManageUserlistProps> {
       },
       title:
         this.props.formMode === 'addUser' ? TEXTS.addUserModalTitle : TEXTS.deleteUserModalTitle,
-      isModalOpened: this.props.isManageUserlistFormVisible || false,
+      isModalOpened: Boolean(this.props.isManageUserlistFormVisible),
       contentContainerId: MODAL_CONTENT_ID,
       onClose: closeModal,
     });

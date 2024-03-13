@@ -1,7 +1,13 @@
 import { showSnackBar } from '@/shared/ui';
 import { userController } from '@/entities/User';
 import { handleErrorWithSnackBar } from '@/shared/ui/SnackBar';
-import { addUserApi, deleteUserApi, fetchTokenApi } from '../../api';
+import {
+  addUserApi,
+  createChatApi,
+  deleteUserApi,
+  fetchTokenApi,
+  uploadChatAvatarApi,
+} from '../../api';
 
 export class ChatController {
   fetchToken(chatId: number): Promise<string | null> {
@@ -72,6 +78,30 @@ export class ChatController {
       .catch((error) => {
         handleErrorWithSnackBar(error);
       })
+      .finally(() => {
+        appStore.set('isLoading', false);
+      });
+  }
+
+  createChat(title: string, formData: FormData): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return createChatApi(title)
+      .then(({ id }) => {
+        if (!id) {
+          return;
+        }
+
+        formData.append('chatId', String(id));
+
+        // eslint-disable-next-line consistent-return
+        return uploadChatAvatarApi(formData);
+      })
+      .then((newChat) => {
+        appStore.set('chats', [newChat, ...appStore.getState().chats]);
+        appStore.set('isAddChatFormVisible', false);
+      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });

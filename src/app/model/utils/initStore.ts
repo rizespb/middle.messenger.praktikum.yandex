@@ -10,10 +10,11 @@ const initialState: IAppState = {
   },
   user: null,
   initialPage: new InitialPage({}),
-  chats: null,
+  chats: [],
   profileMode: 'view',
   isUpdateAvatarFormVisible: false,
   isManageUserlistFormVisible: false,
+  isAddChatFormVisible: false,
   chat: {
     chatMessages: [],
     socketClient: null,

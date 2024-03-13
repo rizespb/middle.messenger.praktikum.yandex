@@ -1,10 +1,11 @@
 export type TFetchChatsListApiResponse = {
   id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  phone: string;
-  login: string;
-  avatar: string;
-  email: string;
+  title: string;
+  avatar: string | null;
+  created_by: number;
+  unread_count: number;
+  last_message: {
+    content: string;
+    time: string;
+  };
 }[];

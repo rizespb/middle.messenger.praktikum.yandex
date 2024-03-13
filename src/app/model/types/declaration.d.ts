@@ -34,10 +34,11 @@ declare global {
     };
     initialPage: Block;
     user: IUser | null;
-    chats: IChat[] | null;
+    chats: IChat[];
     profileMode: 'view' | 'updatePersonalDetails' | 'updatePassword';
     isUpdateAvatarFormVisible: boolean;
     isManageUserlistFormVisible: boolean;
+    isAddChatFormVisible: boolean;
     chat: {
       currentChatId: number | null;
       chatMessages: IMessage[];
