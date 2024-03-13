@@ -2,12 +2,14 @@ import { Block, IChildren, TEvents } from '@/shared/render';
 import { BaseInput, Button } from '@/shared/ui';
 import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
+import { chatController } from '@/entities/Chat';
+import { connect } from '@/shared/HOC';
 import tmpl from './Form.hbs?raw';
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.interfaces';
 import { TEXTS, loginInput } from './Form.constants';
 
-export class Form extends Block<IFormProps> {
+export class FormClass extends Block<IFormProps> {
   protected getInternalChildren(): IChildren {
     if (!this.props.mode) {
       return {};
@@ -66,9 +68,24 @@ export class Form extends Block<IFormProps> {
           });
         }
 
+        const { mode, currentChatId } = this.props;
+
+        if (!mode || !currentChatId) {
+          return;
+        }
+
         if (isValidationPassed) {
-          const data = covertFormEntries(entries);
-          console.log(this.props.mode, data);
+          const { login } = covertFormEntries(entries);
+
+          if (mode === 'addUser') {
+            chatController.addUser(login, currentChatId).then(() => {
+              this.props.onCancel();
+            });
+          } else if (mode === 'deleteUser') {
+            chatController.deleteUser(login, currentChatId).then(() => {
+              this.props.onCancel();
+            });
+          }
         }
       },
     };
@@ -78,3 +95,7 @@ export class Form extends Block<IFormProps> {
     return this.compile(tmpl, { classes });
   }
 }
+
+export const Form = connect(FormClass, (state) => ({
+  currentChatId: state.chat.currentChatId,
+}));

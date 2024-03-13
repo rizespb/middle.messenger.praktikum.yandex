@@ -14,7 +14,7 @@ export const normilizeWSMessage = (wsMessage: IWSMessage, userId: number): IMess
   const dayOfMonth = getDayOfMonth(date);
   const hoursAndMinutes = getHoursAndMinutes(date);
 
-  const direction = user_id === userId ? EMessageDirection.Outcoming : EMessageDirection.Outcoming;
+  const direction = user_id === userId ? EMessageDirection.Outcoming : EMessageDirection.Incoming;
 
   const status =
     is_read === undefined || is_read === true ? EMessageStatus.Read : EMessageStatus.Delivered;

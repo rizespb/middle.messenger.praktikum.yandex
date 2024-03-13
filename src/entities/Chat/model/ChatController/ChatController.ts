@@ -1,5 +1,7 @@
 import { showSnackBar } from '@/shared/ui';
-import { fetchTokenApi } from '../../api';
+import { userController } from '@/entities/User';
+import { handleErrorWithSnackBar } from '@/shared/ui/SnackBar';
+import { addUserApi, deleteUserApi, fetchTokenApi } from '../../api';
 
 export class ChatController {
   fetchToken(chatId: number): Promise<string | null> {
@@ -12,6 +14,64 @@ export class ChatController {
         showSnackBar(error.message);
 
         return null;
+      });
+  }
+
+  addUser(login: string, chatId: number): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return userController
+      .findUserByLogin(login)
+      .then((users) => {
+        if (!users) {
+          throw new Error('Пользователь не найден');
+        }
+
+        const targetUser = users.find((user) => user.login === login);
+
+        if (!targetUser) {
+          throw new Error('Пользователь не найден');
+        }
+
+        return addUserApi(targetUser.id, chatId);
+      })
+      .then(() => {
+        console.log('Пользователь добавлен');
+      })
+      .catch((error) => {
+        handleErrorWithSnackBar(error);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
+      });
+  }
+
+  deleteUser(login: string, chatId: number): Promise<void> {
+    appStore.set('isLoading', true);
+
+    return userController
+      .findUserByLogin(login)
+      .then((users) => {
+        if (!users) {
+          throw new Error('Пользователь не найден');
+        }
+
+        const targetUser = users.find((user) => user.login === login);
+
+        if (!targetUser) {
+          throw new Error('Пользователь не найден');
+        }
+
+        return deleteUserApi(targetUser.id, chatId);
+      })
+      .then(() => {
+        console.log('Пользователь удален');
+      })
+      .catch((error) => {
+        handleErrorWithSnackBar(error);
+      })
+      .finally(() => {
+        appStore.set('isLoading', false);
       });
   }
 }

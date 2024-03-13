@@ -1,2 +1,2 @@
 export { SnackBar } from './SnackBar';
-export { showSnackBar } from './SnackBar.utils';
+export { showSnackBar, handleErrorWithSnackBar } from './SnackBar.utils';
