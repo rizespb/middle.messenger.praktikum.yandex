@@ -12,6 +12,7 @@ const initialState: IAppState = {
   chats: null,
   profileMode: 'view',
   isUpdateAvatarFormVisible: false,
+  isManageUserlistFormVisible: false,
   chat: {
     chatMessages: [],
     socketClient: null,

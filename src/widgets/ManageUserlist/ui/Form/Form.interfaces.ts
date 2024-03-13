@@ -1,5 +1,7 @@
 import { IBlockProps } from '@/shared/render';
 
-export interface IManageUserlistFormProps extends IBlockProps {
-  buttonTitle: string;
+export type TFormMode = 'addUser' | 'deleteUser';
+export interface IFormProps extends IBlockProps {
+  mode?: TFormMode;
+  onCancel: () => void;
 }

@@ -36,6 +36,7 @@ declare global {
     chats: IChat[] | null;
     profileMode: 'view' | 'updatePersonalDetails' | 'updatePassword';
     isUpdateAvatarFormVisible: boolean;
+    isManageUserlistFormVisible: boolean;
     chat: {
       currentChatId: number | null;
       chatMessages: IMessage[];

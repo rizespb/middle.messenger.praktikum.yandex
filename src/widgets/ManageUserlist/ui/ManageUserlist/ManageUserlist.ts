@@ -1,65 +1,80 @@
-import { classNames } from '@/shared/utils';
-import { Icon, ModalWindow, Popup, ActionsList } from '@/shared/ui';
-import { EIcons } from '@/shared/types';
+import { ModalWindow } from '@/shared/ui';
 import { Block, IChildren } from '@/shared/render';
+import { connect } from '@/shared/HOC';
 import tmpl from './ManageUserlist.hbs?raw';
 import classes from './ManageUserlist.module.scss';
-import { SHOW_MORE_ICON_ID, TEXTS, actionsData } from './ManageUserlist.constants';
+import { MODAL_CONTENT_ID, TEXTS } from './ManageUserlist.constants';
 import { Form } from '../Form';
+import { IManageUserlistProps } from './ManageUserlist.interfaces';
+import { ActionsPopup } from '../ActionsPopup';
+import { ShowActionsIcon } from '../ShowActionsIcon';
 
-const isModalOpened = false;
-
-export class ManageUserlist extends Block {
+export class ManageUserlistClass extends Block<IManageUserlistProps> {
   protected getInternalChildren(): IChildren {
-    const actions = new ActionsList({ actionsData });
+    const openModal = (): void => {
+      appStore.set('isManageUserlistFormVisible', true);
+    };
 
-    const popup = new Popup({
-      children: {
-        content: actions,
+    const closeModal = (): void => {
+      appStore.set('isManageUserlistFormVisible', false);
+    };
+
+    const actionsPopup = new ActionsPopup({
+      isPopupOpened: Boolean(this.props.isPopupOpened),
+      onAddUserClick: (): void => {
+        this.setProps({ isPopupOpened: false, formMode: 'addUser' });
+        openModal();
       },
-      direction: 'bottomRight',
-      isPopupOpened: false,
+      onDeleteUserClick: (): void => {
+        this.setProps({ isPopupOpened: false, formMode: 'deleteUser' });
+        openModal();
+      },
     });
 
-    const modalContent = new Form({
-      buttonTitle: TEXTS.addUserModal.button,
+    const showActionsIcon = new ShowActionsIcon({
+      isPopupOpened: actionsPopup.props.isPopupOpened,
+      onClick: (): void => {
+        this.setProps({ isPopupOpened: !this.props.isPopupOpened });
+      },
+    });
+
+    const children: IChildren = { showActionsIcon, actionsPopup };
+
+    if (!this.props.formMode) {
+      return children;
+    }
+
+    const form = new Form({
+      mode: this.props.formMode,
+      onCancel: (): void => {
+        closeModal();
+      },
     });
 
     const modalWindow = new ModalWindow({
       children: {
-        content: modalContent,
+        content: form,
       },
-      title: TEXTS.addUserModal.title,
-      isModalOpened,
-    });
-
-    const showMoreIcon = new Icon({
-      icon: EIcons.ShowMore,
-      iconClass: classNames({
-        [classes.showMoreIcon]: true,
-        [classes.showMoreIcon__active]: popup.props.isPopupOpened,
-      }),
-      containerClass: classNames({
-        [classes.showMoreIconContainer]: true,
-        [classes.showMoreIconContainer__active]: popup.props.isPopupOpened,
-      }),
-      id: SHOW_MORE_ICON_ID,
-      events: {
-        click: (event): void => {
-          event.stopPropagation();
-          popup.setProps({ isPopupOpened: !popup.props.isPopupOpened });
-        },
-      },
+      title:
+        this.props.formMode === 'addUser' ? TEXTS.addUserModalTitle : TEXTS.deleteUserModalTitle,
+      isModalOpened: this.props.isManageUserlistFormVisible || false,
+      contentContainerId: MODAL_CONTENT_ID,
+      onClose: closeModal,
     });
 
     return {
-      showMoreIcon,
-      popup,
+      ...children,
       modalWindow,
     };
   }
 
   render(): DocumentFragment {
+    this.setInternalChildren();
+
     return this.compile(tmpl, { classes });
   }
 }
+
+export const ManageUserlist = connect(ManageUserlistClass, (state) => ({
+  isManageUserlistFormVisible: state.isManageUserlistFormVisible,
+}));

@@ -8,7 +8,7 @@ import { IActionsListProps } from './ActionsList.interfaces';
 export class ActionsList extends Block<IActionsListProps> {
   getInternalChildren(): IChildren {
     const actions = this.props.actionsData.map((action) => {
-      const { text, icon, iconClass, containerClass } = action;
+      const { text, icon, iconClass, containerClass, onClick } = action;
 
       const iconBlock = new Icon({
         icon,
@@ -21,6 +21,7 @@ export class ActionsList extends Block<IActionsListProps> {
         children: {
           icon: iconBlock,
         },
+        onClick,
       });
 
       return actionBlock;

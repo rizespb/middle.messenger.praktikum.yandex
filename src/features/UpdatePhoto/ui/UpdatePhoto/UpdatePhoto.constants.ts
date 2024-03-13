@@ -5,3 +5,5 @@ export const TEXTS = {
     error: 'Ошибка, попробуйте ещё раз',
   },
 };
+
+export const MODAL_CONTENT_ID = 'UpdatePhotoModalContent';

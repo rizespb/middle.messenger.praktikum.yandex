@@ -4,26 +4,42 @@ import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
 import tmpl from './Form.hbs?raw';
 import classes from './Form.module.scss';
-import { IManageUserlistFormProps } from './Form.interfaces';
-import { loginInput } from './Form.constants';
+import { IFormProps } from './Form.interfaces';
+import { TEXTS, loginInput } from './Form.constants';
 
-export class Form extends Block<IManageUserlistFormProps> {
+export class Form extends Block<IFormProps> {
   protected getInternalChildren(): IChildren {
+    if (!this.props.mode) {
+      return {};
+    }
+
     const input = new BaseInput({
       label: loginInput.label,
       name: loginInput.name,
       placeholder: loginInput.label,
     });
 
-    const button = new Button({
-      title: this.props.buttonTitle,
+    const submitButton = new Button({
+      title: this.props.mode === 'addUser' ? TEXTS.addUser : TEXTS.deleteUser,
       type: 'submit',
       kind: 'primary',
     });
 
+    const cancelButton = new Button({
+      title: TEXTS.cancel,
+      type: 'button',
+      kind: 'primary',
+      events: {
+        click: (): void => {
+          this.props.onCancel();
+        },
+      },
+    });
+
     return {
       input,
-      button,
+      submitButton,
+      cancelButton,
     };
   }
 
@@ -51,7 +67,8 @@ export class Form extends Block<IManageUserlistFormProps> {
         }
 
         if (isValidationPassed) {
-          covertFormEntries(entries);
+          const data = covertFormEntries(entries);
+          console.log(this.props.mode, data);
         }
       },
     };
