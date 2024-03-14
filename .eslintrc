@@ -26,7 +26,8 @@
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     // @TODO временное отключение
     "class-methods-use-this": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-param-reassign": ["error", { "acc": false }]
   },
   "ignorePatterns": [
     "node_modules/",

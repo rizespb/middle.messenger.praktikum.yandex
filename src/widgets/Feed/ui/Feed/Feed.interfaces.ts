@@ -10,3 +10,8 @@ export interface IFeedProps extends IBlockProps {
   chatMessages?: IMessage[];
   chats?: IChat[] | null;
 }
+
+export interface ICurrentChatInfo {
+  currentChat: IChat;
+  currentChatIndex: number;
+}

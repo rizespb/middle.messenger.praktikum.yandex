@@ -3,18 +3,85 @@ import { Block, IChildren } from '@/shared/render';
 import { router } from '@/entities/Router';
 import { ERouterEvents } from '@/shared/router';
 import { connect } from '@/shared/HOC';
-import { chatController } from '@/entities/Chat';
+import { IChat, chatController } from '@/entities/Chat';
 import { WSClient } from '@/shared/services';
 import { servicesUrls } from '@/shared/constants';
+import { IMessage } from '@/entities/Message';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import tmpl from './Feed.hbs?raw';
 import classes from './Feed.module.scss';
 import { TEXTS } from './Feed.constants';
-import { IFeedProps } from './Feed.interfaces';
+import { ICurrentChatInfo, IFeedProps } from './Feed.interfaces';
 import { IWSMessage, getChatId, normilizeWSMessage } from '../../model';
 
 export class FeedClass extends Block<IFeedProps> {
+  getCurrentChat(currentChatId: number | null): ICurrentChatInfo | null {
+    const { chats } = this.props;
+
+    if (!currentChatId || !chats) {
+      return null;
+    }
+
+    const currentChatInfo = chats?.reduce<ICurrentChatInfo | null>(
+      (acc, chat, currentChatIndex) => {
+        if (chat.id === currentChatId) {
+          acc = {
+            currentChat: chat,
+            currentChatIndex,
+          };
+        }
+
+        return acc;
+      },
+      null
+    );
+
+    return currentChatInfo;
+  }
+
+  updateChatList(message: IMessage): void {
+    const { chatId: currentChatId } = this.props;
+
+    const { chats } = this.props;
+
+    const currentChatInfo = this.getCurrentChat(currentChatId || null);
+
+    if (!currentChatInfo || !chats) {
+      return;
+    }
+
+    const { currentChat, currentChatIndex } = currentChatInfo;
+
+    const last_message = {
+      content: message?.content,
+      id: message?.id,
+      time: new Date().toISOString(),
+    };
+
+    const newChats = [
+      ...chats.slice(0, currentChatIndex),
+      { ...currentChat, last_message },
+      ...chats.slice(currentChatIndex + 1),
+    ];
+
+    appStore.set('chats', newChats);
+  }
+
+  resetUnreadMessageCounter(currentChatId: number | null): void {
+    if (!currentChatId) {
+      return;
+    }
+
+    const { chats } = this.props;
+
+    const currentChatInfo = this.getCurrentChat(currentChatId);
+
+    if (!currentChatInfo || !chats) {
+      return;
+    }
+  }
+
   async initSocket(): Promise<void> {
     const { userId, chatId } = this.props;
 
@@ -36,13 +103,19 @@ export class FeedClass extends Block<IFeedProps> {
 
     socketClient.onMessage<IWSMessage | IWSMessage[]>((data) => {
       if (Array.isArray(data)) {
-        const messages = data.map((item) => normilizeWSMessage(item, userId));
+        const messages = data.map((item) => normilizeWSMessage(item, userId)).filter(Boolean);
 
         appStore.set('chat.chatMessages', messages);
       } else {
         const message = normilizeWSMessage(data, userId);
 
+        if (!message) {
+          return;
+        }
+
         appStore.set('chat.chatMessages', [message, ...this.props.chatMessages!]);
+
+        this.updateChatList(message);
       }
     });
 
@@ -67,6 +140,7 @@ export class FeedClass extends Block<IFeedProps> {
 
       if (chatId !== null) {
         this.initSocket();
+        this.resetUnreadMessageCounter(chatId);
       }
     });
 
@@ -74,6 +148,7 @@ export class FeedClass extends Block<IFeedProps> {
 
     this.resetChatState(chatId);
     this.initSocket();
+    this.resetUnreadMessageCounter(chatId);
   }
 
   protected getInternalChildren(): IChildren {

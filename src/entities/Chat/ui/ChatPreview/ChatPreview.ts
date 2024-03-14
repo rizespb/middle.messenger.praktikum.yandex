@@ -28,6 +28,8 @@ export class ChatPreview extends Block<IChatPreviewProps> {
   }
 
   render(): DocumentFragment {
+    console.log(this.props.lastMessage);
+
     return this.compile(tmpl, {
       classes,
     });
