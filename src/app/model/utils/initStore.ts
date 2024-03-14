@@ -15,6 +15,7 @@ const initialState: IAppState = {
   isUpdateAvatarFormVisible: false,
   isManageUserlistFormVisible: false,
   isAddChatFormVisible: false,
+  isDeleteChatFormVisible: false,
   chat: {
     chatMessages: [],
     socketClient: null,

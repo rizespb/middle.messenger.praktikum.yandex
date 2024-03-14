@@ -7,6 +7,7 @@ import { Button, Loader, SnackBar } from '@/shared/ui';
 import { userController } from '@/entities/User';
 import { connect } from '@/shared/HOC';
 import { AddChat } from '@/features/AddChat';
+import { DeleteChat } from '@/features/DeleteChat';
 import classes from './ChatsPage.module.scss';
 import tmpl from './ChatsPage.hbs?raw';
 import { TEXTS, linkData } from './ChatsPage.constants';
@@ -36,6 +37,7 @@ export class ChatsPageClass extends Block {
     });
 
     const addChatIcon = new AddChat({});
+    const deleteChatIcon = new DeleteChat({});
 
     const loader = new Loader({});
     const snackBar = new SnackBar({});
@@ -49,6 +51,7 @@ export class ChatsPageClass extends Block {
       loader,
       snackBar,
       addChatIcon,
+      deleteChatIcon,
     };
   }
 

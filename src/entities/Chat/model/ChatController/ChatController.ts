@@ -4,6 +4,7 @@ import { handleErrorWithSnackBar } from '@/shared/ui/SnackBar';
 import {
   addUserApi,
   createChatApi,
+  deleteChatApi,
   deleteUserApi,
   fetchTokenApi,
   uploadChatAvatarApi,
@@ -100,6 +101,32 @@ export class ChatController {
       .then((newChat) => {
         appStore.set('chats', [newChat, ...appStore.getState().chats]);
         appStore.set('isAddChatFormVisible', false);
+      })
+      .catch(handleErrorWithSnackBar)
+      .finally(() => {
+        appStore.set('isLoading', false);
+      });
+  }
+
+  deleteChat(chatTitle: string): Promise<void> | void {
+    const chatId = appStore.getState().chats.find(({ title }) => chatTitle === title)?.id;
+
+    if (!chatId) {
+      handleErrorWithSnackBar(new Error('Чат с таким названием не найден'));
+
+      return;
+    }
+    appStore.set('isLoading', true);
+
+    // eslint-disable-next-line consistent-return
+    return deleteChatApi(chatId)
+      .then(() => {
+        const currentChats = appStore.getState().chats;
+
+        const newChatsList = currentChats.filter(({ id }) => id !== chatId);
+
+        appStore.set('isDeleteChatFormVisible', false);
+        appStore.set('chats', newChatsList);
       })
       .catch(handleErrorWithSnackBar)
       .finally(() => {
