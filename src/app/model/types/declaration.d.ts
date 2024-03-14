@@ -39,6 +39,7 @@ declare global {
     isUpdateAvatarFormVisible: boolean;
     isManageUserlistFormVisible: boolean;
     isAddChatFormVisible: boolean;
+    isDeleteChatFormVisible: boolean;
     chat: {
       currentChatId: number | null;
       chatMessages: IMessage[];
