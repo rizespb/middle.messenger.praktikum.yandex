@@ -1,4 +1,9 @@
+import { EPagesUrls } from '@/shared/constants';
+
 export const BUTTONS = {
   creatAccountButton: 'Зарегистрироваться',
-  logInButton: 'Войти',
+  loginLink: {
+    text: 'Войти',
+    href: EPagesUrls.LogInPage,
+  },
 };

@@ -1,35 +1,15 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
-import { Button, InteractiveInput } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
 import { comparePasswords } from '@/shared/services/validator';
 import { IFormProps } from './Form.interfaces';
-import { profileInputsData, changePasswordInputsData } from '../../model';
 import tmpl from './Form.hbs?raw';
 import classes from './Form.module.scss';
-import { UserAvatar } from '../UserAvatar';
 import { TEXTS } from './Form.constants';
 
-export class Form extends Block<IFormProps> {
+export class Form<T> extends Block<IFormProps<T>> {
   protected getInternalChildren(): IChildren {
-    const { mode, isEditMode } = this.props;
-
-    const userAvatar = new UserAvatar({});
-
-    const inputsData = mode === 'personalDetails' ? profileInputsData : changePasswordInputsData;
-
-    const inputs = inputsData.map((input) => {
-      const { name, title, type } = input;
-
-      return new InteractiveInput({
-        label: title,
-        name,
-        placeholder: title,
-        isDisabled: !isEditMode,
-        type,
-      });
-    });
-
     const submitButton = new Button({
       title: TEXTS.submitButton,
       type: 'submit',
@@ -37,13 +17,22 @@ export class Form extends Block<IFormProps> {
       kind: 'primary',
     });
 
-    const children: IChildren = {
-      userAvatar,
-      inputs,
-      submitButton,
-    };
+    const cancelButton = new Button({
+      title: TEXTS.cancelButton,
+      type: 'button',
+      className: classes.submitButtom,
+      kind: 'primary',
+      events: {
+        click: (): void => {
+          appStore.set('profileMode', 'view');
+        },
+      },
+    });
 
-    return children;
+    return {
+      submitButton,
+      cancelButton,
+    };
   }
 
   protected getInternalEvents(): TEvents {
@@ -79,7 +68,9 @@ export class Form extends Block<IFormProps> {
         }
 
         if (isValidationPassed) {
-          covertFormEntries(entries);
+          const data = covertFormEntries(entries);
+
+          this.props.onSubmit(data as T);
         }
       },
     };
@@ -88,7 +79,6 @@ export class Form extends Block<IFormProps> {
   render(): DocumentFragment {
     return this.compile(tmpl, {
       classes,
-      firstName: 'Иван',
     });
   }
 }

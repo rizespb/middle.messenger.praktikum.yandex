@@ -4,11 +4,13 @@ import { Icon } from '@/shared/ui';
 import { Input } from '@/shared/ui/Input';
 import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
+import { connect } from '@/shared/HOC';
 import tmpl from './MessageInput.hbs?raw';
 import classes from './MessageInput.module.scss';
 import { inputData } from './MessageInput.constants';
+import { IMessageInputProps } from './MessageInput.interface';
 
-export class MessageInput extends Block {
+export class MessageInputClass extends Block<IMessageInputProps> {
   protected getInternalChildren(): IChildren {
     const sendButton = new Icon({
       icon: EIcons.ArrowIcon,
@@ -41,7 +43,11 @@ export class MessageInput extends Block {
         const isValidationPassed = !validationResults[0].isError;
 
         if (isValidationPassed) {
-          covertFormEntries(entries);
+          const data = covertFormEntries(entries);
+
+          this.props.socketClient?.sendMessage(data.message);
+
+          (this.children.input as Block).setProps({ value: '' });
         }
       },
     };
@@ -55,3 +61,7 @@ export class MessageInput extends Block {
     });
   }
 }
+
+export const MessageInput = connect(MessageInputClass, (state) => ({
+  socketClient: state.chat.socketClient,
+}));

@@ -18,10 +18,6 @@ export interface IBlock<T extends IBlockProps = IBlockProps> {
   hide: () => void;
 }
 
-export type TAnyObject<T = unknown> = {
-  [key: PropertyKey]: T;
-};
-
 export interface IChildren {
   [key: PropertyKey]: IBlock | IBlock[];
 }

@@ -1,1 +1,1 @@
-export { renderPage } from './utils';
+export { startApp } from './utils';

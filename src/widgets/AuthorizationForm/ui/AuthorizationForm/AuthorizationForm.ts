@@ -7,7 +7,7 @@ import tmpl from './AuthorizationForm.hbs?raw';
 import classes from './AuthorizationForm.module.scss';
 import { Form } from '../Form';
 
-export class AuthorizationForm extends Block<IAuthorizationFormProps> {
+export class AuthorizationForm<T> extends Block<IAuthorizationFormProps<T>> {
   protected getInternalChildren(): IChildren {
     const { inputs, buttons } = this.props;
 
@@ -45,7 +45,8 @@ export class AuthorizationForm extends Block<IAuthorizationFormProps> {
           }
 
           if (isValidationPassed) {
-            covertFormEntries(entries);
+            const data = covertFormEntries(entries);
+            this.props.onSubmit(data as T);
           }
         },
       },

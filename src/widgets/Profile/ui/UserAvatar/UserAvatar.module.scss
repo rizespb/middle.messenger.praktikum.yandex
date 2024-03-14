@@ -2,6 +2,10 @@
 	position: relative;
 	border-radius: 50%;
 	overflow: hidden;
+
+	&__hidden {
+		display: none;
+	}
 }
 
 .hoverBlock {

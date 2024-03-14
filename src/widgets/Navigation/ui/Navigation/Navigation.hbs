@@ -1,9 +1,9 @@
 <nav class={{classes.navigation}} >
 
-	{{#each pagesMap}}
+	{{#each links}}
 
-		<li {{../dataAttrTitle}}={{code}} class={{../classes.navigationItem}} >
-			{{title}}
+		<li class={{../classes.navigationItem}} >
+			{{{this}}}
 		</li>
 
 	{{/each}}

@@ -25,3 +25,10 @@
 	bottom: -30px;
 	color: $error-text-color;
 }
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	width: 100%;
+}

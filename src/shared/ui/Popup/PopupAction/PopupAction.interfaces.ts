@@ -6,4 +6,5 @@ export interface IPopupActionProps extends IBlockProps {
   children: {
     icon: Block;
   };
+  onClick: () => void;
 }

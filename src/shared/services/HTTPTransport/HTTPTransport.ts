@@ -1,28 +1,18 @@
+import { queryStringify } from '@/shared/utils';
 import { EMethods, IHTTPOptions, IHeaders, THTTPMethod } from './HTTPTransport.interfaces';
+import { responseMessages } from './HTTPTransport.constants';
 
-const queryStringify = <T extends Record<string, string>>(data: T): string => {
-  if (typeof data !== 'object') {
-    return data;
-  }
-
-  const query = Object.entries(data).reduce((acc, [key, value], index, array) => {
-    const isLast = index === array.length - 1;
-
-    const postFix = isLast ? '' : '&';
-
-    return `${acc}${key}=${value}${postFix}`;
-  }, '?');
-
-  return query;
-};
-
-export class HTTPTransport {
+export class HTTPTransportClass {
   get: THTTPMethod = (url, options = {}) => {
     const { data, timeout } = options;
 
+    if (data === undefined) {
+      return this.request(url, { ...options, method: EMethods.GET }, timeout);
+    }
+
     const query = queryStringify(data);
 
-    const formattedUrl = typeof query === 'string' ? `${url}${query}` : url;
+    const formattedUrl = typeof query === 'string' ? `${url}?${query}` : url;
 
     return this.request(formattedUrl, { ...options, method: EMethods.GET }, timeout);
   };
@@ -56,29 +46,44 @@ export class HTTPTransport {
     options: IHTTPOptions = { method: EMethods.GET },
     timeout = 5000
   ): Promise<T> => {
-    const { method, data, headers } = options;
+    const { method, data, headers, withCredentials = true, responseType = 'json' } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
       xhr.timeout = timeout;
+      xhr.withCredentials = withCredentials;
+      xhr.responseType = responseType;
 
       this.setHeaders(xhr, headers);
 
       xhr.open(method, url);
 
       xhr.onload = (): void => {
-        resolve(xhr as T);
+        const status = xhr.status || 0;
+
+        if (status >= 200 && status < 300) {
+          resolve(xhr.response as T);
+        } else {
+          const roundedStatus = (Math.floor(status / 100) * 100) as keyof typeof responseMessages;
+
+          const message = xhr.response.reason || responseMessages[roundedStatus];
+
+          reject(new Error(`Response status is ${roundedStatus}. Message: ${message}`));
+        }
       };
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
+      xhr.onabort = (): void => reject(new Error('aborted'));
+      xhr.onerror = (): void => reject(new Error('network error'));
+      xhr.ontimeout = (): void => reject(new Error('timeout'));
 
       if (method === EMethods.GET || !data) {
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data));
       }
     });
   };
@@ -93,3 +98,5 @@ export class HTTPTransport {
     });
   }
 }
+
+export const HTTPTransport = new HTTPTransportClass();

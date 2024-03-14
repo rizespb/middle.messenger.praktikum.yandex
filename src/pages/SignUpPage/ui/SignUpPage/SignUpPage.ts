@@ -1,9 +1,19 @@
 import { CenterContentLayout } from '@/layouts/CenterContentLayout/ui';
 import { Block, IChildren } from '@/shared/render';
 import { SignUpForm } from '@/widgets/SignUpForm';
+import { connect } from '@/shared/HOC';
+import { Loader, SnackBar } from '@/shared/ui';
+import { router } from '@/entities/Router';
+import { EPagesUrls } from '@/shared/constants';
 import tmpl from './SignUpPage.hbs?raw';
 
-export class SignUpPage extends Block {
+class SignUpPageClass extends Block {
+  protected componentDidMount(): void {
+    if (appStore.getState().user !== null) {
+      router.go(EPagesUrls.ChatsPage);
+    }
+  }
+
   getInternalChildren(): IChildren {
     const signUpForm = new SignUpForm({});
 
@@ -13,6 +23,8 @@ export class SignUpPage extends Block {
           content: signUpForm,
         },
       }),
+      loader: new Loader({}),
+      snackBar: new SnackBar({}),
     };
   }
 
@@ -20,3 +32,7 @@ export class SignUpPage extends Block {
     return this.compile(tmpl);
   }
 }
+
+export const SignUpPage = connect(SignUpPageClass, (state) => ({
+  isLoading: state.isLoading,
+}));

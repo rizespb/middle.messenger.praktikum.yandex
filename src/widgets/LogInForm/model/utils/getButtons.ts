@@ -1,5 +1,6 @@
 import { Button } from '@/shared/ui';
 import { Block } from '@/shared/render';
+import { Link } from '@/entities/Router';
 import { BUTTONS } from '../constants';
 
 export const getButtons = (): Block[] => {
@@ -9,11 +10,10 @@ export const getButtons = (): Block[] => {
     kind: 'primary',
   });
 
-  const creatAccountButton = new Button({
-    title: BUTTONS.creatAccountButton,
-    type: 'button',
-    kind: 'secondary',
+  const signUpLink = new Link({
+    text: BUTTONS.signUpLink.text,
+    href: BUTTONS.signUpLink.href,
   });
 
-  return [logInButton, creatAccountButton];
+  return [logInButton, signUpLink];
 };

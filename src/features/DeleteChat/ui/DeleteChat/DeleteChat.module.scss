@@ -1,0 +1,19 @@
+.iconContainer {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	border-radius: 50%;
+	bottom: 10px;
+	right: 77px;
+	background-color: $whte-color;
+
+	@include opacity;
+}
+
+.icon {
+	color: $text-accent-color;
+	width: 30px;
+	height: 30px;
+	transform: rotate(45deg);
+}

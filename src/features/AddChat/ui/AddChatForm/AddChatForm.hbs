@@ -1,0 +1,16 @@
+<form class="{{classes.form}}">
+	{{{fileInput}}}
+
+	{{{titleInput}}}
+
+	<div class="{{classes.buttons}}">
+		{{{submitButton}}}
+		{{{cancelButton}}}
+	</div>
+
+	{{#if isFileUploadError}}
+		<span class="{{classes.error}}">
+			{{error}}
+		</span>
+	{{/if}}
+</form>

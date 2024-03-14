@@ -1,1 +1,2 @@
-export { EPages } from './app';
+export { servicesUrls } from './api';
+export { EPagesUrls } from './app';

@@ -1,2 +1,2 @@
 export { Block } from './ui';
-export { type IBlockProps, type TEvents, type IChildren } from './model';
+export { type IBlockProps, type TEvents, type IChildren, type TClearProps } from './model';

@@ -18,4 +18,8 @@ $offset: 20px;
 		top: 0;
 		transform: translateY(calc(-100% - $offset));
 	}
+
+	&__hidden {
+		display: none;
+	}
 }

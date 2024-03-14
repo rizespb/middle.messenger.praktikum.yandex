@@ -7,12 +7,12 @@ import { Input } from '../Input';
 
 export class InteractiveInput extends Block<IInteractiveInputProps> {
   protected getInternalChildren(): IChildren {
-    const { type, name, placeholder, isDisabled } = this.props;
+    const { type, name, placeholder, isDisabled, value } = this.props;
 
     const validateInput = (event: Event): void => {
-      const { value } = event.target as HTMLInputElement;
+      const { value: currentValue } = event.target as HTMLInputElement;
 
-      const { isError, errorMessage } = validator.test(name, value);
+      const { isError, errorMessage } = validator.test(name, currentValue);
 
       if (isError) {
         this.setProps({
@@ -32,6 +32,7 @@ export class InteractiveInput extends Block<IInteractiveInputProps> {
       placeholder,
       isDisabled,
       className: classes.input,
+      value,
       events: {
         change: (event): void => {
           validateInput(event);

@@ -3,3 +3,11 @@
 	flex-direction: column;
 	height: 100vh;
 }
+
+.noChatSelected {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-size: 55px;
+}
