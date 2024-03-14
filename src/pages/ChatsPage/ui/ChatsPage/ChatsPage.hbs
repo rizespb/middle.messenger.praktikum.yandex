@@ -12,8 +12,16 @@
 			</div>
 
 			{{{chatsList}}}
+
+			{{{addChatIcon}}}
 		</div>
 
 		{{{feed}}}
 	</div>
+
+	{{#if isLoading}}
+		{{{loader}}}
+	{{/if}}
+
+	{{{snackBar}}}
 </div>

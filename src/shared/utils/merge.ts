@@ -1,6 +1,7 @@
 import { TAnyObject } from '@/shared/types';
 
-export const merge = (lhs: TAnyObject, rhs: TAnyObject): TAnyObject => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const merge = (lhs: any, rhs: any): TAnyObject => {
   const rhsCopy = { ...rhs };
   let result = {} as TAnyObject;
 
@@ -14,7 +15,7 @@ export const merge = (lhs: TAnyObject, rhs: TAnyObject): TAnyObject => {
       typeof rhsValue === 'object' &&
       rhsValue !== null
     ) {
-      result[key] = merge(lhsValue as TAnyObject, rhsValue as TAnyObject);
+      result[key] = merge(lhsValue, rhsValue);
     } else {
       result[key] = rhsValue !== undefined ? rhsValue : lhsValue;
     }

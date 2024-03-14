@@ -3,13 +3,15 @@ import { ChatSearch } from '@/features/ChatSearch';
 import { Block, IChildren } from '@/shared/render';
 import { Feed } from '@/widgets/Feed';
 import { Link } from '@/entities/Router';
-import { Button } from '@/shared/ui';
+import { Button, Loader, SnackBar } from '@/shared/ui';
 import { userController } from '@/entities/User';
+import { connect } from '@/shared/HOC';
+import { AddChat } from '@/features/AddChat';
 import classes from './ChatsPage.module.scss';
 import tmpl from './ChatsPage.hbs?raw';
 import { TEXTS, linkData } from './ChatsPage.constants';
 
-export class ChatsPage extends Block {
+export class ChatsPageClass extends Block {
   getInternalChildren(): IChildren {
     const chatsList = new ChatsList({});
     const search = new ChatSearch({});
@@ -33,12 +35,20 @@ export class ChatsPage extends Block {
       },
     });
 
+    const addChatIcon = new AddChat({});
+
+    const loader = new Loader({});
+    const snackBar = new SnackBar({});
+
     return {
       chatsList,
       search,
       feed,
       profileLink,
       logOutButton,
+      loader,
+      snackBar,
+      addChatIcon,
     };
   }
 
@@ -50,3 +60,7 @@ export class ChatsPage extends Block {
     });
   }
 }
+
+export const ChatsPage = connect(ChatsPageClass, (state) => ({
+  isLoading: state.isLoading,
+}));

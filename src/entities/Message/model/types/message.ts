@@ -1,19 +1,20 @@
 export enum EMessageType {
-  Text,
-  Image,
+  Text = 'message',
+  Image = 'file',
 }
 
 export enum EMessageDirection {
-  Incoming,
-  Outcoming,
+  Incoming = 'incoming',
+  Outcoming = 'outcomig',
 }
 
 export enum EMessageStatus {
-  Delivered,
-  Read,
+  Delivered = 'delivered',
+  Read = 'read',
 }
 
 export interface IMessage {
+  id: number;
   type: EMessageType;
   date: string;
   time: string;

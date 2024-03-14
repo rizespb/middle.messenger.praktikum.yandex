@@ -2,28 +2,46 @@ import { Block, IChildren, TEvents } from '@/shared/render';
 import { BaseInput, Button } from '@/shared/ui';
 import { covertFormEntries, getFormDataEntries } from '@/shared/utils';
 import { validateForm } from '@/shared/services';
+import { chatController } from '@/entities/Chat';
+import { connect } from '@/shared/HOC';
 import tmpl from './Form.hbs?raw';
 import classes from './Form.module.scss';
-import { IManageUserlistFormProps } from './Form.interfaces';
-import { loginInput } from './Form.constants';
+import { IFormProps } from './Form.interfaces';
+import { TEXTS, loginInput } from './Form.constants';
 
-export class Form extends Block<IManageUserlistFormProps> {
+export class FormClass extends Block<IFormProps> {
   protected getInternalChildren(): IChildren {
+    if (!this.props.mode) {
+      return {};
+    }
+
     const input = new BaseInput({
       label: loginInput.label,
       name: loginInput.name,
       placeholder: loginInput.label,
     });
 
-    const button = new Button({
-      title: this.props.buttonTitle,
+    const submitButton = new Button({
+      title: this.props.mode === 'addUser' ? TEXTS.addUser : TEXTS.deleteUser,
       type: 'submit',
       kind: 'primary',
     });
 
+    const cancelButton = new Button({
+      title: TEXTS.cancel,
+      type: 'button',
+      kind: 'primary',
+      events: {
+        click: (): void => {
+          this.props.onCancel();
+        },
+      },
+    });
+
     return {
       input,
-      button,
+      submitButton,
+      cancelButton,
     };
   }
 
@@ -50,8 +68,20 @@ export class Form extends Block<IManageUserlistFormProps> {
           });
         }
 
+        const { mode, currentChatId } = this.props;
+
+        if (!mode || !currentChatId) {
+          return;
+        }
+
         if (isValidationPassed) {
-          covertFormEntries(entries);
+          const { login } = covertFormEntries(entries);
+
+          if (mode === 'addUser') {
+            chatController.addUser(login, currentChatId);
+          } else if (mode === 'deleteUser') {
+            chatController.deleteUser(login, currentChatId);
+          }
         }
       },
     };
@@ -61,3 +91,7 @@ export class Form extends Block<IManageUserlistFormProps> {
     return this.compile(tmpl, { classes });
   }
 }
+
+export const Form = connect(FormClass, (state) => ({
+  currentChatId: state.chat.currentChatId,
+}));

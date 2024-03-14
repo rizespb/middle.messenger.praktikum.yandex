@@ -6,6 +6,7 @@ export interface IActionData {
   icon: EIcons;
   iconClass: string;
   containerClass?: string;
+  onClick: () => void;
 }
 
 export interface IActionsListProps extends IBlockProps {

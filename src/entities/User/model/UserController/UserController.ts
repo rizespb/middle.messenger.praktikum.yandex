@@ -1,16 +1,17 @@
 import { router } from '@/entities/Router';
 import { EPagesUrls } from '@/shared/constants';
-import { showSnackBar } from '@/shared/ui';
 import { merge } from '@/shared/utils';
-import { TAnyObject } from '@/shared/types';
+import { handleErrorWithSnackBar } from '@/shared/ui/SnackBar';
 import { fetchChatsListApi } from '../../api/fetchChatsListApi/fetchChatsListApi';
 import {
+  TFindUserByLoginApiResponse,
   ILogInData,
   IUpdatePasswordApiData,
   IUpdateProfileData,
   IUserData,
   createUserApi,
   fetchUserInfoApi,
+  findUsersByLoginApi,
   logInApi,
   logOutApi,
   updateAvatarApi,
@@ -28,12 +29,7 @@ class UserController {
         appStore.set('user', res);
         router.go(EPagesUrls.ChatsPage);
       })
-      .catch((error: Error) => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-
-        showSnackBar(error.message);
-      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });
@@ -52,12 +48,7 @@ class UserController {
 
         router.go(EPagesUrls.ChatsPage);
       })
-      .catch((error: Error) => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-
-        showSnackBar(error.message);
-      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });
@@ -77,8 +68,7 @@ class UserController {
   logOut(): Promise<void> {
     return logOutApi()
       .then(() => {
-        appStore.set('user', null);
-        appStore.set('chats', null);
+        appStore.resetState();
 
         router.go(EPagesUrls.LogInPage);
       })
@@ -104,17 +94,18 @@ class UserController {
 
     return updateProfileApi(userData)
       .then((res) => {
-        const user = merge(appStore.getState().user, res as unknown as TAnyObject);
+        const currentUser = appStore.getState().user;
+
+        if (!currentUser) {
+          throw new Error('User is not defined');
+        }
+
+        const user = merge(currentUser, res);
 
         appStore.set('user', user);
         appStore.set('profileMode', 'view');
       })
-      .catch((error: Error) => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-
-        showSnackBar(error.message);
-      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });
@@ -127,12 +118,7 @@ class UserController {
       .then(() => {
         appStore.set('profileMode', 'view');
       })
-      .catch((error: Error) => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-
-        showSnackBar(error.message);
-      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });
@@ -146,15 +132,14 @@ class UserController {
         appStore.set('isUpdateAvatarFormVisible', false);
         appStore.set('user', res);
       })
-      .catch((error: Error) => {
-        // eslint-disable-next-line no-console
-        console.error(error.message);
-
-        showSnackBar(error.message);
-      })
+      .catch(handleErrorWithSnackBar)
       .finally(() => {
         appStore.set('isLoading', false);
       });
+  }
+
+  findUserByLogin(login: string): Promise<TFindUserByLoginApiResponse | void> {
+    return findUsersByLoginApi(login).catch(handleErrorWithSnackBar);
   }
 }
 

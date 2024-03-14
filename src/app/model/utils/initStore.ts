@@ -6,12 +6,20 @@ const initialState: IAppState = {
   snackBar: {
     message: '',
     isVisible: false,
+    type: null,
   },
   user: null,
   initialPage: new InitialPage({}),
-  chats: null,
+  chats: [],
   profileMode: 'view',
   isUpdateAvatarFormVisible: false,
+  isManageUserlistFormVisible: false,
+  isAddChatFormVisible: false,
+  chat: {
+    chatMessages: [],
+    socketClient: null,
+    currentChatId: null,
+  },
 };
 
 export const initStore = (): void => {

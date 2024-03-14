@@ -1,7 +1,9 @@
 import { EPagesUrls } from '@/shared/constants';
+import { EventBus } from '@/shared/services';
 import { Route, TBlockClass } from '../Route';
+import { ERouterEvents } from './Router.interfaces';
 
-export class Router {
+export class Router extends EventBus<ERouterEvents> {
   // eslint-disable-next-line no-use-before-define
   static instance: Router;
 
@@ -18,6 +20,8 @@ export class Router {
   _checkIsProtectedRoutesAllowed: () => boolean | undefined;
 
   constructor() {
+    super();
+
     if (Router.instance) {
       // eslint-disable-next-line no-constructor-return
       return Router.instance;
@@ -67,6 +71,8 @@ export class Router {
     window.onpopstate = (event: PopStateEvent): void => {
       if (event.currentTarget) {
         this._onRoute((event.currentTarget as Window).location.pathname);
+
+        this.emit(ERouterEvents.PopState);
       }
     };
 
@@ -105,14 +111,20 @@ export class Router {
   go(pathname: string): void {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
+
+    this.emit(ERouterEvents.PopState);
   }
 
   back(): void {
     this.history.go(-1);
+
+    this.emit(ERouterEvents.PopState);
   }
 
   forward(): void {
     this.history.forward();
+
+    this.emit(ERouterEvents.PopState);
   }
 
   getRoute(pathname: string): Route | null {

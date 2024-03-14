@@ -1,4 +1,4 @@
-export interface IFetchUserInfoApiResponse {
+export interface IUserData {
   id: number;
   first_name: string;
   second_name: string;
@@ -8,3 +8,5 @@ export interface IFetchUserInfoApiResponse {
   avatar: string;
   email: string;
 }
+
+export type TFindUserByLoginApiResponse = IUserData[];

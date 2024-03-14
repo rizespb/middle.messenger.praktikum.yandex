@@ -337,6 +337,7 @@ export class Block<Props extends IBlockProps = IBlockProps> implements IBlock<Pr
     const content = this.getContent();
 
     if (content) {
+      this.setInternalChildren();
       content.style.display = 'block';
     }
   }

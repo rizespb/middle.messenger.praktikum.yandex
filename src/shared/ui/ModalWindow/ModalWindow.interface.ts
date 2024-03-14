@@ -7,4 +7,6 @@ export interface IModalWindowProps extends IBlockProps {
   children: {
     content: Block;
   };
+  contentContainerId: string;
+  onClose: () => void;
 }

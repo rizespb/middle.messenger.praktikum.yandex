@@ -1,26 +1,32 @@
 import { Block, IChildren } from '@/shared/render';
 import { MessageGroup } from '@/entities/Message';
+import { connect } from '@/shared/HOC';
 import tmpl from './Chat.hbs?raw';
 import classes from './Chat.module.scss';
-import { messagesGroupsMock } from './Chat.mocks';
 import { IChatProps } from './Chat.interface';
-import { TEXTS } from './Chat.constants';
+import { getMessagesGroups } from '../../model';
 
-export class Chat extends Block<IChatProps> {
+export class ChatClass extends Block<IChatProps> {
   protected getInternalChildren(): IChildren {
-    if (this.props.chatId === null) {
+    const { chatMessages } = this.props;
+
+    if (!chatMessages) {
       return {};
     }
-
-    const messagesGroups = messagesGroupsMock.map((group) => new MessageGroup(group));
+    const messagesGroups = getMessagesGroups(chatMessages).map((group) => new MessageGroup(group));
 
     return { messagesGroups };
   }
 
   render(): DocumentFragment {
+    this.setInternalChildren();
+
     return this.compile(tmpl, {
       classes,
-      noChatSelectedText: TEXTS.noChatSelectedText,
     });
   }
 }
+
+export const Chat = connect(ChatClass, (state) => ({
+  chatMessages: state.chat.chatMessages,
+}));

@@ -1,9 +1,9 @@
 import { Block, IChildren, TEvents } from '@/shared/render';
-import { Button } from '@/shared/ui';
+import { Button, FileInput } from '@/shared/ui';
 import { userController } from '@/entities/User';
 import classes from './UpdatePhotoForm.module.scss';
 import tmpl from './UpdatePhotoForm.hbs?raw';
-import { TEXTS, UPLOAD_INPUT_NAME, ACCEPT_FILES } from './UpdatePhotoForm.constants';
+import { TEXTS, UPLOAD_INPUT_NAME, ACCEPTED_FILES } from './UpdatePhotoForm.constants';
 import { IUpdatePhotoFormProps } from './UpdatePhotoForm.interfaces';
 
 export class UpdatePhotoForm extends Block<IUpdatePhotoFormProps> {
@@ -25,9 +25,15 @@ export class UpdatePhotoForm extends Block<IUpdatePhotoFormProps> {
       },
     });
 
+    const input = new FileInput({
+      acceptedFiles: ACCEPTED_FILES,
+      name: UPLOAD_INPUT_NAME,
+    });
+
     return {
       submitButton,
       cancelButton,
+      input,
     };
   }
 
@@ -62,8 +68,6 @@ export class UpdatePhotoForm extends Block<IUpdatePhotoFormProps> {
 
     return this.compile(tmpl, {
       classes,
-      ACCEPT_FILES,
-      name: UPLOAD_INPUT_NAME,
       error: isError ? TEXTS.error : undefined,
     });
   }

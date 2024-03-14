@@ -8,3 +8,4 @@ export { setProperty } from './setProperty';
 export { isEqual } from './isEqual';
 export { isObject } from './isObject';
 export { queryStringify } from './queryStringify';
+export { isValidDate, getDayOfMonth, getHoursAndMinutes } from './dates';

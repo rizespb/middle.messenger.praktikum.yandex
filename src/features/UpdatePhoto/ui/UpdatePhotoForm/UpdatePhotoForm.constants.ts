@@ -4,6 +4,6 @@ export const TEXTS = {
   error: 'Нужно выбрать файл',
 };
 
-export const ACCEPT_FILES = 'image/png, image/jpeg, image/jpg, image/webp';
+export const ACCEPTED_FILES = 'image/png, image/jpeg, image/jpg, image/webp';
 
-export const UPLOAD_INPUT_NAME = 'uploadPhoto';
+export const UPLOAD_INPUT_NAME = 'uploadPhotoInput';

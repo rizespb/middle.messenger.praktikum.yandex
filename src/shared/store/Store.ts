@@ -30,4 +30,18 @@ export class Store extends EventBus<EStoreEvents> {
 
     this.emit(EStoreEvents.Updated);
   }
+
+  public resetState(): void {
+    this.set('user', null);
+    this.set('chats', null);
+    this.set('profileMode', 'view');
+    this.set('isUpdateAvatarFormVisible', false);
+    this.set('isManageUserlistFormVisible', false);
+    this.set('isAddChatFormVisible', false);
+    this.set('chat', {
+      currentChatId: null,
+      socketClient: null,
+      chatMessages: [],
+    });
+  }
 }

@@ -1,0 +1,18 @@
+.showMoreIconContainer {
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	border-radius: 50%;
+	
+	&__active {
+		background-color: $secondary-color;
+	}
+}
+
+.showMoreIcon {
+	color: $text-primary-color;
+
+	&__active {
+		color: $text-accent-color;
+	}
+}

@@ -3,6 +3,9 @@ export interface IChat {
   title: string;
   avatar: string | null;
   created_by: number;
-  unread_count: number;
-  last_message: string | null;
+  unread_count?: number;
+  last_message?: {
+    content: string;
+    time: string;
+  };
 }
