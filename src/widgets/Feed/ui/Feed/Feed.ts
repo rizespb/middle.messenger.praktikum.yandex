@@ -26,6 +26,7 @@ export class FeedClass extends Block<IFeedProps> {
     const currentChatInfo = chats?.reduce<ICurrentChatInfo | null>(
       (acc, chat, currentChatIndex) => {
         if (chat.id === currentChatId) {
+          // eslint-disable-next-line no-param-reassign
           acc = {
             currentChat: chat,
             currentChatIndex,
