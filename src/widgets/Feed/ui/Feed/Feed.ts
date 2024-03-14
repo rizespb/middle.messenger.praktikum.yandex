@@ -108,9 +108,12 @@ export class FeedClass extends Block<IFeedProps> {
 
     const socketClient = new WSClient(userId, chatId, token);
 
+    appStore.set('isLoading', true);
+
     socketClient.onOpen((): void => {
       socketClient.getOldMessages();
       this.resetUnreadMessageCounter(this.props.chatId);
+      appStore.set('isLoading', false);
     });
 
     socketClient.onMessage<IWSMessage | IWSMessage[]>((data) => {

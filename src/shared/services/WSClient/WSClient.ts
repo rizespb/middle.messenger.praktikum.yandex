@@ -1,4 +1,5 @@
 import { servicesUrls } from '@/shared/constants';
+import { IWSListeners } from './WSClient.interfaces';
 
 export class WSClient {
   private socket: WebSocket;
@@ -6,6 +7,8 @@ export class WSClient {
   private pingIntervalId: ReturnType<typeof setInterval>;
 
   private pingIntervalDelay: number;
+
+  private listeners: IWSListeners = {};
 
   constructor(userId: number, chatId: number, token: string, pingIntervalDelay: number = 20000) {
     const wssUrl = `${servicesUrls.messages}/${userId}/${chatId}/${token}`;
@@ -24,20 +27,28 @@ export class WSClient {
       console.log('Socket disconnected');
 
       clearInterval(this.pingIntervalId);
+      socket.onopen = null;
+      socket.onmessage = null;
+      socket.onclose = null;
+      socket.onerror = null;
     });
 
     this.socket = socket;
     this.pingIntervalDelay = pingIntervalDelay;
   }
 
-  onOpen(cb: (socket: WebSocket) => void): void {
-    this.socket.addEventListener('open', (): void => {
-      cb(this.socket);
-    });
+  onOpen(cb: () => void): void {
+    this.socket.addEventListener('open', cb);
+
+    if (!this.listeners.open) {
+      this.listeners.open = [];
+    }
+
+    this.listeners.open.push(cb);
   }
 
   onMessage<T>(cb: (data: T) => void): void {
-    this.socket.addEventListener('message', (event): void => {
+    const handleMessage = (event: MessageEvent): void => {
       try {
         const data = JSON.parse(event.data);
         if (['pong', 'user connected'].includes(data?.type)) {
@@ -49,7 +60,15 @@ export class WSClient {
         // eslint-disable-next-line no-console
         console.error('Could not parse messaga data');
       }
-    });
+    };
+
+    this.socket.addEventListener('message', handleMessage);
+
+    if (!this.listeners.message) {
+      this.listeners.message = [];
+    }
+
+    this.listeners.message.push(handleMessage);
   }
 
   getOldMessages(count: string = '0'): void {
@@ -68,6 +87,7 @@ export class WSClient {
 
   close(): void {
     this.socket.close();
+    this.unsubscribeAll();
   }
 
   private setupPing(): void {
@@ -80,5 +100,15 @@ export class WSClient {
 
   private send(data: unknown): void {
     this.socket.send(JSON.stringify(data));
+  }
+
+  private unsubscribeAll(): void {
+    Object.keys(this.listeners).forEach((eventName) => {
+      this.listeners[eventName as keyof typeof this.listeners]?.forEach((cb) => {
+        this.socket.removeEventListener(eventName, cb);
+      });
+    });
+
+    this.listeners = {};
   }
 }
