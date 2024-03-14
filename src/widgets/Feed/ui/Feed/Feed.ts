@@ -3,7 +3,7 @@ import { Block, IChildren } from '@/shared/render';
 import { router } from '@/entities/Router';
 import { ERouterEvents } from '@/shared/router';
 import { connect } from '@/shared/HOC';
-import { IChat, chatController } from '@/entities/Chat';
+import { chatController } from '@/entities/Chat';
 import { WSClient } from '@/shared/services';
 import { servicesUrls } from '@/shared/constants';
 import { IMessage } from '@/entities/Message';
@@ -65,10 +65,10 @@ export class FeedClass extends Block<IFeedProps> {
       ...chats.slice(currentChatIndex + 1),
     ];
 
-    appStore.set('chats', newChats);
+    appStore.set('chats', [...newChats]);
   }
 
-  resetUnreadMessageCounter(currentChatId: number | null): void {
+  resetUnreadMessageCounter(currentChatId: number | null | undefined): void {
     if (!currentChatId) {
       return;
     }
@@ -80,6 +80,16 @@ export class FeedClass extends Block<IFeedProps> {
     if (!currentChatInfo || !chats) {
       return;
     }
+
+    const { currentChat, currentChatIndex } = currentChatInfo;
+
+    const newChats = [
+      ...chats.slice(0, currentChatIndex),
+      { ...currentChat, unread_count: 0 },
+      ...chats.slice(currentChatIndex + 1),
+    ];
+
+    appStore.set('chats', [...newChats]);
   }
 
   async initSocket(): Promise<void> {
@@ -99,6 +109,7 @@ export class FeedClass extends Block<IFeedProps> {
 
     socketClient.onOpen((): void => {
       socketClient.getOldMessages();
+      this.resetUnreadMessageCounter(this.props.chatId);
     });
 
     socketClient.onMessage<IWSMessage | IWSMessage[]>((data) => {
@@ -140,7 +151,6 @@ export class FeedClass extends Block<IFeedProps> {
 
       if (chatId !== null) {
         this.initSocket();
-        this.resetUnreadMessageCounter(chatId);
       }
     });
 
@@ -148,7 +158,6 @@ export class FeedClass extends Block<IFeedProps> {
 
     this.resetChatState(chatId);
     this.initSocket();
-    this.resetUnreadMessageCounter(chatId);
   }
 
   protected getInternalChildren(): IChildren {

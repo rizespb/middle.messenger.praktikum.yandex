@@ -29,12 +29,11 @@ export class ChatsListClass extends Block<IChatsListProps> {
 
   render(): DocumentFragment {
     this.setInternalChildren();
-    console.log('!!!!', JSON.stringify(this.props.chats));
 
     return this.compile(tmpl, { classes });
   }
 }
 
 export const ChatsList = connect(ChatsListClass, (state) => ({
-  chats: state.chats || [],
+  chats: state.chats,
 }));
