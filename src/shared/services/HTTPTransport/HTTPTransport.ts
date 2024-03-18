@@ -6,7 +6,9 @@ export class HTTPTransportClass {
   get: THTTPMethod = (url, options = {}) => {
     const { data, timeout } = options;
 
-    if (data === undefined) {
+    const isValidData = typeof data === 'object' && data !== null;
+
+    if (data === undefined || !isValidData) {
       return this.request(url, { ...options, method: EMethods.GET }, timeout);
     }
 
