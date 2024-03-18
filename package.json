@@ -7,7 +7,8 @@
     "dev": "vite",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build",
-    "lint": "eslint --ext .js,.ts ./src && stylelint **/*.scss && tsc --noEmit"
+    "lint": "eslint --ext .js,.ts ./src && stylelint **/*.scss && tsc --noEmit",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -43,10 +44,5 @@
     "stylelint-prettier": "5.0.0",
     "typescript": "5.3.3",
     "vite": "5.0.12"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run build && npm run lint"
-    }
   }
 }
