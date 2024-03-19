@@ -29,6 +29,8 @@
 [Сss-modules](https://github.com/css-modules/css-modules)| Организация пространства имен для css-классов
 [Eslint](https://eslint.org/)				   			 | Статический анализ кода в файлах *.js, *.ts
 [Stylelint](https://stylelint.io/)						 | Статический анализ кода в файлах *.css, *.scss
+[Jest](https://jestjs.io/)				  				 | Фрйемворк для юнит-тестов
+[Husky](https://typicode.github.io/husky/)				 | Прекоммит хуки
 
 
 ## Макет
@@ -45,6 +47,8 @@
 `npm run build` – сборка проекта
 
 `npm run lint` – запуск ESLint и Stylelint
+
+`npm run test` – запуск тестов
 
 
 ## Ссылки на страницы
