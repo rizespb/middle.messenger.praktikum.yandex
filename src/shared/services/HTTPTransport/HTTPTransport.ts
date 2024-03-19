@@ -1,4 +1,4 @@
-import { queryStringify } from '@/shared/utils';
+import { queryStringify } from '../../utils';
 import { EMethods, IHTTPOptions, IHeaders, THTTPMethod } from './HTTPTransport.interfaces';
 import { responseMessages } from './HTTPTransport.constants';
 

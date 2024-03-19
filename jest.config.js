@@ -1,4 +1,4 @@
-module.exports = {
+const options = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   transformIgnorePatterns: ['node_modules'],
@@ -6,7 +6,7 @@ module.exports = {
   collectCoverage: false,
   collectCoverageFrom: ['src/**/*'],
   moduleDirectories: ['node_modules', 'src'],
-  testMatch: ['**/?(*.)+(spec|test).ts'],
+  testMatch: ['**/*.test.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
@@ -16,3 +16,5 @@ module.exports = {
     },
   },
 };
+
+export default options;
