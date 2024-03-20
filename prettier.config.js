@@ -1,4 +1,4 @@
-module.exports = {
+const options = {
   bracketSpacing: true,
   singleQuote: true,
   jsxSingleQuote: false,
@@ -31,3 +31,5 @@ module.exports = {
     },
   ],
 };
+
+export default options;
