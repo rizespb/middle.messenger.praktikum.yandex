@@ -1,6 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const express = require('express');
-const path = require('path');
+/* eslint-disable no-underscore-dangle */
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 const APP_SUCCESS_START_MESSAGE = `Server is running on port ${PORT}`;
